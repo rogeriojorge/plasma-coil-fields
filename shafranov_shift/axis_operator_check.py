@@ -33,10 +33,10 @@ from scipy.optimize import root
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent))
-from essos_examples import essos_examples  # noqa: E402
+from drivers_dir import drivers_dir  # noqa: E402
 
-sys.path.insert(0, essos_examples())
-from shafranov_shift import frenet_axis_response, pressure_axis_response
+sys.path.insert(0, drivers_dir())
+from essos.objective_functions import frenet_axis_response, pressure_axis_response
 
 from scan import load_reference
 
@@ -153,18 +153,17 @@ def main():
     # Near-axis Frenet operator on the ideal curve.
     ideal_curve = np.asarray(solution.geometry.position_cartesian)
     delta = np.tile([0.0, 0.0, B0], (len(phis), 1))
-    u, v, _ = frenet_axis_response(solution, delta)
+    u, v = frenet_axis_response(solution, delta)
     frenet_ideal = lab_displacement(solution, u, v)
     grad = np.asarray(jax.jit(jax.vmap(field.dB_by_dX))(jnp.asarray(ideal_curve)))
     Bcoil = np.asarray(jax.jit(jax.vmap(field.B))(jnp.asarray(ideal_curve)))
     Bt = np.sum(Bcoil * np.asarray(solution.geometry.tangent_cartesian), 1)
-    u, v, _ = frenet_axis_response(solution, delta, gradient=grad, tangent_field=Bt)
+    u, v = frenet_axis_response(solution, delta, gradient=grad, tangent_field=Bt)
     frenet_actual = lab_displacement(solution, u, v)
 
     # Pressure forcing through the exact traced-axis operator. The near-axis
     # plasma field is sampled at the same geometrical phi on the traced axis.
-    pressure = pressure_axis_response(solution, args.radius, spec["p2_star"],
-                                      check_fft=False)
+    pressure = pressure_axis_response(solution, args.radius, spec["p2_star"])
     normal = np.asarray(solution.geometry.normal_cartesian)
     binormal = np.asarray(solution.geometry.binormal_cartesian)
     Bp = pressure["source_n"][:, None] * normal + pressure["source_b"][:, None] * binormal
@@ -186,7 +185,7 @@ def main():
     pressure_traced, _ = periodic_linear_response(rhs0, axis_ode, pressure_forcing,
                                                   period, phis)
     ideal_pressure = np.stack((pressure["delta_R"], pressure["delta_Z"]))
-    u, v, _ = frenet_axis_response(solution, Bp, gradient=grad, tangent_field=Bt)
+    u, v = frenet_axis_response(solution, Bp, gradient=grad, tangent_field=Bt)
     actual_pressure = lab_displacement(solution, u, v)
 
     rel = lambda a, b: float(np.max(np.abs(a - b)) / np.max(np.abs(b)))

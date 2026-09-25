@@ -25,15 +25,7 @@ BLUE, ORANGE, AQUA, YELLOW, MAGENTA, VIOLET = (
     "#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#4a3aa7")
 INK, MUTED, GRID = "#0b0b0b", "#52514e", "#dcdad4"
 
-plt.rcParams.update({
-    "font.size": 8.5, "axes.labelsize": 8.5, "axes.titlesize": 8.5, "legend.fontsize": 7.2,
-    "xtick.labelsize": 7.5, "ytick.labelsize": 7.5, "axes.edgecolor": MUTED,
-    "axes.labelcolor": INK, "xtick.color": MUTED, "ytick.color": MUTED,
-    "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.5,
-    "axes.spines.top": False, "axes.spines.right": False, "lines.linewidth": 1.4,
-    "lines.markersize": 4.5, "legend.frameon": False, "savefig.dpi": 200,
-    "pdf.fonttype": 42,
-})
+plt.style.use(HERE.parent / "paper.mplstyle")
 
 
 def load(name):

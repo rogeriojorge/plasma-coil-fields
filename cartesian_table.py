@@ -11,7 +11,7 @@ import jax
 jax.config.update("jax_enable_x64", True)
 import numpy as np
 
-sys.path.insert(0, sys.argv[1])
+sys.path.insert(0, str(Path(__file__).resolve().parent / "validation"))
 import test_plasma_cartesian_derivatives as t
 
 out = {}

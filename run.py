@@ -11,9 +11,9 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from essos_examples import essos_examples  # noqa: E402
+from drivers_dir import drivers_dir  # noqa: E402
 
-D = essos_examples()
+D = drivers_dir()
 out = os.path.abspath(sys.argv[1])
 sys.path.insert(0, D)
 os.chdir(D)

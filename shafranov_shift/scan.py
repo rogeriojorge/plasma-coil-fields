@@ -37,12 +37,12 @@ from essos.coils import Coils
 from essos.fields import BiotSavart
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from essos_examples import essos_examples  # noqa: E402
+from drivers_dir import drivers_dir  # noqa: E402
 
-EXAMPLES = essos_examples()
+EXAMPLES = drivers_dir()
 sys.path.insert(0, str(EXAMPLES))
 import nearaxis_finite_beta_helpers as helpers
-from shafranov_shift import pressure_axis_response
+from essos.objective_functions import pressure_axis_response
 
 GATE_THRESHOLDS = {
     "vmex_direct_iota_relative": 0.02,
@@ -864,7 +864,7 @@ def main():
             "full_turn_gap": response["full_turn_gap"],
             "forced_gap": response["forced_gap"],
             "physical_relative_difference": response["physical_relative_difference"],
-            "fft_relative_difference": response["fft_relative_difference"],
+            "fft_relative_difference": helpers.fft_relative_difference(solution, response),
             "length_slope_over_L": response["length_slope_over_L"],
             "length_formula_over_L": response["length_formula_over_L"],
             "actual_gradient_physical_relative_difference": actual_gradient_response[

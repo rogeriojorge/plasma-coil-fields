@@ -1,7 +1,7 @@
 """Relative error of the matched on-axis plasma field against the unexpanded volume integral.
 
 python volume_table.py -> volume_table.json. Uses the reference quadrature of pyQSC_JAX's
-tests/physics/test_plasma_volume_integral.py (300 toroidal nodes per side, 24 radial, 48
+validation/test_plasma_volume_integral.py (300 toroidal nodes per side, 24 radial, 48
 poloidal), whose source current is rebuilt from the equilibrium coefficients.
 """
 import json
@@ -15,7 +15,7 @@ import numpy as np
 
 import pyqsc_jax as qsc
 
-sys.path.insert(0, sys.argv[1])  # pyQSC_JAX tests/physics
+sys.path.insert(0, str(Path(__file__).resolve().parent / "validation"))
 import test_plasma_volume_integral as v
 
 CASES = {"pressure-only": ({**v.QA, "I2": 0.0, "p2": -6.0e5}, v.SECTION),

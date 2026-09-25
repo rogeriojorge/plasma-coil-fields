@@ -104,9 +104,9 @@ for name in CASES + LADDER:
     if entry["mgrid_vs_direct"] is None and all(path.exists() for path in pair) and entry["mgrid"] and entry["mgrid"]["converged"]:
         import vmex as vj
         sys.path.insert(0, str(HERE))
-        from essos_examples import essos_examples
+        from drivers_dir import drivers_dir
 
-        sys.path.insert(0, essos_examples())
+        sys.path.insert(0, drivers_dir())
         import nearaxis_finite_beta_helpers as helpers
         entry["mgrid_vs_direct"] = helpers.compare_equilibria(
             *(vj.read_wout(path) for path in pair), entry["direct"]["benchmark_radius_m"],

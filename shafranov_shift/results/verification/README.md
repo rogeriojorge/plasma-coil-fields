@@ -244,7 +244,8 @@ per point.
 
 ## Checks run
 
-Passed: ESSOS `tests/test_shafranov_shift.py` (15, on both machines);
+Passed: ESSOS `tests/test_shafranov_shift.py` (15, on both machines; the operator tests are now
+`tests/test_nearaxis_finite_beta.py`, 11, after the operator moved to `essos.objective_functions`);
 pyQSC_JAX `tests/unit/test_hessian_incompatibility.py` (2); ESSOS CI flake8
 gate (`E9,F63,F7,F82`, 0); ruff on the pyQSC_JAX test file. Not run: the full
 ESSOS, pyQSC_JAX and VMEX suites.

@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 OUT = Path(__file__).resolve().parent
 FIG = OUT / 'figures'
 FIG.mkdir(parents=True, exist_ok=True)
+plt.style.use(OUT.parent / 'paper.mplstyle')
 
 
 def nonplanar_geometry(n=201, nb=96):
@@ -186,17 +187,20 @@ def main():
     np.savez(OUT/'fractional_bootstrap_arrays.npz', E=E, nu=nu, ell=ell,
              P=datasets['nonplanar_QS']['P'], s=datasets['nonplanar_QS']['s'],
              h=datasets['nonplanar_QS']['h'], theta=datasets['nonplanar_QS']['theta'])
-    fig, ax = plt.subplots(figsize=(6.2, 3.8), constrained_layout=True)
-    for name, label in [('circle', 'Circular section'), ('ellipse', 'Fixed ellipse'), ('nonplanar_QS', 'Nonplanar QS reference')]:
-        ax.plot(datasets[name]['theta'], datasets[name]['P'][0], label=label)
-    ax.set_xlabel(r'$\theta$'); ax.set_ylabel(r'$P(\theta,\varphi=0)$'); ax.legend(frameon=False)
+    colors = {'circle': '#2a78d6', 'ellipse': '#eb6834', 'nonplanar_QS': '#1baf7a'}  # one color per case
+    fig, ax = plt.subplots(figsize=(3.4, 2.5), constrained_layout=True)
+    for name, label in [('circle', 'circular section'), ('ellipse', 'fixed ellipse'), ('nonplanar_QS', 'nonplanar QS reference')]:
+        ax.plot(datasets[name]['theta'], datasets[name]['P'][0], label=label, color=colors[name])
+    ax.set_xlabel(r'$\theta$'); ax.set_ylabel(r'$P(\theta,\varphi=0)$')
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.22), ncol=3, fontsize=6)
     fig.savefig(FIG/'fractional_source.pdf'); plt.close(fig)
-    fig, ax = plt.subplots(figsize=(6.2, 3.8), constrained_layout=True)
-    for name, label in [('ellipse','Fixed ellipse'), ('nonplanar_QS','Nonplanar QS reference')]:
+    fig, ax = plt.subplots(figsize=(3.4, 2.5), constrained_layout=True)
+    for name, label in [('ellipse','fixed ellipse'), ('nonplanar_QS','nonplanar QS reference')]:
         rows = results['direct_integration'][name]
-        ax.loglog([r['epsilon'] for r in rows], [r['relative_factor_error'] for r in rows], 'o-', label=label)
+        ax.loglog([r['epsilon'] for r in rows], [r['relative_factor_error'] for r in rows], 'o-', label=label,
+                  color=colors[name])
     ax.set_xlabel(r'$\varepsilon_b=\ell\lambda_{1/2}\sqrt{r_*}$')
-    ax.set_ylabel('Relative error in transform correction'); ax.legend(frameon=False)
+    ax.set_ylabel('relative error of transform'); ax.legend(frameon=False)
     fig.savefig(FIG/'fractional_transform_check.pdf'); plt.close(fig)
     print(json.dumps(results, indent=2))
 

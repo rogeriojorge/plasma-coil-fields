@@ -50,12 +50,13 @@ manuscript until pressure-step and equilibrium errors are separated.
 
 ## Equation-to-code map
 
-ESSOS `examples/coil_optimization/shafranov_shift.py` implements the native
-geometric-grid periodic scalar solve, a separate FFT route with a spectral
-Boozer-angle map, the Frenet-frame physical block solve using the actual or
+ESSOS `essos.objective_functions.pressure_axis_response` (with
+`frenet_axis_response`) implements the native
+geometric-grid periodic scalar solve and the Frenet-frame physical block solve using the actual or
 target field gradient, signed orientation handling, first variation of axis
 length, and conversion from the Frenet normal gauge to fixed cylindrical
-planes.
+planes. The independent FFT route with a spectral Boozer-angle map is
+`drivers/nearaxis_finite_beta_helpers.fft_relative_difference`.
 
 | Manuscript label | Implementation |
 |---|---|
@@ -81,7 +82,7 @@ when reproducing:
 ```sh
 # the operator tests live in ESSOS (run from the ESSOS checkout)
 PYTHONPATH=/path/to/essos:/path/to/pyqsc_jax/src:/path/to/vmex \
-  pytest -q tests/test_shafranov_shift.py
+  pytest -q tests/test_nearaxis_finite_beta.py
 
 # the study drivers live here (run from this repository)
 PYTHONPATH=/path/to/essos:/path/to/pyqsc_jax/src:/path/to/vmex \
