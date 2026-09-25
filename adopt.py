@@ -15,7 +15,10 @@ from pathlib import Path
 
 import numpy as np
 
-D = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from essos_examples import essos_examples  # noqa: E402
+
+D = essos_examples()
 source, out = Path(sys.argv[1]).resolve(), Path(sys.argv[2]).resolve()
 sys.path.insert(0, D)
 os.chdir(D)

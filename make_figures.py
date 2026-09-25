@@ -21,7 +21,10 @@ import numpy as np
 import vmex as vj
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, os.environ.get("ESSOS_EXAMPLE_DIR", str(HERE.parent)))
+sys.path.insert(0, str(HERE))
+from essos_examples import essos_examples  # noqa: E402
+
+sys.path.insert(0, essos_examples())
 import nearaxis_finite_beta_helpers as h
 from pyqsc_jax.near_axis import near_axis
 from vmex.core.plotting import surface_rz

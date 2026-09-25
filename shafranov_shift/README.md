@@ -50,7 +50,7 @@ manuscript until pressure-step and equilibrium errors are separated.
 
 ## Equation-to-code map
 
-[`../../shafranov_shift.py`](../../shafranov_shift.py) implements the native
+ESSOS `examples/coil_optimization/shafranov_shift.py` implements the native
 geometric-grid periodic scalar solve, a separate FFT route with a spectral
 Boozer-angle map, the Frenet-frame physical block solve using the actual or
 target field gradient, signed orientation handling, first variation of axis
@@ -79,16 +79,18 @@ JAX 0.11.0, NumPy 2.5.1, and SciPy 1.18.0. Point `PYTHONPATH` at those checkouts
 when reproducing:
 
 ```sh
-PYTHONPATH=/path/to/pyqsc_jax/src:/path/to/vmex \
+# the operator tests live in ESSOS (run from the ESSOS checkout)
+PYTHONPATH=/path/to/essos:/path/to/pyqsc_jax/src:/path/to/vmex \
   pytest -q tests/test_shafranov_shift.py
 
-PYTHONPATH=/path/to/pyqsc_jax/src:/path/to/vmex \
-  python examples/coil_optimization/finite_beta_paper/shafranov_shift/scan.py \
-  --reference examples/coil_optimization/finite_beta_paper/shafranov_shift/reference/vacuum_fitted_reference.json \
+# the study drivers live here (run from this repository)
+PYTHONPATH=/path/to/essos:/path/to/pyqsc_jax/src:/path/to/vmex \
+  python shafranov_shift/scan.py \
+  --reference shafranov_shift/reference/vacuum_fitted_reference.json \
   --output /path/to/run/qa18 --radius 0.018 --segments 480 \
   --mpol 10 --ntor 10 --run-vmex --pressure-scan
 
-python examples/coil_optimization/finite_beta_paper/shafranov_shift/analyze_results.py
+python shafranov_shift/analyze_results.py
 ```
 
 The tracked `results/runs/` folder contains the compact manifests, input

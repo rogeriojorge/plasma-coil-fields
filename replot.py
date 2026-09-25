@@ -23,7 +23,10 @@ import matplotlib.figure
 import matplotlib.pyplot as plt
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from essos_examples import essos_examples  # noqa: E402
+
+sys.path.insert(0, essos_examples())
 import nearaxis_finite_beta_helpers as helpers
 from essos.coils import Coils
 from essos.fields import BiotSavart

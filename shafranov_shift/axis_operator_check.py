@@ -32,7 +32,10 @@ from scipy.optimize import root
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(HERE.parents[1]))
+sys.path.insert(0, str(HERE.parent))
+from essos_examples import essos_examples  # noqa: E402
+
+sys.path.insert(0, essos_examples())
 from shafranov_shift import frenet_axis_response, pressure_axis_response
 
 from scan import load_reference

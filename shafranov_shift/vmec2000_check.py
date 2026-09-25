@@ -27,7 +27,10 @@ from netCDF4 import Dataset
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(HERE.parents[1]))
+sys.path.insert(0, str(HERE.parent))
+from essos_examples import essos_examples  # noqa: E402
+
+sys.path.insert(0, essos_examples())
 import nearaxis_finite_beta_helpers as helpers
 
 from scan import load_reference

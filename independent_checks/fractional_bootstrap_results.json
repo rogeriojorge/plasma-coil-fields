@@ -1,0 +1,110 @@
+{
+  "scope": "Leading transverse Maxwell/field-line equilibrium for prescribed fractional parallel current. Not full MHD or kinetic validation.",
+  "circle": {
+    "Pbar": 0.15999999999999995,
+    "iota_factor": 0.39999999999999986,
+    "poisson_error": 1.1102230246251565e-16,
+    "circulation_relative_error": 1.7669748230352872e-16,
+    "homological_error": 8.326672684688674e-17,
+    "geometry_rms_factor": 1.0420601264334607e-16,
+    "iota_half_per_lambda_half": 0.40645350608786546
+  },
+  "ellipse": {
+    "Pbar": 0.16,
+    "iota_factor": 0.4,
+    "poisson_error": 6.661338147750939e-16,
+    "circulation_relative_error": 0.0,
+    "homological_error": 8.326672684688674e-17,
+    "geometry_rms_factor": 0.4221269475315134,
+    "iota_half_per_lambda_half": 0.4064535060878656
+  },
+  "nonplanar_QS": {
+    "Pbar": 0.16,
+    "iota_factor": 0.4,
+    "poisson_error": 9.992007221626409e-16,
+    "circulation_relative_error": 5.300924469105862e-16,
+    "homological_error": 1.3877787807814457e-16,
+    "geometry_rms_factor": 0.09007448595670536,
+    "iota_half_per_lambda_half": 0.4064535060878656
+  },
+  "nonplanar_geometry": {
+    "sigma_residual": 2.628175455043902e-13,
+    "eta_per_m": 0.95,
+    "n_geometry": 201,
+    "nfp": 2,
+    "iotaN": 0.21252795338085714,
+    "ell_m": 1.016133765219664,
+    "definition": "R=1+0.09 cos(2 phi), Z=-0.09 sin(2 phi), etabar=0.95, B0=1, I2=0"
+  },
+  "resolution": {
+    "coarse_iota_factor": 0.4,
+    "fine_iota_factor": 0.4,
+    "relative_change": 0.0
+  },
+  "direct_integration": {
+    "ellipse": [
+      {
+        "epsilon": 0.002,
+        "periods": 64,
+        "rhs_evaluations": 8066,
+        "measured_iota_factor": 0.39985044365595246,
+        "predicted_iota_factor": 0.4,
+        "relative_factor_error": 0.00037389086011885286,
+        "corrected_action_range": 4.815530095736431e-06,
+        "retained_Fourier_coefficients": 35
+      },
+      {
+        "epsilon": 0.001,
+        "periods": 64,
+        "rhs_evaluations": 8066,
+        "measured_iota_factor": 0.39992500138610887,
+        "predicted_iota_factor": 0.4,
+        "relative_factor_error": 0.0001874965347278268,
+        "corrected_action_range": 1.206218870730691e-06,
+        "retained_Fourier_coefficients": 35
+      },
+      {
+        "epsilon": 0.0005,
+        "periods": 64,
+        "rhs_evaluations": 8066,
+        "measured_iota_factor": 0.39996242541645577,
+        "predicted_iota_factor": 0.4,
+        "relative_factor_error": 9.393645886057733e-05,
+        "corrected_action_range": 3.018454411973792e-07,
+        "retained_Fourier_coefficients": 35
+      }
+    ],
+    "nonplanar_QS": [
+      {
+        "epsilon": 0.002,
+        "periods": 64,
+        "rhs_evaluations": 11594,
+        "measured_iota_factor": 0.40002911067629765,
+        "predicted_iota_factor": 0.4,
+        "relative_factor_error": 7.277669074401416e-05,
+        "corrected_action_range": 5.328743823418414e-07,
+        "retained_Fourier_coefficients": 973
+      },
+      {
+        "epsilon": 0.001,
+        "periods": 64,
+        "rhs_evaluations": 9842,
+        "measured_iota_factor": 0.4000145421353962,
+        "predicted_iota_factor": 0.4,
+        "relative_factor_error": 3.635533849055683e-05,
+        "corrected_action_range": 1.3345016303123458e-07,
+        "retained_Fourier_coefficients": 973
+      },
+      {
+        "epsilon": 0.0005,
+        "periods": 64,
+        "rhs_evaluations": 9434,
+        "measured_iota_factor": 0.4000072680781508,
+        "predicted_iota_factor": 0.4,
+        "relative_factor_error": 1.8170195376976395e-05,
+        "corrected_action_range": 3.334807124888428e-08,
+        "retained_Fourier_coefficients": 973
+      }
+    ]
+  }
+}

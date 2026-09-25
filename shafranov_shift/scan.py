@@ -36,7 +36,10 @@ from vmex.core.profiles import current, pressure
 from essos.coils import Coils
 from essos.fields import BiotSavart
 
-EXAMPLES = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from essos_examples import essos_examples  # noqa: E402
+
+EXAMPLES = essos_examples()
 sys.path.insert(0, str(EXAMPLES))
 import nearaxis_finite_beta_helpers as helpers
 from shafranov_shift import pressure_axis_response
@@ -344,56 +347,7 @@ def trace_vacuum_axis(field, solution, radius):
     }
 
 
-def make_input(base, radius, alpha, p2_star, nzeta):
-    p0 = -p2_star * radius**2
-    if p0 <= 0:
-        raise ValueError("p2_star must be negative")
-    am, ac = np.zeros_like(base.am), np.zeros_like(base.ac)
-    am[:2] = [1.0, -1.0]
-    inp = dataclasses.replace(
-        base,
-        lfreeb=True,
-        mgrid_file="essos_coils(direct)",
-        extcur=np.array([1.0]),
-        nzeta=nzeta,
-        ncurr=1,
-        curtor=0.0,
-        pcurr_type="power_series",
-        ac=ac,
-        pmass_type="power_series",
-        am=am,
-        pres_scale=float(alpha * p0),
-        gamma=0.0,
-        spres_ped=1.0,
-        bloat=1.0,
-    )
-    sample = np.linspace(0, 1, 17)
-    profile = np.asarray(
-        current(
-            inp.pcurr_type, inp.ac, inp.ac_aux_s, inp.ac_aux_f, sample, bloat=inp.bloat
-        )
-    )
-    evaluated_p = np.asarray(
-        pressure(
-            inp.pmass_type,
-            inp.am,
-            inp.am_aux_s,
-            inp.am_aux_f,
-            sample,
-            pres_scale=inp.pres_scale,
-            bloat=inp.bloat,
-            spres_ped=inp.spres_ped,
-        )
-    )
-    if (
-        np.max(abs(profile)) > 1e-14
-        or np.max(abs(evaluated_p - alpha * p0 * (1 - sample))) > 1e-8
-    ):
-        raise ValueError(
-            "current or pressure profile does not match the requested family"
-        )
-    return inp
-
+make_input = helpers.pressure_family_input
 
 def axis_from_wout(wout, phi):
     R, Z = surface_rz(wout, s_index=0, theta=np.zeros(1), phi=phi)

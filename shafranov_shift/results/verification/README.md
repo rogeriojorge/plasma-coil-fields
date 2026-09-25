@@ -58,7 +58,7 @@ no full-equilibrium calculation here confirms it either.
 ### Phase 0: independent checks (reproduced)
 
 All five package scripts pass under float64 and one BLAS thread
-(`phase0/*.log`). Output differs from the shipped JSON only at round-off,
+(`independent_checks/reproduction_2026-09-24/` at the repository root). Output differs from the shipped JSON only at round-off,
 e.g. the length slope 0.014273914 vs 0.014273914. The Hessian identity
 `dist(H, STF)^2 = (2/3)|Sym C|^2 + (4/5)|Skew C|^2` is now a pyQSC_JAX test
 against its own projector (`tests/unit/test_hessian_incompatibility.py`):
@@ -209,16 +209,15 @@ Suggested captions and a replacement for Sec. `sec:scanstatus` are in
 
 ## Reproduction
 
-Dependency revisions: ESSOS `plasma-coil` + local commits (see
-`git log`), pyQSC_JAX `6c7c7ea` + `6707209` (test only), VMEX `926892ab`
+Dependency revisions: ESSOS `plasma-coil` (PR #70), pyQSC_JAX `6c7c7ea` + `6707209` (test only), VMEX `926892ab`
 (v0.11.2), VMEC2000 from STELLOPT `ee175502` (binary SHA-256 `8ba11884…`).
 Python 3.13.7, JAX 0.11.0, NumPy 2.5.1 and SciPy 1.18.0 on an Apple M4.
-The office Xeon W-2295 runs (VMEX cold starts) used Python 3.12.13 with the
+The Linux workstation (Xeon W-2295) runs (VMEX cold starts) used Python 3.12.13 with the
 same JAX/NumPy/SciPy.
 
 ```sh
 export PYTHONPATH=/path/ESSOS:/path/pyQSC_JAX/src:/path/VMEX JAX_ENABLE_X64=1
-D=examples/coil_optimization/finite_beta_paper/shafranov_shift
+D=shafranov_shift   # from the root of this repository
 python $D/axis_operator_check.py --output runs/axis_operator_check.json
 python $D/scan.py --reference $D/reference/vacuum_fitted_reference.json \
   --output runs/qa18 --radius 0.018 --segments 480 --mpol 10 --ntor 10 \
@@ -237,7 +236,7 @@ python $D/make_verification_figures.py
 The VMEC2000 NS, FTOL, NITER, MPOL, MAKEGRID and pressure-multiple
 variants were produced by editing only the named keys of the
 `vmec2000_check.py` decks. Every deck's hash is in `pressure_runs.json`.
-Native run directories (≈660 MB locally, 85 MB on office, 47 local WOUT files) are outside Git; each accepted case records
+Native run directories (≈660 MB locally, 85 MB on the workstation, 47 local WOUT files) are outside Git; each accepted case records
 its WOUT SHA-256. The VMEX re-run of the recorded 18 mm scan reproduces
 `results/runs/qa18` bit for bit: 642 s wall and 5.2 GB peak for vacuum
 plus five points on the M4. VMEC2000 takes 230 s (NS 65) to 508 s (NS 257)
@@ -245,7 +244,7 @@ per point.
 
 ## Checks run
 
-Passed: ESSOS `tests/test_shafranov_shift.py` (15, locally and on office);
+Passed: ESSOS `tests/test_shafranov_shift.py` (15, on both machines);
 pyQSC_JAX `tests/unit/test_hessian_incompatibility.py` (2); ESSOS CI flake8
 gate (`E9,F63,F7,F82`, 0); ruff on the pyQSC_JAX test file. Not run: the full
 ESSOS, pyQSC_JAX and VMEX suites.

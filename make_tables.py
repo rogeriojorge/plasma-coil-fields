@@ -103,7 +103,10 @@ for name in CASES + LADDER:
     pair = [RUNS / n / "vmex_fitted_optimized" / f"wout_{r}.nc" for n, r in ((name, "direct"), (f"{name}_mgrid", "mgrid"))]
     if entry["mgrid_vs_direct"] is None and all(path.exists() for path in pair) and entry["mgrid"] and entry["mgrid"]["converged"]:
         import vmex as vj
-        sys.path.insert(0, os.environ.get("ESSOS_EXAMPLE_DIR", str(HERE.parent)))
+        sys.path.insert(0, str(HERE))
+        from essos_examples import essos_examples
+
+        sys.path.insert(0, essos_examples())
         import nearaxis_finite_beta_helpers as helpers
         entry["mgrid_vs_direct"] = helpers.compare_equilibria(
             *(vj.read_wout(path) for path in pair), entry["direct"]["benchmark_radius_m"],
