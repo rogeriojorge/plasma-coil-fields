@@ -1,0 +1,20 @@
+{
+  "case": "qh",
+  "coil_sha256": "882012a2c4a91208a93cca5c5d9c30a344e9b387f98bd45e0079c4a6c5b80f5f",
+  "nfp": 4,
+  "B0": 1.0,
+  "traced_axis_closure_m": 1.3540157315511816e-15,
+  "traced_axis_offset_from_near_axis_max_m": 0.0008695307157957632,
+  "traced_axis_R0_m": 1.1886382392842043,
+  "monodromy_iota_lab_abs": 1.1418485047877287,
+  "near_axis_iota": -1.1441369511851496,
+  "displacement_per_unit_p0_m_per_Pa": {
+    "traced_delta_R0": 4.740396417594022e-07,
+    "traced_rms": 3.3535869837532554e-07,
+    "ideal_delta_R0": 4.779887460002294e-07,
+    "frenet_actual_delta_R0": 4.769558207298928e-07
+  },
+  "traced_vs_ideal_rms_rel": 0.01536236440667464,
+  "traced_vs_frenet_actual_rms_rel": 0.015260575160790654,
+  "note": "xi = p0 * X with p0 = -p2 a^2 the axis pressure; X per Pa; traced is the primary theory"
+}

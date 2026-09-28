@@ -136,7 +136,7 @@ a_b → 0.* The a_b → 0 limit rests on three radii and one β per radius at 25
 
 - **Hybrid (I₂ ≠ 0 design)**: not run. Its coils were fitted with the on-axis current, so
   their vacuum axis is 13.8 mm from the near-axis curve at a_b = 40 mm, and the current-free
-  vacuum transform is 0.36. The theory is computed (`runs/theory/theory_hybrid.json`); the
+  vacuum transform is 0.36. The theory is computed (`records/theory/theory_hybrid.json`); the
   VMEX ladder is the natural next case.
 - **Axisymmetric check with an analytic Shafranov shift**: not run.
 - **VMEC2000 cross-check at FTOL ≤ 1e-14**: not run (earlier campaign: VMEC2000 stalls above
@@ -160,11 +160,11 @@ python pb.py solve qh --radius 0.035 --beta 2.7e-3 --ns 65 --ftol 1e-14 --niter 
   --restart RUNS/qh_a35_b2.7e-3/wout.nc --output RUNS/qh_a35_b2.7e-3_cont14
 python pb.py solve qh --radius 0.035 --beta 2.7e-3 --ns 65 --ftol 1e-15 --niter 30000 \
   --restart RUNS/qh_a35_b2.7e-3_cont14/wout.nc --output RUNS/qh_a35_b2.7e-3_cont15
-# ... the same for every beta and radius (run names in runs/ encode radius, beta and protocol)
+# ... the same for every beta and radius (run names in records/ encode radius, beta and protocol)
 python collect.py --runs RUNS          # copies row.json files here, writes results.json and figures
 ```
 
-`runs/*/row.json` holds each solve's settings, convergence, iterations, WOUT SHA-256 and the
-axis on 101 planes per period; `runs/*/input.runtime` is the deck actually solved. A `_hopN`
+`records/*/row.json` holds each solve's settings, convergence, iterations, WOUT SHA-256 and the
+axis on 101 planes per period; `records/*/input.runtime` is the deck actually solved. A `_hopN`
 suffix is one ≤ 9000-iteration continuation job; the unsuffixed name is the last hop.
 Native WOUT files (≈120 MB) are outside Git.

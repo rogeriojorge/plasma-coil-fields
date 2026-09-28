@@ -3,7 +3,7 @@
     python collect.py [--runs RUN_DIR]
 
 With --runs, the row.json of every VMEX run and the theory files are first copied from RUN_DIR
-(outside Git: it also holds the WOUT files) into ../results/pressure_benchmark/runs/. The
+(outside Git: it also holds the WOUT files) into ../results/pressure_benchmark/records/. The
 analysis then uses only the copies in the repository.
 """
 
@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "results" / "pressure_benchmark"
-RUNS = OUT / "runs"
+RUNS = OUT / "records"
 sys.path.insert(0, str(HERE))
 from compare import analyse  # noqa: E402
 
