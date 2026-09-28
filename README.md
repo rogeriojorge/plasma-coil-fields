@@ -300,11 +300,6 @@ not a full MHD equilibrium or a kinetic closure.*
 
 ## 9. Fixed-coil pressure response of the magnetic axis
 
-> **Placeholder.** A resolved free-boundary benchmark of this response is being produced on
-> branch `paper/pressure-response` and will replace the "Free-boundary equilibria do not resolve"
-> part below (Fig. 8–9 and the table). The verified first-order theory (Figs. 6–7) stays.
-
-
 Adding pressure at fixed coils moves the axis. To first order, the closed
 field line of B_coils + α B_plasma is displaced by the periodic solution of
 the linearized field-line equation. The forcing is the on-axis plasma field
@@ -330,53 +325,56 @@ coils: the exact linear response on the traced axis agrees with nonlinear
 tracing to 1.8×10⁻⁸. The near-axis Frenet operator agrees to 0.22%, the size
 of the 82 µm offset between the ideal and traced axes.*
 
-Free-boundary equilibria do **not** resolve this response at a = 17.8 mm and
-β ~ 10⁻⁴. The predicted shift at the linearity-screen amplitude α_max is
-0.52 mm:
+**A free-boundary equilibrium confirms it.** With p = p₀(1 − s) the on-axis
+plasma field is proportional to p₂a_b² = −p₀, so the predicted displacement
+depends on the on-axis β only. On the QH coils of Sec. 6 (a_b = 35 mm,
+a_b/R₀ = 0.029, ι = 1.14), VMEX continued from its default ladder to
+FTOL 10⁻¹⁵ gives
 
-![Fixed-coil pressure response from VMEX and VMEC2000](docs/figures/08_fixed_coil_pressure_response.png)
+**VMEX / first-order theory = 1.037 ± 0.022**
 
-*Figure 8. (a) Axis shift against pressure. The untuned theory and the coils
-traced with a frozen first-order current (linear to 2% up to 4 α_max) are
-compared with free-boundary VMEC2000 (NS 65, 129) and VMEX (cold start).
-(b) Response ratio at α_max against radial resolution and restart policy.
-(c) Offset of the free-boundary vacuum axis from the directly traced coil
-axis. Open circles: VMEC2000 with capped iteration counts. Diamond:
-fixed-boundary solve. Dashed line: the predicted shift.*
+for the axis displacement per unit β, linear over β = 6.75×10⁻⁴ to 1.08×10⁻²
+(displacement 0.26% to 4.1% of a_b; the quadratic term is 1.9% at the top).
+The uncertainty is measured: restart policy 0.3%, MPOL 12 and NS 129 1.5%,
+traced-axis vs ideal near-axis operator 1.5%, fit 0.1%.
 
-| δR/δR_theory at α_max | NS 33 | NS 65 | NS 129 | NS 257 |
+![Fixed-coil pressure response of the QH axis from VMEX](docs/figures/12_qh_fixed_coil_pressure_response.png)
+
+*Figure 8. QH coils, fixed, p = p₀(1 − s), zero current. (a) rms axis displacement / a_b
+against on-axis β: first-order theory, VMEX at the default FTOL 10⁻¹⁰ (open) and continued
+to 10⁻¹⁵ (filled), and the vacuum-axis bias at the two tolerances. (b) δR and δZ along the
+field period at β = 5.4×10⁻³. (c) Vacuum-axis bias against the directly traced coil axis vs
+FTOL. (d) Response ratio for three restart policies vs FTOL. (e) Response ratio across the
+β ladder, vacuum-subtracted and from the traced axis with a fitted offset. (f) Response
+ratio against a_b/R₀, with linear and quadratic extrapolations to a_b = 0.*
+
+What controls it is the force tolerance, and the axis stiffness behind it. The
+axis position is the softest direction of the free-boundary energy. At VMEX's
+default FTOL 10⁻¹⁰ the QH vacuum axis sits 278 µm (0.8% a_b) from the traced
+coil axis and the response is only 0.73–0.77 of theory at every β; more modes
+or surfaces do not change that. At 10⁻¹⁴–10⁻¹⁶ the bias is 10–23 µm, 1.4–6% of
+the signal at β ≥ 2.7×10⁻³. Restarts that approach from below (the vacuum) and
+from above (β = 5.4×10⁻³) differ by 17% at 10⁻¹⁴ and agree with the cold path
+to ±0.3% at 10⁻¹⁶.
+
+| a_b (mm) | a_b/R₀ | β | VMEX/theory | vacuum bias (µm) |
 |---|---|---|---|---|
-| VMEC2000 free, cold | 0.042 | 0.068 | 0.071 | 0.115 |
-| VMEX free, warm continuation | – | −0.029 | −0.005 | – |
-| VMEX free, cold | – | 0.020 | 0.023 | – |
-| **vacuum-axis offset from traced coil axis (µm), VMEC2000 / VMEX** | 536 / – | 476 / 688 | 479 / 658 | 475 / – |
+| 25 | 0.021 | 1.38×10⁻³ | 1.017 | 9 |
+| 35 | 0.029 | 6.75×10⁻⁴ – 1.08×10⁻² | 1.037 (fit) | 10–23 |
+| 45 | 0.038 | 4.46×10⁻³ | 1.061 | 55 |
+| 15 | 0.013 | 2.7×10⁻³ | not converged (residual floor 7×10⁻¹⁴) | 37 |
 
-The sign depends on the restart policy. VMEC2000's response is non-analytic
-in α and grows with its iteration count (1171 → 5165 from α_max to
-12 α_max). With the iteration count capped at 1k/4k/16k/64k, the vacuum axis
-wanders by 200 µm and the ratio takes the values 0.10, 0.40, 0.12 and 0.34,
-all at F_sq ≤ 3×10⁻¹².
+The excess over 1 grows with a_b and extrapolates to 0.96 (linear in a_b) or
+1.00 (quadratic) at a_b → 0, where the near-axis theory applies. The earlier
+QA benchmark (a = 17.8 mm, ι = 0.21, aspect ratio 61) failed for the same
+reason as the 15 mm QH: the solver's residual floors before the soft axis mode
+relaxes. There every free-boundary vacuum axis sat 0.47–0.69 mm from the traced
+coil axis with VMEX and VMEC2000, and the response depended on restarts and
+iteration counts (details and figures in
+[`shafranov_shift/results/verification/README.md`](shafranov_shift/results/verification/README.md)).
 
-Every free-boundary vacuum axis is 0.47–0.69 mm from the traced coil axis,
-as large as the signal itself. Fixed-boundary is within 33 µm; MPOL 16/NTOR 12
-and a four-times finer MAKEGRID change nothing. The axis is a soft mode that
-descent solvers stop before relaxing, so these equilibria cannot give the
-derivative at this β. Nothing here contradicts the first-order theory, and
-no full-equilibrium calculation here confirms it.
-
-![Field of the equilibria's own current and the local force floor](docs/figures/09_equilibrium_current_diagnostic.png)
-
-*Figure 9. (a) Vertical plasma field on the vacuum axis per unit α. The
-near-axis current gives +9.3×10⁻⁴ T; the solvers' own currents (Ampère's
-law on the WOUT field, differenced against their vacuum) give −0.1 to
-−1.4×10⁻⁴ T. (b) The angle-resolved m = 1 radial-force residual of the vacuum
-solutions (5–15 Pa) exceeds the Pfirsch–Schlüter force they must resolve
-(3.3 Pa). Surface-averaged force balance holds to ≤1.3%.*
-
-Details, all numbers and the reproduction commands:
-[`shafranov_shift/results/verification/README.md`](shafranov_shift/results/verification/README.md).
-A drop-in manuscript section is in
-[`pressure_scan_status_revised.tex`](shafranov_shift/results/verification/pressure_scan_status_revised.tex).
+Numbers, protocol, run records and reproduction:
+[`shafranov_shift/results/pressure_benchmark/README.md`](shafranov_shift/results/pressure_benchmark/README.md).
 
 ## Status
 
@@ -387,10 +385,10 @@ A drop-in manuscript section is in
 | Vacuum limit | done; the 5–10% VMEC-type transform gap is a solver effect (coil field on VMEX surfaces and traced lines match near axis; VMEC2000 reproduces VMEX); mechanism not identified |
 | Largest free-boundary radius, all eight designs | done (Sec. 5): QA 1.5 a (on-branch 1.25 a), QH 3.375 a, axisymmetric 2.875 a (on-branch 1.5 a), hybrid 1.25 a, control 1.125 a, Hessian-omitted and single stage a, vacuum 0.7 a (600 s cap) |
 | First-order pressure response (theory, source, operator) | verified independently of MHD solvers |
-| Fixed-coil pressure derivative from free-boundary equilibria | **unresolved here**; resolved benchmark pending on branch `paper/pressure-response` (Sec. 9 placeholder) |
+| Fixed-coil pressure derivative from free-boundary equilibria | **resolved on the QH coils** (Sec. 9): VMEX/theory 1.037 ± 0.022 at a_b = 35 mm, linear over β 6.75×10⁻⁴–1.08×10⁻², restart-independent at FTOL 10⁻¹⁵; 1.017–1.061 over a_b = 25–45 mm, extrapolating to 0.96–1.00; QA (a = 17.8 mm) and QH at 15 mm stall at a residual floor near 10⁻¹³ |
 | QH (a = 35 mm) and stellarator–tokamak hybrid | second pass: coils within length, curvature and distance limits at 480 points; QH free boundary converged to 2a with LCFS shape 0.6% at a; hybrid converged at a and 1.25a only ([Sec. 6](#6-qh-hybrid-and-single-stage-examples)) |
 | Single-stage 3% β design (a = 0.1 m) | second pass: no coil kink, well margin met, magnetic well used as the accepted Mercier substitute; Mercier value D_Merc r² −0.97 stated as a limitation; coil–coil 0.083 m < 0.1; B·n max 22%; ι 0.50→0.46 with NS vs 0.47 near axis |
-| Matched design and end-to-end timing comparison | not started; needs a resolved pressure derivative |
+| Matched design and end-to-end timing comparison | not started; the pressure derivative is now resolved on the QH coils (Sec. 9) |
 
 ## Reproducing the results
 
@@ -417,7 +415,8 @@ pytest                                                        # plasma-field ref
 python shafranov_shift/axis_operator_check.py --output runs/axis_operator_check.json   # Fig. 7b, ~4 min
 python shafranov_shift/scan.py --reference shafranov_shift/reference/vacuum_fitted_reference.json \
   --output runs/qa18 --radius 0.018 --segments 480 --mpol 10 --ntor 10 --run-vmex --pressure-scan
-python shafranov_shift/make_verification_figures.py           # Figs. 7-9 from the tracked JSON
+python shafranov_shift/make_verification_figures.py           # Fig. 7 and the QA verification figures from the tracked JSON
+(cd shafranov_shift/pressure_benchmark && python collect.py)   # Fig. 8 and results.json from the tracked run records
 cd independent_checks && python independent_checks.py && python fractional_bootstrap.py   # Figs. 6, 10
 ```
 
@@ -440,7 +439,7 @@ runs are in `results.json` and the method is described in
 | `make_tables.py`, `make_figures.py`, `replot.py`, `results.json`, `tables.tex` | tables and figures of Secs. 2–4 |
 | `figures/` | full-resolution design figures, all cases |
 | `investigation/` | vacuum-transform investigation and single-stage records |
-| `shafranov_shift/` | pressure-response scan, reference coils, verification campaign (`results/verification/`) |
+| `shafranov_shift/` | pressure-response scan, reference coils, QA verification campaign (`results/verification/`), resolved QH benchmark (`pressure_benchmark/`, `results/pressure_benchmark/`) |
 | `validation/` | heavy pyQSC_JAX plasma-field references: volume Biot–Savart, fixed-Cartesian derivatives, axis integral, Hessian identity |
 | `independent_checks/` | NumPy/SciPy/SymPy checks with no repository imports, and reproduction logs |
 | `tests/` | study checks: VMEX pressure-family deck, circular-tokamak reference |
