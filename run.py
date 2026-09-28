@@ -68,4 +68,5 @@ src = head + src
 anchor = next(line for line in ('VMEX.update(case.get("vmex", {}))\n', "OUTPUT_DIR.mkdir(parents=True, exist_ok=True)\n")
               if src.count(line) == 1)
 src = src.replace(anchor, anchor + "".join(line + "\n" for line in extra))
-exec(compile(src, path, "exec"), {"__file__": path, "__name__": "__main__"})
+NAMESPACE = {"__file__": path, "__name__": "__main__"}  # Read back by max_radius.py through runpy.
+exec(compile(src, path, "exec"), NAMESPACE)

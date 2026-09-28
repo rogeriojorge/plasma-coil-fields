@@ -1,6 +1,9 @@
 """One free-boundary run on the finished single-stage design (checkpoint in runs/$SINGLE_RUN, default single).
 
-python single_stage_free_boundary.py NAME NS FTOL NITER DELT RESTART_WOUT|none  -> runs/${SINGLE_RUN}_fb/NAME
+python single_stage_free_boundary.py NAME NS FTOL NITER DELT RESTART_WOUT|none [A_B/A]  -> runs/${SINGLE_RUN}_fb/NAME
+
+The optional last argument puts the VMEX boundary at a_b = fraction * a (default 1). p2 is fixed, so the
+central pressure grows as a_b^2; the near-axis comparison uses flux radii a_b sqrt(s).
 """
 import json, os, sys, time
 from pathlib import Path
@@ -9,15 +12,21 @@ run = os.environ.get("SINGLE_RUN", "single")
 repo = Path(__file__).resolve().parent; D = repo / "drivers"; sys.path.insert(0, str(D)); os.chdir(D)
 import matplotlib; matplotlib.use("Agg")
 src = (D / "optimize_single_stage_nearaxis_finite_beta.py").read_text()
+fraction = float(sys.argv[7]) if len(sys.argv) > 7 else 1.0
+for a, b in (('export = to_vmec(solution, directory / "input.direct", r=PLASMA_RADIUS,', 'export = to_vmec(solution, directory / "input.direct", r=RADIUS_FRACTION * PLASMA_RADIUS,'),
+             ("near_axis=helpers.compare_to_near_axis(wout, solution, PLASMA_RADIUS, FLUX_LEVELS)",
+              "near_axis=helpers.compare_to_near_axis(wout, solution, RADIUS_FRACTION * PLASMA_RADIUS, FLUX_LEVELS)")):
+    assert src.count(a) == 1, a
+    src = src.replace(a, b)
 src = src.replace("RUN_VMEX = True", "RUN_VMEX = False", 1).replace(
     'OUTPUT_DIR = Path(__file__).resolve().parent / "output_single_stage_finite_beta"', f'OUTPUT_DIR = Path("{repo}/runs/{run}")', 1)
-g = {"__file__": str(D / "x.py"), "__name__": "__main__"}
+g = {"__file__": str(D / "x.py"), "__name__": "__main__", "RADIUS_FRACTION": fraction}
 exec(compile(src, "single", "exec"), g)
 g["VMEX"]["delt"] = delt
 out = repo / "runs" / f"{run}_fb" / name
 rs = None if restart == "none" else Path(restart).resolve()
 wout, rep = g["free_boundary_level"](g["states"]["optimized"]["solution"], g["states"]["optimized"]["field"], out, ns, ftol, niter, rs)
-rep.update(delt=delt, restart=restart.rsplit("/", 1)[-1])
+rep.update(delt=delt, restart=restart.rsplit("/", 1)[-1], radius_fraction=fraction)
 try:
     rep = g["benchmark_report"](wout, g["states"]["optimized"]["solution"], rep)
 except Exception as e:
