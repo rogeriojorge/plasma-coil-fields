@@ -1,0 +1,68 @@
+{
+ "case": {
+  "half_width": [
+   0.14,
+   0.07,
+   0.03,
+   0.14,
+   0.07,
+   0.03
+  ],
+  "modes": [
+   1,
+   2,
+   3
+  ],
+  "nphi": 121,
+  "seed_database_id": 57409
+ },
+ "compile_seconds": 6.826071999996202,
+ "cpu_count": 14,
+ "date": "2026-09-27",
+ "environment": {
+  "jax": "0.9.2",
+  "jax_backend": "cpu",
+  "jax_enable_x64": true,
+  "machine": "arm64",
+  "platform": "macOS-14.4.1-arm64-arm-64bit",
+  "pyqsc_jax": "0.2.0.dev0",
+  "pyqsc_jax_commit": "56e1f1ca44d5abde07903fa35f2c0ee5b741ec75",
+  "python": "3.11.14",
+  "vmex": "0.11.4",
+  "vmex_commit": "204c8a9cfcd196648096cdd6eaf090da7ba90ddb"
+ },
+ "hardware": "Apple M3 Max",
+ "results": [
+  {
+   "evaluations": 1,
+   "method": "exact B2c only",
+   "seconds": 0.0,
+   "weighted_l2": 0.03099277286924834
+  },
+  {
+   "evaluations": 69,
+   "method": "L-BFGS-B",
+   "seconds": 0.17413058300007833,
+   "weighted_l2": 0.0001926140546267836
+  },
+  {
+   "evaluations": 32,
+   "method": "least squares (TRF)",
+   "seconds": 0.5894029999981285,
+   "weighted_l2": 0.00010250101789987193
+  },
+  {
+   "evaluations": 120,
+   "method": "differential evolution (low budget)",
+   "seconds": 0.12869462499656947,
+   "weighted_l2": 0.26576635162226275
+  },
+  {
+   "evaluations": null,
+   "method": "staged 8-mode refinement (stored result)",
+   "seconds": null,
+   "weighted_l2": 1.2745432883187962e-10
+  }
+ ],
+ "timing_note": "optimizer timings exclude the shared JIT compilation (compile_seconds)"
+}

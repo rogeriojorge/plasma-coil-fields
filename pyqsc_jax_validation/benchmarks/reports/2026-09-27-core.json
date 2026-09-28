@@ -1,0 +1,82 @@
+{
+ "case": {
+  "etabar": -0.9,
+  "nfp": 3,
+  "order": "first",
+  "rc": [
+   1.0,
+   0.045
+  ],
+  "repeats": 15,
+  "vmap_batch": 64,
+  "zs": [
+   0.0,
+   -0.045
+  ]
+ },
+ "cpu_count": 14,
+ "date": "2026-09-27",
+ "environment": {
+  "jax": "0.9.2",
+  "jax_backend": "cpu",
+  "jax_enable_x64": true,
+  "machine": "arm64",
+  "platform": "macOS-14.4.1-arm64-arm-64bit",
+  "pyqsc_jax": "0.2.0.dev0",
+  "pyqsc_jax_commit": "56e1f1ca44d5abde07903fa35f2c0ee5b741ec75",
+  "python": "3.11.14",
+  "vmex": "0.11.4",
+  "vmex_commit": "204c8a9cfcd196648096cdd6eaf090da7ba90ddb"
+ },
+ "hardware": "Apple M3 Max",
+ "results": [
+  {
+   "jvp_cold_seconds": 0.3194390420030686,
+   "jvp_warm_median_seconds": 8.99580045370385e-05,
+   "jvp_warm_min_seconds": 7.616700168000534e-05,
+   "nphi": 15,
+   "solve_cold_seconds": 0.35617895900213625,
+   "solve_warm_median_seconds": 5.650000093737617e-05,
+   "solve_warm_min_seconds": 5.300000339047983e-05,
+   "vmap_cold_seconds": 0.3162155000027269,
+   "vmap_warm_median_seconds": 0.0003590420019463636,
+   "vmap_warm_min_seconds": 0.0003525419961079024
+  },
+  {
+   "jvp_cold_seconds": 0.32395837499643676,
+   "jvp_warm_median_seconds": 0.0001352500039502047,
+   "jvp_warm_min_seconds": 0.00011641700257314369,
+   "nphi": 31,
+   "solve_cold_seconds": 0.2776975839951774,
+   "solve_warm_median_seconds": 9.30419992073439e-05,
+   "solve_warm_min_seconds": 7.154200284276158e-05,
+   "vmap_cold_seconds": 0.3663205420016311,
+   "vmap_warm_median_seconds": 0.0023859590000938624,
+   "vmap_warm_min_seconds": 0.0011682499971357174
+  },
+  {
+   "jvp_cold_seconds": 0.41166679200250655,
+   "jvp_warm_median_seconds": 0.00030279200291261077,
+   "jvp_warm_min_seconds": 0.00028420800663297996,
+   "nphi": 61,
+   "solve_cold_seconds": 0.3599573329993291,
+   "solve_warm_median_seconds": 0.0003800839986070059,
+   "solve_warm_min_seconds": 0.00034154100285377353,
+   "vmap_cold_seconds": 0.3184932080039289,
+   "vmap_warm_median_seconds": 0.00799025000014808,
+   "vmap_warm_min_seconds": 0.004396124997583684
+  },
+  {
+   "jvp_cold_seconds": 0.43803808400116395,
+   "jvp_warm_median_seconds": 0.0009625410020817071,
+   "jvp_warm_min_seconds": 0.0008454999988316558,
+   "nphi": 121,
+   "solve_cold_seconds": 0.27067962499859277,
+   "solve_warm_median_seconds": 0.0005569169952650554,
+   "solve_warm_min_seconds": 0.0004220000046188943,
+   "vmap_cold_seconds": 0.3757197910017567,
+   "vmap_warm_median_seconds": 0.012647541996557266,
+   "vmap_warm_min_seconds": 0.012317875000007916
+  }
+ ]
+}
