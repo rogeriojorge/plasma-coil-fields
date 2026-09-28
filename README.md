@@ -219,46 +219,69 @@ not a full MHD equilibrium or a kinetic closure.*
 Three further designs, run with the drivers in `drivers/` and VMEX main
 `204c8a9c` (0.11.4). All numbers are in [`examples_results.json`](examples_results.json),
 written by `collect_examples.py` from the run directories (WOUT files are
-not tracked; their sha256 is recorded there). Coil metrics are evaluated at
-240 points per coil. Free-boundary equilibria use the direct coil field.
+not tracked; their sha256 is recorded there). The first-pass results are kept
+unchanged under `first_pass` in the same file. Coil metrics are evaluated at
+480 points per coil. Free-boundary equilibria use the direct coil field.
 
-| | QH (nfp 4, a = 35 mm, p₂ = −1.76×10⁶ Pa/m²) | Hybrid (nfp 2, a = 40 mm, I₂ = 0.4 T/m, p₂ = −6×10⁵ Pa/m²) |
+**Second pass: coil limits.** The first pass hinged length and curvature only at the
+Biot-Savart quadrature points and had no distance terms. A kink grew between the samples of a
+single-stage coil (curvature 9.8 m⁻¹ at 60 points, 7778 m⁻¹ at 480), and the QH and hybrid coils
+passed 4–7 mm from each other. Now length, curvature, mean-squared curvature (MSC) and
+arclength variation are evaluated on 16 points per Fourier order. Coil–coil and coil–plasma
+distance terms were added. The QH and hybrid fits run 1600 evaluations with soft limits
+(weight 1), then 400 at weight 100, then 400 more at weight 100 with the distance terms at 24
+points per order. The earlier attempts with near-hard limits from the start stalled and are
+recorded under `abandoned_runs`.
+
+**QH boundary error (the remedy).** In the first pass, B·n/|B| on r = a rose from 1.3% to
+4.2% while the axis match improved. That fit had no coil–plasma distance term: the coils ended
+8 mm from each other and 83 mm from the plasma, where the field content beyond the fitted
+quadratic jet is large. The remedy stays within the method: stronger coil regularization
+(coil–plasma ≥ 0.10 m, coil–coil ≥ 0.05 m, MSC ≤ 50 m⁻², curvature evaluated at 16 points per
+order). The objective is still the axis jet only, and B·n is only a diagnostic
+(`trajectory` in the JSON, one row per segment). With the regularization, max B·n/|B| drops to
+0.77% by 900 evaluations and stays within 0.77–0.79% to 2000. It is 0.68% after the limit phase.
+
+| | QH (nfp 4, a = 35 mm, p₂ = −1.76×10⁶ Pa/m²) | Hybrid (nfp 3, a = 40 mm, I₂ = 0.4 T/m, p₂ = −6×10⁵ Pa/m²) |
 |---|---|---|
-| coils − target on axis: field / B₀, gradient R₀/B₀, Hessian R₀²/B₀ | 5.1×10⁻⁴ / 1.7×10⁻³ / 2.7×10⁻² (target 39) | 7.3×10⁻⁴ / 3.5×10⁻⁴ / 5.4×10⁻³ (target 27) |
-| B·n/\|B\| on r = a, max / RMS | 4.19% / 0.55% | 1.05% / 0.16% |
-| coil length max, curvature max | 5.00 m, 13.1 m⁻¹ (target 12) | 4.00 m, 13.8 m⁻¹ (target 12) |
-| β (VMEX, a_b = a) | 2.7×10⁻³ | 1.2×10⁻³ |
-| ι lab, VMEX / near axis (a_b = a) | 1.118 / 1.144 | −0.710 / −0.713 |
-| axis offset max / a_b, at a_b = a, 1.25 a, 1.5 a | 0.7%, 2.0%, 3.2% | 5.9%, 26% , – |
-| translated LCFS shape RMS / a_b, same | 5.3%, 9.2%, 13% | 3.2%, 8.3%, – |
-| tangential interface jump max / \|B\|, same | 1.2%, 1.7%, 3.2% | 1.3%, 1.3%, – |
+| coils − target on axis: field / B₀, gradient R₀/B₀, Hessian R₀²/B₀ | 3.4×10⁻⁴ / 4.3×10⁻³ / 0.28 (target 39) | 7.2×10⁻⁴ / 2.3×10⁻³ / 0.16 (target 27) |
+| B·n/\|B\| on r = a, max / RMS (first pass) | 0.68% / 0.16% (4.19% / 0.55%) | 1.29% / 0.21% (1.05% / 0.16%) |
+| coil length, curvature max (limit), MSC max | 3.63 m, 12.08 m⁻¹ (12), 49.2 m⁻² | 3.49 m, 12.13 m⁻¹ (12), 49.2 m⁻² |
+| min coil–coil / coil–plasma (limits 0.05 / 0.10 m; first pass) | 0.050 / 0.131 m (0.004 / 0.083) | 0.050 / 0.100 m (0.007 / 0.092) |
+| ι lab, VMEX / near axis (a_b = a) | 1.1396 / 1.1441 (first pass 1.118) | −0.708 / −0.713 |
+| free boundary converged (NS 65, FTOL 10⁻¹⁰) at a_b = | a, 1.25a, 1.5a, 2a | a, 1.25a |
+| axis offset max / a_b, at a, 1.25a, 1.5a, 2a | 0.7%, 1.9%, 3.3%, 5.3% | 6.1%, 29% |
+| LCFS shape RMS / a_b, same | 0.57%, 0.89%, 1.5%, 6.3% (first pass 5.3, 9.2, 13, –) | 3.3%, 9.2% |
+| tangential interface jump max / \|B\|, same | 0.7%, 0.9%, 1.0%, 1.6% | 0.9%, 1.3% |
 
-At a_b = a and 1.25 a the ladder NS 17/33/65 with FTOL 10⁻⁸/10⁻⁹/10⁻¹⁰ converged.
-QH at 1.5 a converged only with NS ≤ 33, FTOL 10⁻⁹ and DELT 0.25; at NS 65 the
-residual stalls near 10⁻⁶ at FTOL 10⁻¹⁰ and 10⁻⁹ alike. The hybrid at 1.5 a
-reaches 3–5×10⁻⁹ and oscillates (NS 65 and NS 33, FTOL 10⁻⁹). Neither design
-has a converged solve at 2 a (residuals 10⁻⁷–10⁻⁵ in three settings each).
-The QH coils are a poor engineering result: the fit trades the boundary for
-the axis Hessian as it continues (max B·n/|B| 1.3% at 450 evaluations, 4.2% at 2000),
-and the coils of both designs are long and tangled (`figures/examples/*_coils_and_normal_field.png`); their curvature exceeds the 12 m⁻¹ target.
+The QH free-boundary agreement is an order of magnitude better than in the first pass, and the
+full ladder converges out to 2a. The hybrid matches the first pass. At 1.5a it stalls at
+1×10⁻⁸ (NS 33, FTOL 10⁻⁹, DELT 0.25) and at 3×10⁻⁶ (NS 65). At 2a it stalls at 2×10⁻⁷. The coils
+satisfy their limits at 480 points (curvature 1% over through the smooth hinge), but they are
+wavy (`figures/examples/*_coils_and_normal_field.png`), because a curvature limit of 12 m⁻¹ on 3.5 m coils still allows that.
 
 ![Axis offset, boundary shape and transform against boundary radius](figures/examples/qh_hybrid_boundary_scan.png)
 
 *Figure 11. Converged free-boundary equilibria of the QH and hybrid coils against the boundary radius.*
 
-**Single stage (nfp 2, a = 0.1 m, near-axis ⟨β⟩ = μ₀p₀/B₀² = 3.00%).** The
-free-boundary ladder converged at NS 17, 33 and 65 with FTOL 10⁻⁸ (DELT 0.25 for
-NS ≥ 33); FTOL 10⁻⁹ failed at NS 33 (floor ~1×10⁻⁸) and NS 65 (1.8×10⁻⁸ with
-a drifting axis transform). VMEX betatotal is 2.89–2.90%. The design fails its own
-requirements and is not publishable as a working example:
+**Single stage (nfp 2, a = 0.1 m, near-axis ⟨β⟩ = μ₀p₀/B₀² = 3.00%).** Axis harmonics up to n = 6
+are free. Mercier stability, D_Merc r² ≥ 0, cannot be met together with quasisymmetry in this
+family at 3% β (`single_stage_mercier_scan.py`/`.json`: a hard Mercier hinge raises the B₂₀
+variation from 4×10⁻⁴ to 0.47 at a = 0.1 m and breaks the r_singularity, elongation and ι
+limits). At a = 0.15 m it is compatible, but the r = a surface then reaches 0.56 m from the axis and
+folds (run abandoned). The design therefore keeps a magnetic-well margin D_Well r² ≥ 1 as a
+near-hard hinge, plus a weak Mercier term:
 
-- one coil per half period has a kink between its 60 optimization quadrature points: its
-  maximum curvature is 9.8, 102, 1558 and 7778 m⁻¹ at 60, 120, 240 and 480 points (the other coils ≤ 8.1 m⁻¹);
-  length 5.87 m (limit 5), coil–coil 0.098 m (limit 0.1), coil–plasma 0.197 m (limit 0.2);
-- B·n/|B| on r = a: max 7.1%, RMS 1.3%;
-- axis offset 19% of a, translated LCFS shape discrepancy 21–25% of a, tangential jump up to 14% of |B|;
-- on-axis ι: 0.417 near axis, VMEX 0.556 / 0.573 / 0.617 at NS 17 / 33 / 65, not resolution-converged;
-- quasisymmetry measure (RMS of B₂₀ − ⟨B₂₀⟩, units B₀/R₀²) 0.016; Mercier D_Merc r² = −2.35 (unstable).
+- ⟨β⟩ 3.00%, ι 0.474, B₂₀ variation 0.0165 B₀/R₀² (first pass 0.016), r_singularity 1.51a, elongation 6.00;
+- D_Well r² = 1.17; **D_Merc r² = −0.97** (first pass −2.35): still Mercier-unstable near the axis;
+- coils at 480 points: length 4.91 m (limit 5), curvature 6.00 m⁻¹ (limit 6), MSC 9.6 m⁻² (limit 10), coil–plasma
+  0.197 m (limit 0.2), coil–coil **0.083 m** (limit 0.1; the driver's distance term uses the 60 Biot–Savart points);
+- B·n/|B| on r = a: max 21.7%, RMS 3.0% (first pass 7.1% / 1.3%). The coils are loopy (`single_stage_coils_and_normal_field.png`);
+- free boundary: NS 17 converged at FTOL 10⁻¹⁰. At NS 33 and 65, FTOL 10⁻¹⁰ stalls (5×10⁻¹⁰–1.5×10⁻⁹, with ι
+  drifting at NS 33), so they converged at FTOL 10⁻⁹. DELT 0.25 was not needed. VMEX betatotal 2.91%;
+- on-axis ι: 0.500 / 0.475 / 0.457 at NS 17 / 33 / 65, against 0.474 near axis (first pass 0.556–0.617 against 0.417).
+  It is **not resolution-converged**: it falls by about 0.02 per NS doubling;
+- axis offset 2.6 / 1.6 / 1.3% of a (first pass 19%); LCFS shape 18–20% of a; tangential jump 13%.
 
 ![Single-stage transform against radial resolution](figures/examples/single_stage_iota_ladder.png)
 
@@ -273,8 +296,8 @@ requirements and is not publishable as a working example:
 | Vacuum limit | done; the 5–10% VMEC-type transform gap is unexplained |
 | First-order pressure response (theory, source, operator) | verified independently of MHD solvers |
 | Fixed-coil pressure derivative from free-boundary equilibria | **unresolved**: solver path-dependent; vacuum-axis bias ≥ signal |
-| QH (a = 35 mm) and stellarator–tokamak hybrid | fits finished (2000 evaluations); free boundary converged at a_b = a and 1.25 a (QH also 1.5 a at NS 33); no converged solve at 2 a ([Sec. 7](#7-qh-hybrid-and-single-stage-examples)) |
-| Single-stage 3% β design (a = 0.1 m) | free boundary converged to NS 65 at FTOL 10⁻⁸ only; **design not usable**: coil kink (curvature diverges with quadrature), axis offset 19% a, ι 0.62 vs 0.42 |
+| QH (a = 35 mm) and stellarator–tokamak hybrid | second pass: coils within length, curvature and distance limits at 480 points; QH free boundary converged to 2a with LCFS shape 0.6% at a; hybrid converged at a and 1.25a only ([Sec. 7](#7-qh-hybrid-and-single-stage-examples)) |
+| Single-stage 3% β design (a = 0.1 m) | second pass: no coil kink, well margin met, **Mercier unstable** (D_Merc r² −0.97, incompatible with QS here); coil–coil 0.083 m < 0.1; B·n max 22%; ι 0.50→0.46 with NS vs 0.47 near axis |
 | Matched design and end-to-end timing comparison | not started; needs a resolved pressure derivative |
 
 ## Reproducing the results
