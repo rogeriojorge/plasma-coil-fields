@@ -1,0 +1,520 @@
+{
+ "versions": {
+  "vmex": "204c8a9c (0.11.4, main)",
+  "essos": "7713e07a (plasma-coil)",
+  "pyqsc_jax": "6c7c7ea8",
+  "solvax": "0.25.0",
+  "note": "QH/hybrid fits resumed from checkpoints at 450 and 600 evaluations; single-stage coils and near-axis design unchanged (config hash in single_stage)"
+ },
+ "qh": {
+  "inputs": {
+   "rc": [
+    1.0,
+    0.17,
+    0.01804,
+    0.001409,
+    5.877e-05
+   ],
+   "zs": [
+    0.0,
+    0.1581,
+    0.0182,
+    0.001548,
+    7.772e-05
+   ],
+   "nfp": 4,
+   "etabar": 1.569,
+   "B2c": 0.1348,
+   "B0": 1.0,
+   "I2": 0.0,
+   "p2": -1760000.0,
+   "a": 0.035
+  },
+  "optimization": {
+   "evaluations": 2000,
+   "cost": 5.078727346250965e-06,
+   "message": "The maximum number of function evaluations is exceeded.",
+   "checkpoint_sha256": "e9250cf9c495025daa1fe2c3f3fcb89b6e64335ba9c7cfd8783971e91b19853d"
+  },
+  "axis_match": {
+   "field_rms_over_B0": 0.000507229504399137,
+   "gradient_rms_R0_over_B0": 0.0016651582858411365,
+   "hessian_rms_R0sq_over_B0": 0.026548952120222177,
+   "target_hessian_rms_R0sq_over_B0": 39.086627039479936
+  },
+  "boundary_normal_field": {
+   "a_m": 0.035,
+   "max_over_B": 0.04191366004222356,
+   "rms_over_B": 0.005490621116408664
+  },
+  "coils": {
+   "points_per_coil": 240,
+   "max_length_m": 5.000014771030185,
+   "max_curvature_per_m": 13.080883265654434
+  },
+  "free_boundary": [
+   {
+    "run": "qh_ab1",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.035,
+    "converged": true,
+    "final_fsq": [
+     9.99e-11,
+     8.67e-11,
+     8.64e-11
+    ],
+    "wout_sha256": "8861833845f7960b701c542ad42d124d2f192432038c8bb1a2a78f422f50ae7b",
+    "iterations": 846,
+    "betatotal": 0.002707693448930784,
+    "iota_vmex_lab": 1.1179282422513221,
+    "iota_near_axis_lab": 1.1441369511851474,
+    "axis_offset_max_over_ab": 0.006838674334946099,
+    "lcfs_shape_rms_over_ab": 0.053401181582942936,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.026317422704675138,
+     "0.25": 0.030587760559186727,
+     "0.5625": 0.03972282309332221,
+     "1": 0.053401181582942936
+    },
+    "tangential_jump_max_over_B": 0.011877989964606425,
+    "tangential_jump_rms_over_B": 0.003547227265533918
+   },
+   {
+    "run": "qh_ab1.25",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.043750000000000004,
+    "converged": true,
+    "final_fsq": [
+     1e-10,
+     8.69e-11,
+     3.55e-11
+    ],
+    "wout_sha256": "530d60bb41231c57deb4f9dadb92d4893b0a4c28928dd820d15e6247384e4096",
+    "iterations": 1085,
+    "betatotal": 0.004246726737346141,
+    "iota_vmex_lab": 1.136060902047026,
+    "iota_near_axis_lab": 1.1441369511851474,
+    "axis_offset_max_over_ab": 0.020063189867803387,
+    "lcfs_shape_rms_over_ab": 0.09219663160836673,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.03267676198248709,
+     "0.25": 0.04247785521085602,
+     "0.5625": 0.06454067916593757,
+     "1": 0.09219663160836673
+    },
+    "tangential_jump_max_over_B": 0.016946539847165612,
+    "tangential_jump_rms_over_B": 0.005315882842403858
+   },
+   {
+    "run": "qh_ab1.5",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.052500000000000005,
+    "converged": false,
+    "final_fsq": [
+     1.18e-06,
+     1.72e-06,
+     5.2e-07
+    ],
+    "wout_sha256": "4bd25ab29c00ba8c9aa606df83ce90060928b9b33612a4b1df4a22789f5f7cb0"
+   },
+   {
+    "run": "qh_ab1.5_f9",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-9, DELT 0.5",
+    "a_b_m": 0.052500000000000005,
+    "converged": false,
+    "final_fsq": [
+     1.18e-06,
+     1.72e-06,
+     5.2e-07
+    ],
+    "wout_sha256": "242edff6aa9c5a1e5c0f68df373e48faee6762c4a8c8246226ab59a42585cd96"
+   },
+   {
+    "run": "qh_ab1.5_d25",
+    "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+    "a_b_m": 0.052500000000000005,
+    "converged": true,
+    "final_fsq": [
+     5.82e-10,
+     9.97e-10,
+     2.63e-10
+    ],
+    "wout_sha256": "c4e4e3bc2fa81f2470a644a7da9bf73e3bcc5f15c71686591bdc352f1cd704a7",
+    "iterations": 2157,
+    "betatotal": 0.006145751607569846,
+    "iota_vmex_lab": 1.1101148858804137,
+    "iota_near_axis_lab": 1.1441369511851474,
+    "axis_offset_max_over_ab": 0.03214896041353451,
+    "lcfs_shape_rms_over_ab": 0.13261449980529483,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.04970681190104913,
+     "0.25": 0.06473805306806334,
+     "0.5625": 0.09434946667397177,
+     "1": 0.13261449980529483
+    },
+    "tangential_jump_max_over_B": 0.03174848706152902,
+    "tangential_jump_rms_over_B": 0.008841011312543716
+   },
+   {
+    "run": "qh_ab2",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.07,
+    "converged": false,
+    "final_fsq": [
+     1.34e-05,
+     1.19e-05,
+     9.02e-07
+    ],
+    "wout_sha256": "65560ebe6abb2d9dc50bc0a6eb453e291845cb7269dc47577bb7a288fb167816"
+   },
+   {
+    "run": "qh_ab2_d25",
+    "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+    "a_b_m": 0.07,
+    "converged": false,
+    "final_fsq": [
+     1.18e-05,
+     2.32e-05,
+     2.16e-06
+    ],
+    "wout_sha256": "8910614e9c4a7f5d52ee061327720d5b9ff28d2ca2247d3c52528099a6af2547"
+   }
+  ]
+ },
+ "hybrid": {
+  "inputs": {
+   "rc": [
+    1.0,
+    0.045
+   ],
+   "zs": [
+    0.0,
+    -0.045
+   ],
+   "nfp": 3,
+   "etabar": 0.9,
+   "B2c": 0.0,
+   "B0": 1.0,
+   "I2": 0.4,
+   "p2": -600000.0,
+   "a": 0.04
+  },
+  "optimization": {
+   "evaluations": 2000,
+   "cost": 4.726743194343049e-07,
+   "message": "The maximum number of function evaluations is exceeded.",
+   "checkpoint_sha256": "2509d60f635d3873d259d4925d24b215e76bfcdbdb874262ecdeb2c454e50fdd"
+  },
+  "axis_match": {
+   "field_rms_over_B0": 0.0007318575009487393,
+   "gradient_rms_R0_over_B0": 0.0003483531355518576,
+   "hessian_rms_R0sq_over_B0": 0.005362173550856682,
+   "target_hessian_rms_R0sq_over_B0": 26.83193411806469
+  },
+  "boundary_normal_field": {
+   "a_m": 0.04,
+   "max_over_B": 0.010509610815759513,
+   "rms_over_B": 0.0016035047834407489
+  },
+  "coils": {
+   "points_per_coil": 240,
+   "max_length_m": 4.000011092229866,
+   "max_curvature_per_m": 13.77427736465381
+  },
+  "free_boundary": [
+   {
+    "run": "hybrid_ab1",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.04,
+    "converged": true,
+    "final_fsq": [
+     9.81e-11,
+     8.63e-11,
+     6.78e-11
+    ],
+    "wout_sha256": "6a771507121cc01d6378d2d7d447cafc734d23500924442c3a25ade6ba3c1b45",
+    "iterations": 511,
+    "betatotal": 0.0012138455370999195,
+    "iota_vmex_lab": -0.7099386742944762,
+    "iota_near_axis_lab": -0.7131705737404128,
+    "axis_offset_max_over_ab": 0.05882939140485442,
+    "lcfs_shape_rms_over_ab": 0.03158426005834969,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.01701088924164302,
+     "0.25": 0.01816211465108492,
+     "0.5625": 0.02295955155411276,
+     "1": 0.03158426005834969
+    },
+    "tangential_jump_max_over_B": 0.012674961109069587,
+    "tangential_jump_rms_over_B": 0.0024692534744488286
+   },
+   {
+    "run": "hybrid_ab1.25",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.05,
+    "converged": true,
+    "final_fsq": [
+     9.93e-11,
+     9.95e-11,
+     3.91e-11
+    ],
+    "wout_sha256": "ef757750aea969bb5a5544385161823b07cdca21015049af67dd003d632a944b",
+    "iterations": 1463,
+    "betatotal": 0.001929172724282527,
+    "iota_vmex_lab": -0.6685300742063635,
+    "iota_near_axis_lab": -0.7131705737404128,
+    "axis_offset_max_over_ab": 0.2573076364175877,
+    "lcfs_shape_rms_over_ab": 0.08335551564786378,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.059593657172526744,
+     "0.25": 0.06347567892139097,
+     "0.5625": 0.07097946325786146,
+     "1": 0.08335551564786378
+    },
+    "tangential_jump_max_over_B": 0.013058793037970305,
+    "tangential_jump_rms_over_B": 0.003096703176084917
+   },
+   {
+    "run": "hybrid_ab1.5",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.06,
+    "converged": false,
+    "final_fsq": [
+     5.03e-09,
+     5.14e-09,
+     1.34e-09
+    ],
+    "wout_sha256": "08ef89be1c020cbe253a99c18ead5e50c78c5d92d366bdc7789fe5e85028625e"
+   },
+   {
+    "run": "hybrid_ab1.5_f9",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-9, NITER 16000 at NS 65, DELT 0.5",
+    "a_b_m": 0.06,
+    "converged": false,
+    "final_fsq": [
+     3.85e-06,
+     4.07e-06,
+     3.54e-07
+    ],
+    "wout_sha256": "d6c4fc5dfc40e18bf8aefd5c9aa2f4a96990bca3257d286aa7cdaea5832fbeee"
+   },
+   {
+    "run": "hybrid_ab1.5_ns33",
+    "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+    "a_b_m": 0.06,
+    "converged": false,
+    "final_fsq": [
+     2.78e-09,
+     3e-09,
+     1.98e-09
+    ],
+    "wout_sha256": "6236e8fd8818fc214a0d2c59f5a27e998c141fabe05abe4b3febf534c1b6195a"
+   },
+   {
+    "run": "hybrid_ab2",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.08,
+    "converged": false,
+    "final_fsq": [
+     1.81e-07,
+     1.38e-07,
+     2.45e-08
+    ],
+    "wout_sha256": "138947ec7d24885c52e1b2221d85a509e0925b28b271e067289df7b516b716f7"
+   },
+   {
+    "run": "hybrid_ab2_d25",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-9, DELT 0.25",
+    "a_b_m": 0.08,
+    "converged": false,
+    "final_fsq": [
+     5.24e-05,
+     5.6e-05,
+     2.1e-06
+    ],
+    "wout_sha256": "23d4bc1e2638c4723ac00e33011c5d0774febf0ee8114d140162465805d07e6a"
+   },
+   {
+    "run": "hybrid_ab2_ns33",
+    "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+    "a_b_m": 0.08,
+    "converged": false,
+    "final_fsq": [
+     4.4e-06,
+     5.93e-06,
+     5.62e-07
+    ],
+    "wout_sha256": "0ff14df6e47bf20b1085156bd6fbac672c2dfadd53ce5dc490a2c5b639893b69"
+   }
+  ]
+ },
+ "single_stage": {
+  "config_hash": "f7eb13bc02bfb233",
+  "near_axis_beta": 0.02999931721481484,
+  "iota_near_axis": -0.41688758760123873,
+  "quasisymmetry_B20_variation_R0sq_over_B0": 0.015872878597236628,
+  "DMerc_times_r2": -2.352709476444542,
+  "r_singularity_over_a": 1.5170700332329166,
+  "min_coil_coil_distance_m": 0.098367933546415,
+  "min_coil_plasma_distance_m": 0.19659539134799411,
+  "requirements": {
+   "<beta> = 3 %": true,
+   "r_singularity >= 1.5 a": true,
+   "elongation <= 6.0": true,
+   "|iota| >= 0.4": true,
+   "Mercier DMerc r^2 >= 0": false,
+   "coil length <= 5.0 m": false,
+   "coil curvature <= 6.0 1/m": false,
+   "coil-coil distance >= 0.1 m": false,
+   "coil-plasma distance >= 0.2 m": false
+  },
+  "coils": {
+   "points_per_coil": 240,
+   "max_length_m": 5.872536028614736,
+   "max_curvature_per_m": 1557.9226406406597
+  },
+  "boundary_normal_field": {
+   "a_m": 0.1,
+   "max_over_B": 0.07099668349725738,
+   "rms_over_B": 0.012606049385522013
+  },
+  "axis_match_T": {
+   "field_rms_T": 0.00542312392776299,
+   "gradient_rms_T_per_m": 0.02905592138856744,
+   "hessian_rms_T_per_m2": 0.5579838697105963,
+   "target_hessian_rms_T_per_m2": 14.521616686831214,
+   "plasma_hessian_rms_T_per_m2": 37.286705177989305,
+   "plasma_field_rms_T": 0.04921077879694424,
+   "plasma_gradient_rms_T_per_m": 0.07216589971928303,
+   "total_gradient_rms_T_per_m": 1.917400549779727
+  },
+  "free_boundary": [
+   {
+    "attempt": "NS 17, FTOL 1e-8, DELT 0.5 (previous run, as archived)",
+    "ns": 17,
+    "ftol": 1e-08,
+    "iterations": 2665,
+    "converged": true,
+    "fsq": [
+     9.999953963529023e-09,
+     1.2657855074397882e-09,
+     2.5092096334371336e-09
+    ],
+    "betatotal": 0.028925092251792846,
+    "iota_axis_vmex": 0.5556057240478784,
+    "iota_edge_vmex": 0.5792212839384805,
+    "wout_sha256": "a85293619a3b397f05bc3d896648311b20e7338e9967e75c98ef647b7175b85f",
+    "axis_offset_max_over_a": 0.18912755153344346,
+    "lcfs_shape_rms_over_a": 0.20991122354165254,
+    "tangential_jump_max_over_B": 0.12669580318899745,
+    "iota_near_axis_lab": 0.41688758761555506,
+    "iota_vmex_lab": 0.5556057240478784
+   },
+   {
+    "attempt": "NS 33, FTOL 1e-9, DELT 0.25, from NS 17",
+    "ns": 33,
+    "ftol": 1e-09,
+    "iterations": 2500,
+    "converged": false,
+    "fsq": [
+     9.797220965080184e-09,
+     1.075777409400588e-09,
+     1.736057151137435e-09
+    ],
+    "betatotal": 0.028925126613046144,
+    "iota_axis_vmex": 0.5727254102780475,
+    "iota_edge_vmex": 0.5794881247536442,
+    "wout_sha256": "52368064da06d70d165c1560902034cef74dbdba5c554005520231b8919ae52e",
+    "axis_offset_max_over_a": 0.18916100773324035,
+    "lcfs_shape_rms_over_a": 0.22032775850326872,
+    "tangential_jump_max_over_B": 0.12746728622088283,
+    "iota_near_axis_lab": 0.41688758761555506,
+    "iota_vmex_lab": 0.5727254102780475
+   },
+   {
+    "attempt": "NS 33, FTOL 1e-8, DELT 0.25, from NS 17",
+    "ns": 33,
+    "ftol": 1e-08,
+    "iterations": 2495,
+    "converged": true,
+    "fsq": [
+     9.987359998374674e-09,
+     1.084160810996948e-09,
+     1.7221677766134273e-09
+    ],
+    "betatotal": 0.028925133448896495,
+    "iota_axis_vmex": 0.5726507446370668,
+    "iota_edge_vmex": 0.5794841179736234,
+    "wout_sha256": "a15aa859a654236992a6d0d433b5064df9e5fb604c76cb2491e5eaef82aa5d7d",
+    "axis_offset_max_over_a": 0.1891667844005391,
+    "lcfs_shape_rms_over_a": 0.22027545556945102,
+    "tangential_jump_max_over_B": 0.12745173834174506,
+    "iota_near_axis_lab": 0.41688758761555506,
+    "iota_vmex_lab": 0.5726507446370668
+   },
+   {
+    "attempt": "NS 65, FTOL 1e-8, DELT 0.25, from NS 33, 1500 iterations",
+    "ns": 65,
+    "ftol": 1e-08,
+    "iterations": 1500,
+    "converged": false,
+    "fsq": [
+     1.2196292863348219e-08,
+     2.365162048639535e-09,
+     9.571119789812362e-10
+    ],
+    "betatotal": 0.028929423284844866,
+    "iota_axis_vmex": 0.6002742257971518,
+    "iota_edge_vmex": 0.5792422412863022,
+    "wout_sha256": "b2e513a40b7316ce6c5f54468bea0971f56b724085c0facf2e53262f54d35dd5",
+    "axis_offset_max_over_a": 0.18761391593481824,
+    "lcfs_shape_rms_over_a": 0.23751235446473112,
+    "tangential_jump_max_over_B": 0.13929720229138173,
+    "iota_near_axis_lab": 0.41688758761555506,
+    "iota_vmex_lab": 0.6002742257971518
+   },
+   {
+    "attempt": "NS 65, FTOL 1e-8, DELT 0.25, continued",
+    "ns": 65,
+    "ftol": 1e-08,
+    "iterations": 1238,
+    "converged": true,
+    "fsq": [
+     9.95494997540533e-09,
+     2.3160840702586075e-09,
+     1.0517746357110426e-09
+    ],
+    "betatotal": 0.028940238926095246,
+    "iota_axis_vmex": 0.6173465342928621,
+    "iota_edge_vmex": 0.5833056865800107,
+    "wout_sha256": "bde1496c9d0615b26ef1ec543bdd1da89cd4cc9e784b1a41615b62b653706b47",
+    "axis_offset_max_over_a": 0.18741727150330387,
+    "lcfs_shape_rms_over_a": 0.24970511879093696,
+    "tangential_jump_max_over_B": 0.14225112129807727,
+    "iota_near_axis_lab": 0.41688758761555506,
+    "iota_vmex_lab": 0.6173465342928621
+   },
+   {
+    "attempt": "NS 65, FTOL 1e-9, DELT 0.25, from the NS 65 FTOL 1e-8 state",
+    "ns": 65,
+    "ftol": 1e-09,
+    "iterations": 1800,
+    "converged": false,
+    "fsq": [
+     1.815412275223957e-08,
+     4.340514061096415e-09,
+     2.5458084712556924e-09
+    ],
+    "betatotal": 0.02899998009674935,
+    "iota_axis_vmex": 0.6729889358222363,
+    "iota_edge_vmex": 0.5998255748221223,
+    "wout_sha256": "d8cb741c34f291228e62ac07ecf0044e00059d2a3a01a8577e63a0b0f3e56383",
+    "axis_offset_max_over_a": 0.1898608367285472,
+    "lcfs_shape_rms_over_a": 0.29052851590471956,
+    "tangential_jump_max_over_B": 0.15956394844520422,
+    "iota_near_axis_lab": 0.41688758761555506,
+    "iota_vmex_lab": 0.6729889358222363
+   }
+  ]
+ }
+}

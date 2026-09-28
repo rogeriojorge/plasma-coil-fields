@@ -32,6 +32,7 @@ from 28.6% to 0.62% of |B| (RMS from 15.3% to 0.059%).*
 [4 Vacuum limit](#4-the-vacuum-limit) ·
 [5 Pressure response](#5-fixed-coil-pressure-response-of-the-magnetic-axis) ·
 [6 Fractional bootstrap](#6-fractional-bootstrap-current-near-the-axis) ·
+[7 QH, hybrid, single stage](#7-qh-hybrid-and-single-stage-examples) ·
 [Status](#status) · [Reproduce](#reproducing-the-results) · [Layout](#repository-layout)
 
 ## 1. The plasma field and the coil target
@@ -213,6 +214,56 @@ Hamiltonian recovers ι-coefficient 0.4 with error ∝ ε_b (9.4×10⁻⁵ and
 1.9×10⁻⁵ at ε_b = 5×10⁻⁴). This verifies the reduced transverse problem. It is
 not a full MHD equilibrium or a kinetic closure.*
 
+## 7. QH, hybrid and single-stage examples
+
+Three further designs, run with the drivers in `drivers/` and VMEX main
+`204c8a9c` (0.11.4). All numbers are in [`examples_results.json`](examples_results.json),
+written by `collect_examples.py` from the run directories (WOUT files are
+not tracked; their sha256 is recorded there). Coil metrics are evaluated at
+240 points per coil. Free-boundary equilibria use the direct coil field.
+
+| | QH (nfp 4, a = 35 mm, p₂ = −1.76×10⁶ Pa/m²) | Hybrid (nfp 2, a = 40 mm, I₂ = 0.4 T/m, p₂ = −6×10⁵ Pa/m²) |
+|---|---|---|
+| coils − target on axis: field / B₀, gradient R₀/B₀, Hessian R₀²/B₀ | 5.1×10⁻⁴ / 1.7×10⁻³ / 2.7×10⁻² (target 39) | 7.3×10⁻⁴ / 3.5×10⁻⁴ / 5.4×10⁻³ (target 27) |
+| B·n/\|B\| on r = a, max / RMS | 4.19% / 0.55% | 1.05% / 0.16% |
+| coil length max, curvature max | 5.00 m, 13.1 m⁻¹ (target 12) | 4.00 m, 13.8 m⁻¹ (target 12) |
+| β (VMEX, a_b = a) | 2.7×10⁻³ | 1.2×10⁻³ |
+| ι lab, VMEX / near axis (a_b = a) | 1.118 / 1.144 | −0.710 / −0.713 |
+| axis offset max / a_b, at a_b = a, 1.25 a, 1.5 a | 0.7%, 2.0%, 3.2% | 5.9%, 26% , – |
+| translated LCFS shape RMS / a_b, same | 5.3%, 9.2%, 13% | 3.2%, 8.3%, – |
+| tangential interface jump max / \|B\|, same | 1.2%, 1.7%, 3.2% | 1.3%, 1.3%, – |
+
+At a_b = a and 1.25 a the ladder NS 17/33/65 with FTOL 10⁻⁸/10⁻⁹/10⁻¹⁰ converged.
+QH at 1.5 a converged only with NS ≤ 33, FTOL 10⁻⁹ and DELT 0.25; at NS 65 the
+residual stalls near 10⁻⁶ at FTOL 10⁻¹⁰ and 10⁻⁹ alike. The hybrid at 1.5 a
+reaches 3–5×10⁻⁹ and oscillates (NS 65 and NS 33, FTOL 10⁻⁹). Neither design
+has a converged solve at 2 a (residuals 10⁻⁷–10⁻⁵ in three settings each).
+The QH coils are a poor engineering result: the fit trades the boundary for
+the axis Hessian as it continues (max B·n/|B| 1.3% at 450 evaluations, 4.2% at 2000),
+and the coils of both designs are long and tangled (`figures/examples/*_coils_and_normal_field.png`); their curvature exceeds the 12 m⁻¹ target.
+
+![Axis offset, boundary shape and transform against boundary radius](figures/examples/qh_hybrid_boundary_scan.png)
+
+*Figure 11. Converged free-boundary equilibria of the QH and hybrid coils against the boundary radius.*
+
+**Single stage (nfp 2, a = 0.1 m, near-axis ⟨β⟩ = μ₀p₀/B₀² = 3.00%).** The
+free-boundary ladder converged at NS 17, 33 and 65 with FTOL 10⁻⁸ (DELT 0.25 for
+NS ≥ 33); FTOL 10⁻⁹ failed at NS 33 (floor ~1×10⁻⁸) and NS 65 (1.8×10⁻⁸ with
+a drifting axis transform). VMEX betatotal is 2.89–2.90%. The design fails its own
+requirements and is not publishable as a working example:
+
+- one coil per half period has a kink between its 60 optimization quadrature points: its
+  maximum curvature is 9.8, 102, 1558 and 7778 m⁻¹ at 60, 120, 240 and 480 points (the other coils ≤ 8.1 m⁻¹);
+  length 5.87 m (limit 5), coil–coil 0.098 m (limit 0.1), coil–plasma 0.197 m (limit 0.2);
+- B·n/|B| on r = a: max 7.1%, RMS 1.3%;
+- axis offset 19% of a, translated LCFS shape discrepancy 21–25% of a, tangential jump up to 14% of |B|;
+- on-axis ι: 0.417 near axis, VMEX 0.556 / 0.573 / 0.617 at NS 17 / 33 / 65, not resolution-converged;
+- quasisymmetry measure (RMS of B₂₀ − ⟨B₂₀⟩, units B₀/R₀²) 0.016; Mercier D_Merc r² = −2.35 (unstable).
+
+![Single-stage transform against radial resolution](figures/examples/single_stage_iota_ladder.png)
+
+*Figure 12. On-axis transform of the single-stage free-boundary equilibria against NS.*
+
 ## Status
 
 | Result | State |
@@ -222,8 +273,8 @@ not a full MHD equilibrium or a kinetic closure.*
 | Vacuum limit | done; the 5–10% VMEC-type transform gap is unexplained |
 | First-order pressure response (theory, source, operator) | verified independently of MHD solvers |
 | Fixed-coil pressure derivative from free-boundary equilibria | **unresolved**: solver path-dependent; vacuum-axis bias ≥ signal |
-| QH (a = 35 mm) and stellarator–tokamak hybrid | optimizations checkpointed at 450/2000 and 600/2000 evaluations |
-| Single-stage 3% β design (a = 0.1 m) | NS 17 free boundary converged (β 2.89%, ι 0.556); NS 33 open |
+| QH (a = 35 mm) and stellarator–tokamak hybrid | fits finished (2000 evaluations); free boundary converged at a_b = a and 1.25 a (QH also 1.5 a at NS 33); no converged solve at 2 a ([Sec. 7](#7-qh-hybrid-and-single-stage-examples)) |
+| Single-stage 3% β design (a = 0.1 m) | free boundary converged to NS 65 at FTOL 10⁻⁸ only; **design not usable**: coil kink (curvature diverges with quadrature), axis offset 19% a, ι 0.62 vs 0.42 |
 | Matched design and end-to-end timing comparison | not started; needs a resolved pressure derivative |
 
 ## Reproducing the results
@@ -235,7 +286,7 @@ drivers, compact outputs (hashes of every native WOUT) and figures.
 |---|---|---|
 | [ESSOS](https://github.com/uwplasma/ESSOS) | `plasma-coil` ([PR #70](https://github.com/uwplasma/ESSOS/pull/70)) | coils, Biot–Savart, `near_axis_coil_targets`, `near_axis_coil_residuals`, `pressure_axis_response` |
 | [pyQSC_JAX](https://github.com/uwplasma/pyQSC_JAX) | `refactor/pyqsc-jax-complete` ([PR #2](https://github.com/uwplasma/pyQSC_JAX/pull/2)) | near-axis equilibria and `pyqsc_jax.plasma` |
-| [VMEX](https://github.com/uwplasma/VMEX) | v0.11.2 (`926892ab`) | free-boundary equilibria |
+| [VMEX](https://github.com/uwplasma/VMEX) | v0.11.2 (`926892ab`); Sec. 7: 0.11.4 (`204c8a9c`) | free-boundary equilibria |
 | VMEC2000 (optional) | STELLOPT `ee175502` | independent free-boundary check |
 
 ```bash
@@ -268,6 +319,7 @@ runs are in `results.json` and the method is described in
 | `docs/figures/` | the README and paper figures (compressed PNG) |
 | `drivers/` | full optimization drivers (QA, QH, hybrid, single stage) and `nearaxis_finite_beta_helpers.py` (VMEX/MAKEGRID benchmarks, diagnostics, plots) |
 | `run.py`, `jobs.sh`, `*.jobs`, `segments*.sh`, `adopt.py` | run orchestration for the archived designs |
+| `collect_examples.py`, `examples_results.json`, `figures/examples/` | Sec. 7 results and figures |
 | `make_tables.py`, `make_figures.py`, `replot.py`, `results.json`, `tables.tex` | tables and figures of Secs. 2–4 |
 | `figures/` | full-resolution design figures, all cases |
 | `investigation/` | vacuum-transform investigation and single-stage records |

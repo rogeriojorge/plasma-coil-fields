@@ -423,8 +423,10 @@ class GuardedMgridField(vj.MgridField):
         return tuple(jnp.where(inside, value, jnp.nan) for value in values)
 
 
-jax.tree_util.register_dataclass(GuardedMgridField, data_fields=["br", "bp", "bz", "extcur"],
-                                 meta_fields=["rmin", "rmax", "zmin", "zmax", "nfp"])
+jax.tree_util.register_dataclass(
+    GuardedMgridField, data_fields=["br", "bp", "bz", "extcur"],
+    meta_fields=["rmin", "rmax", "zmin", "zmax", "nfp"]
+    + [f.name for f in dataclasses.fields(vj.MgridField) if f.name == "order"])  # VMEX >= 0.11.4
 
 
 def _cartesian(field_cyl, phi):
