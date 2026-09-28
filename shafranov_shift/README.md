@@ -1,5 +1,14 @@
 # Fixed-coil pressure response
 
+> **Resolved benchmark (September 2026):** [`results/pressure_benchmark/`](results/pressure_benchmark/README.md)
+> (`pressure_benchmark/pb.py`, `collect.py`). On the Sec. 6 QH coils (a_b = 35 mm, ι = 1.14)
+> VMEX continued to FTOL 1e-15 gives an axis displacement per unit β of 1.037 ± 0.022 times the
+> first-order theory, linear over β = 6.75×10⁻⁴–1.08×10⁻², restart-independent to ±0.3%, with a
+> vacuum-axis bias of 10–23 µm. The excess grows with a_b (1.017, 1.042, 1.061 at 25, 35, 45 mm)
+> and extrapolates to 0.96–1.00 at a_b → 0. The QA failure below is a force-tolerance and
+> stiffness limit: at the default FTOL 1e-10 the QH response is also only 0.73–0.77 of theory.
+> The text below is the earlier record.
+
 This folder contains the pressure-response operator, the fixed-coil vacuum gate
 and VMEX continuation driver, its focused tests, compact run summaries, and
 diagnostic figures for ESSOS PR #70. The full user-provided implementation
