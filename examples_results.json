@@ -1,0 +1,1916 @@
+{
+ "versions": {
+  "vmex": "204c8a9c (0.11.4, main)",
+  "essos": "7713e07a (plasma-coil)",
+  "pyqsc_jax": "6c7c7ea8",
+  "solvax": "0.25.0",
+  "note": "QH/hybrid fits resumed from checkpoints at 450 and 600 evaluations; single-stage coils and near-axis design unchanged (config hash in single_stage)"
+ },
+ "qh": {
+  "inputs": {
+   "rc": [
+    1.0,
+    0.17,
+    0.01804,
+    0.001409,
+    5.877e-05
+   ],
+   "zs": [
+    0.0,
+    0.1581,
+    0.0182,
+    0.001548,
+    7.772e-05
+   ],
+   "nfp": 4,
+   "etabar": 1.569,
+   "B2c": 0.1348,
+   "B0": 1.0,
+   "I2": 0.0,
+   "p2": -1760000.0,
+   "a": 0.035
+  },
+  "optimization": {
+   "evaluations": {
+    "fit": 2000,
+    "limits": 400
+   },
+   "cost": 0.00041285732912217735,
+   "message": "The maximum number of function evaluations is exceeded.",
+   "checkpoint_sha256": {
+    "qh5": "b9e8ea097f2f60521cb3111db883efc07f8506d51e1dc413d8924dbf4358833a",
+    "qh6": "a783c28b7f3b753932ddbc5cb9685e92d5bac98a092c0829d320ffa1b0148bde"
+   }
+  },
+  "axis_match": {
+   "field_rms_over_B0": 0.00033831744055232984,
+   "gradient_rms_R0_over_B0": 0.004277768420783764,
+   "hessian_rms_R0sq_over_B0": 0.2764909848366391,
+   "target_hessian_rms_R0sq_over_B0": 39.086627039479936
+  },
+  "boundary_normal_field": {
+   "a_m": 0.035,
+   "max_over_B": 0.006782966328250775,
+   "rms_over_B": 0.0016164333368598558
+  },
+  "coils": {
+   "points_per_coil": 480,
+   "max_length_m": 3.6259558172309085,
+   "max_curvature_per_m": 12.07545242511758,
+   "max_mean_squared_curvature_per_m2": 49.22797643297562,
+   "max_arclength_variation": 0.19446798629661113,
+   "min_coil_coil_distance_m": 0.04981023210063998,
+   "min_coil_plasma_distance_m": 0.130900830180905
+  },
+  "trajectory": [
+   {
+    "evaluations": 150,
+    "normal_max_over_B": 0.013171481974648186,
+    "normal_rms_over_B": 0.0053053163231515455,
+    "field_rms_over_B0": 0.007804017552916053,
+    "gradient_rms_R0_over_B0": 0.01106489904750654,
+    "hessian_rms_R0sq_over_B0": 0.6958041295745433,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.2052491308891535,
+     "max_curvature_per_m": 13.588391618127533,
+     "max_mean_squared_curvature_per_m2": 50.076293864199144,
+     "max_arclength_variation": 0.1939564772579679,
+     "min_coil_coil_distance_m": 0.04166704363007786,
+     "min_coil_plasma_distance_m": 0.1360066813522555
+    }
+   },
+   {
+    "evaluations": 300,
+    "normal_max_over_B": 0.009813011693829903,
+    "normal_rms_over_B": 0.0032892109564056347,
+    "field_rms_over_B0": 0.004259663262291864,
+    "gradient_rms_R0_over_B0": 0.008336958622525658,
+    "hessian_rms_R0sq_over_B0": 0.5377485053475678,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.2024562462018276,
+     "max_curvature_per_m": 12.631338121820042,
+     "max_mean_squared_curvature_per_m2": 50.03541779105518,
+     "max_arclength_variation": 0.19672794926379505,
+     "min_coil_coil_distance_m": 0.04206384515323585,
+     "min_coil_plasma_distance_m": 0.1343466316217611
+    }
+   },
+   {
+    "evaluations": 450,
+    "normal_max_over_B": 0.008413308404783236,
+    "normal_rms_over_B": 0.002478914952303194,
+    "field_rms_over_B0": 0.0027262828582423414,
+    "gradient_rms_R0_over_B0": 0.006795832390519461,
+    "hessian_rms_R0sq_over_B0": 0.44963217012300555,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.2731740998812504,
+     "max_curvature_per_m": 12.440187791431438,
+     "max_mean_squared_curvature_per_m2": 50.03661748942745,
+     "max_arclength_variation": 0.1981885419208456,
+     "min_coil_coil_distance_m": 0.04169791489321443,
+     "min_coil_plasma_distance_m": 0.1332982120676759
+    }
+   },
+   {
+    "evaluations": 600,
+    "normal_max_over_B": 0.008000014853053097,
+    "normal_rms_over_B": 0.002221553499842977,
+    "field_rms_over_B0": 0.002217611074512362,
+    "gradient_rms_R0_over_B0": 0.006026387563610352,
+    "hessian_rms_R0sq_over_B0": 0.40461210426196315,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.3492682159257687,
+     "max_curvature_per_m": 12.393433615884549,
+     "max_mean_squared_curvature_per_m2": 50.04220870406916,
+     "max_arclength_variation": 0.19883952070391758,
+     "min_coil_coil_distance_m": 0.041556607037944435,
+     "min_coil_plasma_distance_m": 0.13266547770098952
+    }
+   },
+   {
+    "evaluations": 750,
+    "normal_max_over_B": 0.00782318379940713,
+    "normal_rms_over_B": 0.0021139158532959028,
+    "field_rms_over_B0": 0.0020005300497407843,
+    "gradient_rms_R0_over_B0": 0.005468767464640852,
+    "hessian_rms_R0sq_over_B0": 0.37327821698214025,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.406043463481675,
+     "max_curvature_per_m": 12.360835912483605,
+     "max_mean_squared_curvature_per_m2": 50.03579495146397,
+     "max_arclength_variation": 0.19895340821542054,
+     "min_coil_coil_distance_m": 0.0415891734683298,
+     "min_coil_plasma_distance_m": 0.13220792993868938
+    }
+   },
+   {
+    "evaluations": 900,
+    "normal_max_over_B": 0.0077416313778175755,
+    "normal_rms_over_B": 0.0020779444143537587,
+    "field_rms_over_B0": 0.0019277227618207326,
+    "gradient_rms_R0_over_B0": 0.005062754060582157,
+    "hessian_rms_R0sq_over_B0": 0.3492723791343039,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.451600370798244,
+     "max_curvature_per_m": 12.352553912259292,
+     "max_mean_squared_curvature_per_m2": 50.03097303178635,
+     "max_arclength_variation": 0.19892164349819244,
+     "min_coil_coil_distance_m": 0.04162670887016648,
+     "min_coil_plasma_distance_m": 0.13187527804419624
+    }
+   },
+   {
+    "evaluations": 1050,
+    "normal_max_over_B": 0.007706884422851956,
+    "normal_rms_over_B": 0.002064402490215277,
+    "field_rms_over_B0": 0.001908923783850916,
+    "gradient_rms_R0_over_B0": 0.004727874044061154,
+    "hessian_rms_R0sq_over_B0": 0.33015637691732397,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.489195001733241,
+     "max_curvature_per_m": 12.345475967557057,
+     "max_mean_squared_curvature_per_m2": 50.01107710332425,
+     "max_arclength_variation": 0.19891246232288337,
+     "min_coil_coil_distance_m": 0.04164059304048058,
+     "min_coil_plasma_distance_m": 0.13162982048575866
+    }
+   },
+   {
+    "evaluations": 1200,
+    "normal_max_over_B": 0.007681448808576097,
+    "normal_rms_over_B": 0.002052689282821161,
+    "field_rms_over_B0": 0.0018932832040968565,
+    "gradient_rms_R0_over_B0": 0.004415957183587521,
+    "hessian_rms_R0sq_over_B0": 0.3125156547227715,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.526661727267526,
+     "max_curvature_per_m": 12.34284430193701,
+     "max_mean_squared_curvature_per_m2": 50.00713368394726,
+     "max_arclength_variation": 0.19888416518035898,
+     "min_coil_coil_distance_m": 0.041680566465506795,
+     "min_coil_plasma_distance_m": 0.13140126906214544
+    }
+   },
+   {
+    "evaluations": 1350,
+    "normal_max_over_B": 0.007717666169554858,
+    "normal_rms_over_B": 0.0020612114521438717,
+    "field_rms_over_B0": 0.001937755731970823,
+    "gradient_rms_R0_over_B0": 0.004002698266182678,
+    "hessian_rms_R0sq_over_B0": 0.2879672501887403,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.5793182414089015,
+     "max_curvature_per_m": 12.287004247168023,
+     "max_mean_squared_curvature_per_m2": 49.98995060376465,
+     "max_arclength_variation": 0.19885095889980306,
+     "min_coil_coil_distance_m": 0.041779492273815395,
+     "min_coil_plasma_distance_m": 0.13111076621051398
+    }
+   },
+   {
+    "evaluations": 1500,
+    "normal_max_over_B": 0.007713497956256094,
+    "normal_rms_over_B": 0.0020631897359129235,
+    "field_rms_over_B0": 0.0019508132165125555,
+    "gradient_rms_R0_over_B0": 0.003739852285339673,
+    "hessian_rms_R0sq_over_B0": 0.27212325413123234,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.6106099375305347,
+     "max_curvature_per_m": 12.281917804645683,
+     "max_mean_squared_curvature_per_m2": 49.982681348502545,
+     "max_arclength_variation": 0.1987960712019429,
+     "min_coil_coil_distance_m": 0.0419316252857593,
+     "min_coil_plasma_distance_m": 0.13087632214257153
+    }
+   },
+   {
+    "evaluations": 1600,
+    "normal_max_over_B": 0.007672515269924169,
+    "normal_rms_over_B": 0.0020360267202915315,
+    "field_rms_over_B0": 0.0018968516024267731,
+    "gradient_rms_R0_over_B0": 0.00359018617087623,
+    "hessian_rms_R0sq_over_B0": 0.26408237722846584,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.6258115823630055,
+     "max_curvature_per_m": 12.265803125069985,
+     "max_mean_squared_curvature_per_m2": 49.969868643611214,
+     "max_arclength_variation": 0.19877715966565027,
+     "min_coil_coil_distance_m": 0.0420374398969849,
+     "min_coil_plasma_distance_m": 0.130768561779186
+    }
+   },
+   {
+    "evaluations": 1750,
+    "normal_max_over_B": 0.007839950318449935,
+    "normal_rms_over_B": 0.002207068427280328,
+    "field_rms_over_B0": 0.0022731166843115154,
+    "gradient_rms_R0_over_B0": 0.00404666575136949,
+    "hessian_rms_R0sq_over_B0": 0.2696081740948545,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.623937894655679,
+     "max_curvature_per_m": 12.157855886222144,
+     "max_mean_squared_curvature_per_m2": 49.709811116632814,
+     "max_arclength_variation": 0.1977633885928091,
+     "min_coil_coil_distance_m": 0.04197023862328109,
+     "min_coil_plasma_distance_m": 0.13096713508135505
+    }
+   },
+   {
+    "evaluations": 1900,
+    "normal_max_over_B": 0.007860885032928252,
+    "normal_rms_over_B": 0.002185026974272309,
+    "field_rms_over_B0": 0.002240697821490059,
+    "gradient_rms_R0_over_B0": 0.0037154848507052595,
+    "hessian_rms_R0sq_over_B0": 0.2691003777083088,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.626494259409722,
+     "max_curvature_per_m": 12.06954391650566,
+     "max_mean_squared_curvature_per_m2": 49.42107540807435,
+     "max_arclength_variation": 0.19621165076855862,
+     "min_coil_coil_distance_m": 0.04190610410435702,
+     "min_coil_plasma_distance_m": 0.1310784643051554
+    }
+   },
+   {
+    "evaluations": 2000,
+    "normal_max_over_B": 0.007857579486355898,
+    "normal_rms_over_B": 0.0021956560932285163,
+    "field_rms_over_B0": 0.002253496334609596,
+    "gradient_rms_R0_over_B0": 0.0036605719516402684,
+    "hessian_rms_R0sq_over_B0": 0.26748478443322654,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.6274926553540774,
+     "max_curvature_per_m": 12.046733017192862,
+     "max_mean_squared_curvature_per_m2": 49.33234515292279,
+     "max_arclength_variation": 0.195190520438124,
+     "min_coil_coil_distance_m": 0.041893384028699916,
+     "min_coil_plasma_distance_m": 0.13103253568217077
+    }
+   },
+   {
+    "evaluations": 150,
+    "normal_max_over_B": 0.007369430296217801,
+    "normal_rms_over_B": 0.0016884666783432958,
+    "field_rms_over_B0": 0.0007583710409445959,
+    "gradient_rms_R0_over_B0": 0.006092508330583741,
+    "hessian_rms_R0sq_over_B0": 0.2920523662721277,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.62694917322454,
+     "max_curvature_per_m": 12.133201737760594,
+     "max_mean_squared_curvature_per_m2": 49.31450811032308,
+     "max_arclength_variation": 0.19501614969758263,
+     "min_coil_coil_distance_m": 0.04988895569900008,
+     "min_coil_plasma_distance_m": 0.13100331699857337
+    }
+   },
+   {
+    "evaluations": 300,
+    "normal_max_over_B": 0.006926254429781844,
+    "normal_rms_over_B": 0.001626154390153792,
+    "field_rms_over_B0": 0.0003380435084766279,
+    "gradient_rms_R0_over_B0": 0.004754340979547566,
+    "hessian_rms_R0sq_over_B0": 0.2824982775361305,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.6260041643964436,
+     "max_curvature_per_m": 12.109063170763568,
+     "max_mean_squared_curvature_per_m2": 49.2598556972176,
+     "max_arclength_variation": 0.1946627043700865,
+     "min_coil_coil_distance_m": 0.04985133887021578,
+     "min_coil_plasma_distance_m": 0.1309638385424568
+    }
+   },
+   {
+    "evaluations": 400,
+    "normal_max_over_B": 0.006782966328250775,
+    "normal_rms_over_B": 0.0016164333368598558,
+    "field_rms_over_B0": 0.00033831744055232984,
+    "gradient_rms_R0_over_B0": 0.004277768420783764,
+    "hessian_rms_R0sq_over_B0": 0.2764909848366391,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.6259558172309085,
+     "max_curvature_per_m": 12.07545242511758,
+     "max_mean_squared_curvature_per_m2": 49.22797643297562,
+     "max_arclength_variation": 0.19446798629661113,
+     "min_coil_coil_distance_m": 0.04981023210063998,
+     "min_coil_plasma_distance_m": 0.130900830180905
+    }
+   }
+  ],
+  "abandoned_runs": [
+   {
+    "run": "qh2",
+    "note": "limits 0.08/0.12 m, MSC 30, weight 1: replaced to make the limits near-hard",
+    "last": {
+     "evaluations": 440,
+     "normal_max_over_B": 0.00820828604389585,
+     "normal_rms_over_B": 0.0023409064214864363,
+     "field_rms_over_B0": 0.0028320679692293584,
+     "gradient_rms_R0_over_B0": 0.006032999634478028,
+     "hessian_rms_R0sq_over_B0": 0.3805770284042788,
+     "coils": {
+      "points_per_coil": 480,
+      "max_length_m": 3.1890467911512186,
+      "max_curvature_per_m": 12.442241324587238,
+      "max_mean_squared_curvature_per_m2": 29.69818240360735,
+      "max_arclength_variation": 0.185705576325476,
+      "min_coil_coil_distance_m": 0.0676207142002086,
+      "min_coil_plasma_distance_m": 0.12452687233450781
+     }
+    }
+   },
+   {
+    "run": "qh3",
+    "note": "limits 0.08/0.12 m, MSC 30, weight 100 from the start: fit stalled",
+    "last": {
+     "evaluations": 720,
+     "normal_max_over_B": 0.04434403962635751,
+     "normal_rms_over_B": 0.015748836667320923,
+     "field_rms_over_B0": 0.0338620269073353,
+     "gradient_rms_R0_over_B0": 0.0474436616284734,
+     "hessian_rms_R0sq_over_B0": 1.6959302112945995,
+     "coils": {
+      "points_per_coil": 480,
+      "max_length_m": 2.948228941229102,
+      "max_curvature_per_m": 12.027497812160744,
+      "max_mean_squared_curvature_per_m2": 29.700325441213305,
+      "max_arclength_variation": 0.14138732701041298,
+      "min_coil_coil_distance_m": 0.07810451184458007,
+      "min_coil_plasma_distance_m": 0.14621380935833111
+     }
+    }
+   },
+   {
+    "run": "qh4",
+    "note": "limits 0.05/0.10 m, MSC 50, weight 100 from the start: B.n rising as the fit continued",
+    "last": {
+     "evaluations": 480,
+     "normal_max_over_B": 0.010529694550237645,
+     "normal_rms_over_B": 0.0031175334825256323,
+     "field_rms_over_B0": 0.004660641374174301,
+     "gradient_rms_R0_over_B0": 0.013443478459734415,
+     "hessian_rms_R0sq_over_B0": 0.6326779154313127,
+     "coils": {
+      "points_per_coil": 480,
+      "max_length_m": 2.9848365783390536,
+      "max_curvature_per_m": 12.216739557384482,
+      "max_mean_squared_curvature_per_m2": 48.10792491122611,
+      "max_arclength_variation": 0.18301878986734627,
+      "min_coil_coil_distance_m": 0.044790982786591715,
+      "min_coil_plasma_distance_m": 0.13398679705015876
+     }
+    }
+   }
+  ],
+  "free_boundary": [
+   {
+    "run": "qh6_ab1",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.035,
+    "converged": true,
+    "final_fsq": [
+     9.42e-11,
+     9.91e-11,
+     7.24e-11
+    ],
+    "wout_sha256": "60351167471e0b8a24f3295aa4ffc37a69a3942c3e410df1cef5375a66cb1835",
+    "iterations": 399,
+    "betatotal": 0.002705351405195087,
+    "iota_vmex_lab": 1.1395716150762154,
+    "iota_near_axis_lab": 1.1441369511851474,
+    "axis_offset_max_over_ab": 0.00726840555023699,
+    "lcfs_shape_rms_over_ab": 0.005682688806826841,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.004227644326668706,
+     "0.25": 0.004017255049371737,
+     "0.5625": 0.004588859555780645,
+     "1": 0.005682688806826841
+    },
+    "tangential_jump_max_over_B": 0.006785251376263136,
+    "tangential_jump_rms_over_B": 0.0011710256807206728
+   },
+   {
+    "run": "qh6_ab1.25",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.043750000000000004,
+    "converged": true,
+    "final_fsq": [
+     9.97e-11,
+     9.73e-11,
+     5.18e-11
+    ],
+    "wout_sha256": "3da2ee8cca79337b8c0a50c015aa28043410da8b2be48b849cd5c4206da58e4d",
+    "iterations": 495,
+    "betatotal": 0.0042412839859293045,
+    "iota_vmex_lab": 1.1399862124162892,
+    "iota_near_axis_lab": 1.1441369511851474,
+    "axis_offset_max_over_ab": 0.019385085035855197,
+    "lcfs_shape_rms_over_ab": 0.00888649810996921,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.006287724678253469,
+     "0.25": 0.006312649365686639,
+     "0.5625": 0.0070490003128379905,
+     "1": 0.00888649810996921
+    },
+    "tangential_jump_max_over_B": 0.009183546295223137,
+    "tangential_jump_rms_over_B": 0.0015656870256042894
+   },
+   {
+    "run": "qh6_ab1.5",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.052500000000000005,
+    "converged": true,
+    "final_fsq": [
+     9.95e-11,
+     7.18e-11,
+     5.3e-11
+    ],
+    "wout_sha256": "2f5f3472029f1f3cfbf6240485ab8797f2831ebf171c4f5e3a1caa93a5fb4a2c",
+    "iterations": 686,
+    "betatotal": 0.006132930976565347,
+    "iota_vmex_lab": 1.1420802526995144,
+    "iota_near_axis_lab": 1.1441369511851474,
+    "axis_offset_max_over_ab": 0.03307908679522326,
+    "lcfs_shape_rms_over_ab": 0.014818150141100129,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.008298766274380292,
+     "0.25": 0.00884309196221252,
+     "0.5625": 0.010404866023349762,
+     "1": 0.014818150141100129
+    },
+    "tangential_jump_max_over_B": 0.010058225282261501,
+    "tangential_jump_rms_over_B": 0.0022641336411977067
+   },
+   {
+    "run": "qh6_ab2",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.07,
+    "converged": true,
+    "final_fsq": [
+     9.97e-11,
+     6.51e-11,
+     1.88e-11
+    ],
+    "wout_sha256": "a6ff09b462dc5bcbcc845108d9de4d8aa3e6e7ec2277b10a15b86a6e79fd47ee",
+    "iterations": 1510,
+    "betatotal": 0.011024040484720105,
+    "iota_vmex_lab": 1.1471551091300984,
+    "iota_near_axis_lab": 1.1441369511851474,
+    "axis_offset_max_over_ab": 0.05341983212427324,
+    "lcfs_shape_rms_over_ab": 0.06275856102041975,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.015173314487358112,
+     "0.25": 0.023611602582675764,
+     "0.5625": 0.03920031868365715,
+     "1": 0.06275856102041975
+    },
+    "tangential_jump_max_over_B": 0.016276985436630965,
+    "tangential_jump_rms_over_B": 0.0039818418030438145
+   }
+  ]
+ },
+ "hybrid": {
+  "inputs": {
+   "rc": [
+    1.0,
+    0.045
+   ],
+   "zs": [
+    0.0,
+    -0.045
+   ],
+   "nfp": 3,
+   "etabar": 0.9,
+   "B2c": 0.0,
+   "B0": 1.0,
+   "I2": 0.4,
+   "p2": -600000.0,
+   "a": 0.04
+  },
+  "optimization": {
+   "evaluations": {
+    "fit": 2000,
+    "limits": 400
+   },
+   "cost": 0.0001412086308424277,
+   "message": "The maximum number of function evaluations is exceeded.",
+   "checkpoint_sha256": {
+    "hybrid5": "b520c90003a23cadef6c2e6b8250be7b12ed6405e56dfe722edc73149dd468c1",
+    "hybrid6": "84e3d3b102b1e89a4089bedbf06d2a172d91740a6c763cff1b3399d9b89b2707"
+   }
+  },
+  "axis_match": {
+   "field_rms_over_B0": 0.0007215078261149374,
+   "gradient_rms_R0_over_B0": 0.002283759922628412,
+   "hessian_rms_R0sq_over_B0": 0.1593643885606465,
+   "target_hessian_rms_R0sq_over_B0": 26.83193411806469
+  },
+  "boundary_normal_field": {
+   "a_m": 0.04,
+   "max_over_B": 0.012882691738567452,
+   "rms_over_B": 0.002125805013322696
+  },
+  "coils": {
+   "points_per_coil": 480,
+   "max_length_m": 3.4860278447018334,
+   "max_curvature_per_m": 12.133513018864958,
+   "max_mean_squared_curvature_per_m2": 49.16248408741196,
+   "max_arclength_variation": 0.11576181743332774,
+   "min_coil_coil_distance_m": 0.04979181960753544,
+   "min_coil_plasma_distance_m": 0.09982438599826739
+  },
+  "trajectory": [
+   {
+    "evaluations": 150,
+    "normal_max_over_B": 0.034003434992478036,
+    "normal_rms_over_B": 0.01972793070039425,
+    "field_rms_over_B0": 0.027747331056847256,
+    "gradient_rms_R0_over_B0": 0.011124431200680025,
+    "hessian_rms_R0sq_over_B0": 0.5390565213114716,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.2527386277630117,
+     "max_curvature_per_m": 12.621322269793502,
+     "max_mean_squared_curvature_per_m2": 50.218383673147216,
+     "max_arclength_variation": 0.11111808493765472,
+     "min_coil_coil_distance_m": 0.041240543961100454,
+     "min_coil_plasma_distance_m": 0.09874776289215698
+    }
+   },
+   {
+    "evaluations": 300,
+    "normal_max_over_B": 0.02706404368889584,
+    "normal_rms_over_B": 0.014864148038192748,
+    "field_rms_over_B0": 0.020834083656052865,
+    "gradient_rms_R0_over_B0": 0.008608753299746528,
+    "hessian_rms_R0sq_over_B0": 0.4188591212648406,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.2922181886685387,
+     "max_curvature_per_m": 12.454121720938419,
+     "max_mean_squared_curvature_per_m2": 50.095911031945164,
+     "max_arclength_variation": 0.10850186483952456,
+     "min_coil_coil_distance_m": 0.04007662964275996,
+     "min_coil_plasma_distance_m": 0.0988327686556564
+    }
+   },
+   {
+    "evaluations": 450,
+    "normal_max_over_B": 0.02246837356393271,
+    "normal_rms_over_B": 0.011299947736140157,
+    "field_rms_over_B0": 0.015580636099956774,
+    "gradient_rms_R0_over_B0": 0.007148813217072402,
+    "hessian_rms_R0sq_over_B0": 0.3553811442239549,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.321467681607336,
+     "max_curvature_per_m": 12.287814521581389,
+     "max_mean_squared_curvature_per_m2": 50.05975681093805,
+     "max_arclength_variation": 0.10749803265615625,
+     "min_coil_coil_distance_m": 0.038876207894911106,
+     "min_coil_plasma_distance_m": 0.0988505477383066
+    }
+   },
+   {
+    "evaluations": 600,
+    "normal_max_over_B": 0.014340606666647751,
+    "normal_rms_over_B": 0.00380023206989922,
+    "field_rms_over_B0": 0.003971653160129467,
+    "gradient_rms_R0_over_B0": 0.004832732319438688,
+    "hessian_rms_R0sq_over_B0": 0.26060543888872106,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.378648146325008,
+     "max_curvature_per_m": 12.167080100935188,
+     "max_mean_squared_curvature_per_m2": 49.99475253389371,
+     "max_arclength_variation": 0.10689184540267176,
+     "min_coil_coil_distance_m": 0.03856778310581549,
+     "min_coil_plasma_distance_m": 0.0988615709516456
+    }
+   },
+   {
+    "evaluations": 750,
+    "normal_max_over_B": 0.012896171930311943,
+    "normal_rms_over_B": 0.0027025802535897794,
+    "field_rms_over_B0": 0.001816613480409157,
+    "gradient_rms_R0_over_B0": 0.0037901905811129487,
+    "hessian_rms_R0sq_over_B0": 0.22481090435952747,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4025825664377662,
+     "max_curvature_per_m": 12.17838627709129,
+     "max_mean_squared_curvature_per_m2": 49.969354825348425,
+     "max_arclength_variation": 0.10823314828055111,
+     "min_coil_coil_distance_m": 0.038863239647336206,
+     "min_coil_plasma_distance_m": 0.09878582830373676
+    }
+   },
+   {
+    "evaluations": 900,
+    "normal_max_over_B": 0.012568409803195712,
+    "normal_rms_over_B": 0.0024927613692231803,
+    "field_rms_over_B0": 0.0012901584944239,
+    "gradient_rms_R0_over_B0": 0.003337082464918563,
+    "hessian_rms_R0sq_over_B0": 0.20776721346627242,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.415134134201202,
+     "max_curvature_per_m": 12.197845488577473,
+     "max_mean_squared_curvature_per_m2": 49.95261653901509,
+     "max_arclength_variation": 0.10912688026089025,
+     "min_coil_coil_distance_m": 0.039057155374839204,
+     "min_coil_plasma_distance_m": 0.09872915603891767
+    }
+   },
+   {
+    "evaluations": 1050,
+    "normal_max_over_B": 0.012814245158153775,
+    "normal_rms_over_B": 0.002394528488532423,
+    "field_rms_over_B0": 0.0010169183772617506,
+    "gradient_rms_R0_over_B0": 0.0030269617750164493,
+    "hessian_rms_R0sq_over_B0": 0.1946367437880751,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4260233914630787,
+     "max_curvature_per_m": 12.203578659563513,
+     "max_mean_squared_curvature_per_m2": 49.93674390298696,
+     "max_arclength_variation": 0.11003683370124807,
+     "min_coil_coil_distance_m": 0.039232565199695674,
+     "min_coil_plasma_distance_m": 0.09868407530060821
+    }
+   },
+   {
+    "evaluations": 1200,
+    "normal_max_over_B": 0.013018177515954295,
+    "normal_rms_over_B": 0.0023205081849283797,
+    "field_rms_over_B0": 0.0008103591740567244,
+    "gradient_rms_R0_over_B0": 0.0027282450303712166,
+    "hessian_rms_R0sq_over_B0": 0.18032967536283176,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4395731352382066,
+     "max_curvature_per_m": 12.308290870766744,
+     "max_mean_squared_curvature_per_m2": 49.918663197064305,
+     "max_arclength_variation": 0.1111322967460147,
+     "min_coil_coil_distance_m": 0.03955634190401566,
+     "min_coil_plasma_distance_m": 0.09863112739268963
+    }
+   },
+   {
+    "evaluations": 1350,
+    "normal_max_over_B": 0.013238911751349598,
+    "normal_rms_over_B": 0.0022544684921638265,
+    "field_rms_over_B0": 0.0007147601193490692,
+    "gradient_rms_R0_over_B0": 0.0022024299185127235,
+    "hessian_rms_R0sq_over_B0": 0.15231495816355228,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4702869417297117,
+     "max_curvature_per_m": 12.535718511424287,
+     "max_mean_squared_curvature_per_m2": 49.87753718736128,
+     "max_arclength_variation": 0.11380199628185994,
+     "min_coil_coil_distance_m": 0.039512741384265554,
+     "min_coil_plasma_distance_m": 0.09837753924650511
+    }
+   },
+   {
+    "evaluations": 1500,
+    "normal_max_over_B": 0.013388504845322892,
+    "normal_rms_over_B": 0.002224275101988722,
+    "field_rms_over_B0": 0.000678148591035783,
+    "gradient_rms_R0_over_B0": 0.0019866508359023573,
+    "hessian_rms_R0sq_over_B0": 0.13974627890427557,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4834103251651665,
+     "max_curvature_per_m": 12.370801626069076,
+     "max_mean_squared_curvature_per_m2": 49.86178192518171,
+     "max_arclength_variation": 0.11541853275586263,
+     "min_coil_coil_distance_m": 0.0393441457351717,
+     "min_coil_plasma_distance_m": 0.09824969575914447
+    }
+   },
+   {
+    "evaluations": 1600,
+    "normal_max_over_B": 0.013449520060408119,
+    "normal_rms_over_B": 0.0022111098346568126,
+    "field_rms_over_B0": 0.0006546818936172344,
+    "gradient_rms_R0_over_B0": 0.001953076340493116,
+    "hessian_rms_R0sq_over_B0": 0.1375460298651146,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4855274968274905,
+     "max_curvature_per_m": 12.243605834366255,
+     "max_mean_squared_curvature_per_m2": 49.86095130135537,
+     "max_arclength_variation": 0.11569434060486374,
+     "min_coil_coil_distance_m": 0.03933298959570241,
+     "min_coil_plasma_distance_m": 0.09822937785393351
+    }
+   },
+   {
+    "evaluations": 1750,
+    "normal_max_over_B": 0.013369422364110442,
+    "normal_rms_over_B": 0.002196560166373936,
+    "field_rms_over_B0": 0.0006370830750927201,
+    "gradient_rms_R0_over_B0": 0.0022694077351919314,
+    "hessian_rms_R0sq_over_B0": 0.1433037417908846,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4856766606553893,
+     "max_curvature_per_m": 12.132959466103058,
+     "max_mean_squared_curvature_per_m2": 49.352471410531265,
+     "max_arclength_variation": 0.11570771166055369,
+     "min_coil_coil_distance_m": 0.03930608876419787,
+     "min_coil_plasma_distance_m": 0.09838480922222605
+    }
+   },
+   {
+    "evaluations": 1900,
+    "normal_max_over_B": 0.013370600631959424,
+    "normal_rms_over_B": 0.0022057270532423,
+    "field_rms_over_B0": 0.0006397423481886681,
+    "gradient_rms_R0_over_B0": 0.002121804592785469,
+    "hessian_rms_R0sq_over_B0": 0.1430537664873308,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4853919197883134,
+     "max_curvature_per_m": 12.098756458686948,
+     "max_mean_squared_curvature_per_m2": 49.25766752769223,
+     "max_arclength_variation": 0.11565137763036386,
+     "min_coil_coil_distance_m": 0.039369394606105994,
+     "min_coil_plasma_distance_m": 0.09834473968257669
+    }
+   },
+   {
+    "evaluations": 2000,
+    "normal_max_over_B": 0.013378349848436227,
+    "normal_rms_over_B": 0.0022044984191023423,
+    "field_rms_over_B0": 0.0006432162154255307,
+    "gradient_rms_R0_over_B0": 0.0020629741417769786,
+    "hessian_rms_R0sq_over_B0": 0.14287377284849584,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4834707019841447,
+     "max_curvature_per_m": 11.978506311293161,
+     "max_mean_squared_curvature_per_m2": 49.16980243692448,
+     "max_arclength_variation": 0.11555038818092334,
+     "min_coil_coil_distance_m": 0.0395542838338228,
+     "min_coil_plasma_distance_m": 0.09835606822097394
+    }
+   },
+   {
+    "evaluations": 150,
+    "normal_max_over_B": 0.012933438242099683,
+    "normal_rms_over_B": 0.0021271430304821335,
+    "field_rms_over_B0": 0.0007638946969373336,
+    "gradient_rms_R0_over_B0": 0.0023505654392328005,
+    "hessian_rms_R0sq_over_B0": 0.16155278893252892,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4854810086695935,
+     "max_curvature_per_m": 12.152269554786443,
+     "max_mean_squared_curvature_per_m2": 49.17981770996085,
+     "max_arclength_variation": 0.11556909984645371,
+     "min_coil_coil_distance_m": 0.049835984462291115,
+     "min_coil_plasma_distance_m": 0.0998238323032313
+    }
+   },
+   {
+    "evaluations": 300,
+    "normal_max_over_B": 0.012887708639670288,
+    "normal_rms_over_B": 0.002125539502485137,
+    "field_rms_over_B0": 0.000724608186893184,
+    "gradient_rms_R0_over_B0": 0.002284703676469401,
+    "hessian_rms_R0sq_over_B0": 0.15948702881561222,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.485963106289033,
+     "max_curvature_per_m": 12.136001528289492,
+     "max_mean_squared_curvature_per_m2": 49.16363600998667,
+     "max_arclength_variation": 0.11574442303718428,
+     "min_coil_coil_distance_m": 0.04979480935876863,
+     "min_coil_plasma_distance_m": 0.09982409033787716
+    }
+   },
+   {
+    "evaluations": 400,
+    "normal_max_over_B": 0.012882691738567452,
+    "normal_rms_over_B": 0.002125805013322696,
+    "field_rms_over_B0": 0.0007215078261149374,
+    "gradient_rms_R0_over_B0": 0.002283759922628412,
+    "hessian_rms_R0sq_over_B0": 0.1593643885606465,
+    "coils": {
+     "points_per_coil": 480,
+     "max_length_m": 3.4860278447018334,
+     "max_curvature_per_m": 12.133513018864958,
+     "max_mean_squared_curvature_per_m2": 49.16248408741196,
+     "max_arclength_variation": 0.11576181743332774,
+     "min_coil_coil_distance_m": 0.04979181960753544,
+     "min_coil_plasma_distance_m": 0.09982438599826739
+    }
+   }
+  ],
+  "abandoned_runs": [
+   {
+    "run": "hybrid2",
+    "note": "limits 0.08/0.12 m, MSC 30, weight 1: replaced to make the limits near-hard",
+    "last": {
+     "evaluations": 520,
+     "normal_max_over_B": 0.025001022595282724,
+     "normal_rms_over_B": 0.010628271261209075,
+     "field_rms_over_B0": 0.014601725436572097,
+     "gradient_rms_R0_over_B0": 0.00920237803747099,
+     "hessian_rms_R0sq_over_B0": 0.45322532737274257,
+     "coils": {
+      "points_per_coil": 480,
+      "max_length_m": 3.8294162704901717,
+      "max_curvature_per_m": 12.867544668319368,
+      "max_mean_squared_curvature_per_m2": 30.185228755371032,
+      "max_arclength_variation": 0.19771665551543963,
+      "min_coil_coil_distance_m": 0.07032785519559344,
+      "min_coil_plasma_distance_m": 0.10740268495666558
+     }
+    }
+   },
+   {
+    "run": "hybrid3",
+    "note": "limits 0.08/0.12 m, MSC 30, weight 100 from the start: fit stalled at B.n 12 %",
+    "last": {
+     "evaluations": 840,
+     "normal_max_over_B": 0.11611652627500099,
+     "normal_rms_over_B": 0.07344267203558422,
+     "field_rms_over_B0": 0.1048692734562181,
+     "gradient_rms_R0_over_B0": 0.04889628165224149,
+     "hessian_rms_R0sq_over_B0": 1.8246785192736577,
+     "coils": {
+      "points_per_coil": 480,
+      "max_length_m": 3.974874865770346,
+      "max_curvature_per_m": 12.15769058554741,
+      "max_mean_squared_curvature_per_m2": 29.91356935623773,
+      "max_arclength_variation": 0.18795366903158234,
+      "min_coil_coil_distance_m": 0.07669779877355547,
+      "min_coil_plasma_distance_m": 0.11894639544697506
+     }
+    }
+   },
+   {
+    "run": "hybrid4",
+    "note": "limits 0.05/0.10 m, MSC 50, weight 100 from the start: stalled at B.n 6 %",
+    "last": {
+     "evaluations": 600,
+     "normal_max_over_B": 0.05932972949286657,
+     "normal_rms_over_B": 0.036184226211746294,
+     "field_rms_over_B0": 0.051160048096041466,
+     "gradient_rms_R0_over_B0": 0.017533923502394987,
+     "hessian_rms_R0sq_over_B0": 0.6141249872060808,
+     "coils": {
+      "points_per_coil": 480,
+      "max_length_m": 3.5526553146379882,
+      "max_curvature_per_m": 12.146299679569717,
+      "max_mean_squared_curvature_per_m2": 49.59720961755787,
+      "max_arclength_variation": 0.07208388714691129,
+      "min_coil_coil_distance_m": 0.04575799483601195,
+      "min_coil_plasma_distance_m": 0.09923998995856437
+     }
+    }
+   }
+  ],
+  "free_boundary": [
+   {
+    "run": "hybrid6_ab1",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.04,
+    "converged": true,
+    "final_fsq": [
+     9.82e-11,
+     8.64e-11,
+     7.95e-11
+    ],
+    "wout_sha256": "1c8d234ff9e9f50223a7a049b023c5c64b36833a4fb36182a6e7874a5982f3a3",
+    "iterations": 486,
+    "betatotal": 0.0012139837871190113,
+    "iota_vmex_lab": -0.707817333142055,
+    "iota_near_axis_lab": -0.7131705737404128,
+    "axis_offset_max_over_ab": 0.0611459328576975,
+    "lcfs_shape_rms_over_ab": 0.03345006643160509,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.018097250932819026,
+     "0.25": 0.01934673866444256,
+     "0.5625": 0.024367617411850548,
+     "1": 0.03345006643160509
+    },
+    "tangential_jump_max_over_B": 0.008654460042443957,
+    "tangential_jump_rms_over_B": 0.0018738932030984022
+   },
+   {
+    "run": "hybrid6_ab1.25",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.05,
+    "converged": true,
+    "final_fsq": [
+     9.99e-11,
+     9.74e-11,
+     6.79e-11
+    ],
+    "wout_sha256": "c0c90e728954bc657d7d0859fd483939288d947c1217f9f6800652f36296643c",
+    "iterations": 1638,
+    "betatotal": 0.001932754248883749,
+    "iota_vmex_lab": -0.6630350334264876,
+    "iota_near_axis_lab": -0.7131705737404128,
+    "axis_offset_max_over_ab": 0.2866930167882404,
+    "lcfs_shape_rms_over_ab": 0.09231070614709225,
+    "shape_rms_over_flux_radius": {
+     "0.0625": 0.0672241062136534,
+     "0.25": 0.07164762673098482,
+     "0.5625": 0.07999483528277034,
+     "1": 0.09231070614709225
+    },
+    "tangential_jump_max_over_B": 0.01309312597421901,
+    "tangential_jump_rms_over_B": 0.0027336880761931227
+   },
+   {
+    "run": "hybrid6_ab1.5",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.06,
+    "converged": false,
+    "final_fsq": [
+     2.69e-06,
+     6.95e-06,
+     5.7e-07
+    ],
+    "wout_sha256": "c1f1179304f52df2e39c89dcff004a226094d84e1aaba0dce2a190563df543dd"
+   },
+   {
+    "run": "hybrid6_ab1.5_ns33",
+    "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+    "a_b_m": 0.06,
+    "converged": false,
+    "final_fsq": [
+     1.2e-08,
+     1.17e-08,
+     5.09e-09
+    ],
+    "wout_sha256": "49aeeb514d20e22d88f3c15bb21286e0cd140567ea4e02cb700b796d731dfd52"
+   },
+   {
+    "run": "hybrid6_ab2",
+    "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+    "a_b_m": 0.08,
+    "converged": false,
+    "final_fsq": [
+     2.47e-07,
+     2.38e-07,
+     6.17e-08
+    ],
+    "wout_sha256": "98a1bf9bfe6a5a9fb372a82cf9c4b8fec4dfb7d628ba3f5e82bf5bf23ae39ec2"
+   }
+  ]
+ },
+ "single_stage": {
+  "run": "single4",
+  "config_hash": "573895d991f9b571",
+  "near_axis_beta": 0.0299920998724265,
+  "iota_near_axis": -0.47388164620206774,
+  "quasisymmetry_B20_variation_R0sq_over_B0": 0.016499626698116998,
+  "DMerc_times_r2": -0.9728096561046179,
+  "DWell_times_r2": 1.1732228951359398,
+  "r_singularity_over_a": 1.507392588525105,
+  "max_elongation": 6.000324060518055,
+  "requirements": {
+   "<beta> = 3 %": true,
+   "r_singularity >= 1.5 a": true,
+   "elongation <= 6.0": true,
+   "|iota| >= 0.4": true,
+   "Mercier DMerc r^2 >= 0 (not targeted)": false,
+   "magnetic well DWell r^2 >= 1.0": true,
+   "coil length <= 5.0 m": true,
+   "coil curvature <= 6.0 1/m": true,
+   "coil-coil distance >= 0.1 m": true,
+   "coil-plasma distance >= 0.2 m": false
+  },
+  "coils": {
+   "points_per_coil": 480,
+   "max_length_m": 4.910516733762487,
+   "max_curvature_per_m": 5.9958727611875835,
+   "max_mean_squared_curvature_per_m2": 9.639424953092366,
+   "max_arclength_variation": 0.18645337604658807,
+   "min_coil_coil_distance_m": 0.08286414358871246,
+   "min_coil_plasma_distance_m": 0.1974410815552121
+  },
+  "boundary_normal_field": {
+   "a_m": 0.1,
+   "max_over_B": 0.21732410568895383,
+   "rms_over_B": 0.029524186934581465
+  },
+  "axis_match_T": {
+   "field_rms_T": 0.0025443945168787214,
+   "gradient_rms_T_per_m": 0.015215645428916636,
+   "hessian_rms_T_per_m2": 0.36817414144676347,
+   "target_hessian_rms_T_per_m2": 16.36663786925681,
+   "plasma_hessian_rms_T_per_m2": 39.57466415135999,
+   "plasma_field_rms_T": 0.04161467724786109,
+   "plasma_gradient_rms_T_per_m": 0.08246995542664169,
+   "total_gradient_rms_T_per_m": 1.9944338174445182,
+   "field_rms_over_B0": 0.0025443945168787214,
+   "gradient_rms_R0_over_B0": 0.01792547432389417,
+   "hessian_rms_R0sq_over_B0": 0.5109916891113803,
+   "target_hessian_rms_R0sq_over_B0": 22.715381088476327,
+   "plasma_hessian_rms_R0sq_over_B0": 54.92597715106806,
+   "plasma_field_rms_over_B0": 0.04161467724786109,
+   "plasma_gradient_rms_R0_over_B0": 0.09715743412918233,
+   "total_gradient_rms_R0_over_B0": 2.349632314470504,
+   "B0_T": 1.0,
+   "R0_m": 1.178094902883819
+  },
+  "free_boundary": [
+   {
+    "run": "ns17_f10",
+    "attempt": "NS 17, FTOL 1e-10, DELT 0.5, 3000 iterations from scratch",
+    "ns": 17,
+    "ftol": 1e-10,
+    "iterations": 3000,
+    "converged": false,
+    "fsq": [
+     1.4574513722251592e-10,
+     2.5634687352784457e-11,
+     2.2647207454910816e-11
+    ],
+    "betatotal": 0.02912559697158423,
+    "iota_axis_vmex": 0.4889629735020928,
+    "iota_edge_vmex": 0.6183432407183127,
+    "wout_sha256": "6ae8bfae810e04ca38e81b602840dd6a87380af3f1323982e6a7c08664787f31",
+    "axis_offset_max_over_a": 0.024133469464663215,
+    "lcfs_shape_rms_over_a": 0.17324517892643546,
+    "tangential_jump_max_over_B": 0.12959425514452713,
+    "iota_near_axis_lab": 0.47388164620322537,
+    "iota_vmex_lab": 0.4889629735020928
+   },
+   {
+    "run": "ns17_f10_b",
+    "attempt": "NS 17, FTOL 1e-10, DELT 0.5, continued",
+    "ns": 17,
+    "ftol": 1e-10,
+    "iterations": 1627,
+    "converged": true,
+    "fsq": [
+     9.98482640188836e-11,
+     1.2998856278742341e-11,
+     2.1393717046284222e-11
+    ],
+    "betatotal": 0.029123719369611938,
+    "iota_axis_vmex": 0.4996463189901641,
+    "iota_edge_vmex": 0.6233533955230701,
+    "wout_sha256": "90a1d028d529e3504f541192ad1d5a3d82858fbfb09c89bd5f190b0418fb2737",
+    "axis_offset_max_over_a": 0.026101940992451667,
+    "lcfs_shape_rms_over_a": 0.18419633458081097,
+    "tangential_jump_max_over_B": 0.1298993747540082,
+    "iota_near_axis_lab": 0.47388164620322537,
+    "iota_vmex_lab": 0.4996463189901641
+   },
+   {
+    "run": "ns33_f10",
+    "attempt": "NS 33, FTOL 1e-10, DELT 0.5, from NS 17",
+    "ns": 33,
+    "ftol": 1e-10,
+    "iterations": 3000,
+    "converged": false,
+    "fsq": [
+     5.822962039291877e-10,
+     5.822681658786635e-11,
+     4.2463612718118386e-11
+    ],
+    "betatotal": 0.029123725257766974,
+    "iota_axis_vmex": 0.4932687263878431,
+    "iota_edge_vmex": 0.6449269473796606,
+    "wout_sha256": "4c13c8f53add978bd3afef76ab4a30ed16f715d007b01acedd3acf0304aa5d66",
+    "axis_offset_max_over_a": 0.021921430313608006,
+    "lcfs_shape_rms_over_a": 0.22591546570832594,
+    "tangential_jump_max_over_B": 0.1354753142907763,
+    "iota_near_axis_lab": 0.47388164620322537,
+    "iota_vmex_lab": 0.4932687263878431
+   },
+   {
+    "run": "ns33_f10_b",
+    "attempt": "NS 33, FTOL 1e-10, DELT 0.5, continued (residual rises)",
+    "ns": 33,
+    "ftol": 1e-10,
+    "iterations": 3500,
+    "converged": false,
+    "fsq": [
+     1.481814303086979e-09,
+     2.0875134448955426e-10,
+     8.650263670105699e-11
+    ],
+    "betatotal": 0.029140316500150962,
+    "iota_axis_vmex": 0.5586673679731977,
+    "iota_edge_vmex": 0.6573522911537157,
+    "wout_sha256": "52f38bd8cd9f95442ba6831f6ac3909a039df47c0d3157ff1f0349cbf536e5ca",
+    "axis_offset_max_over_a": 0.04472624045266262,
+    "lcfs_shape_rms_over_a": 0.2784219152619538,
+    "tangential_jump_max_over_B": 0.14552978510186226,
+    "iota_near_axis_lab": 0.47388164620322537,
+    "iota_vmex_lab": 0.5586673679731977
+   },
+   {
+    "run": "ns33_f9",
+    "attempt": "NS 33, FTOL 1e-9, DELT 0.5, from NS 17",
+    "ns": 33,
+    "ftol": 1e-09,
+    "iterations": 1151,
+    "converged": true,
+    "fsq": [
+     9.981941050506758e-10,
+     1.892212985633668e-10,
+     3.6853340249290946e-11
+    ],
+    "betatotal": 0.029129077481098064,
+    "iota_axis_vmex": 0.4750113631062302,
+    "iota_edge_vmex": 0.6296289087975759,
+    "wout_sha256": "a568e2ef4bf66bbf063e9d59cb48904398ee437795253fe40ca19bdbc36a25c5",
+    "axis_offset_max_over_a": 0.01609647291253566,
+    "lcfs_shape_rms_over_a": 0.1915294695751534,
+    "tangential_jump_max_over_B": 0.13131185211163304,
+    "iota_near_axis_lab": 0.47388164620322537,
+    "iota_vmex_lab": 0.4750113631062302
+   },
+   {
+    "run": "ns65_f9",
+    "attempt": "NS 65, FTOL 1e-9, DELT 0.5, from NS 33",
+    "ns": 65,
+    "ftol": 1e-09,
+    "iterations": 1425,
+    "converged": true,
+    "fsq": [
+     9.988786396985461e-10,
+     1.8193742847269888e-10,
+     2.8575814442681606e-11
+    ],
+    "betatotal": 0.029130829845790747,
+    "iota_axis_vmex": 0.45689260624499334,
+    "iota_edge_vmex": 0.6338162853537321,
+    "wout_sha256": "39fa1eccca45e74738aa2e5b9c5e6e633b47fdd8138d27b890d42ffb5809d310",
+    "axis_offset_max_over_a": 0.01273851136028069,
+    "lcfs_shape_rms_over_a": 0.19832809799094223,
+    "tangential_jump_max_over_B": 0.13492749468961918,
+    "iota_near_axis_lab": 0.47388164620322537,
+    "iota_vmex_lab": 0.45689260624499334
+   },
+   {
+    "run": "ns65_f10",
+    "attempt": "NS 65, FTOL 1e-10, DELT 0.5, from the NS 65 FTOL 1e-9 state",
+    "ns": 65,
+    "ftol": 1e-10,
+    "iterations": 2000,
+    "converged": false,
+    "fsq": [
+     5.185510264325463e-10,
+     5.917461868850336e-11,
+     2.358595284367939e-11
+    ],
+    "betatotal": 0.0291283747328189,
+    "iota_axis_vmex": 0.46294853072152464,
+    "iota_edge_vmex": 0.640584529698327,
+    "wout_sha256": "3f40b6da510ba15492286181249ea91879aecb52988aafbcf5871ccf3781fc0c",
+    "axis_offset_max_over_a": 0.014258201531211842,
+    "lcfs_shape_rms_over_a": 0.21245670862819285,
+    "tangential_jump_max_over_B": 0.13643258421015533,
+    "iota_near_axis_lab": 0.47388164620322537,
+    "iota_vmex_lab": 0.46294853072152464
+   }
+  ],
+  "mercier_scan": [
+   {
+    "label": "driver: weak Mercier term, well margin",
+    "a_m": 0.1,
+    "mercier_weight": 0.01,
+    "well_weight": 100.0,
+    "max_elongation_cap": 6.0,
+    "extra_axis_harmonics": 4,
+    "beta": 0.029993880488549632,
+    "iota": -0.5043961321035045,
+    "B20_variation_R0sq_over_B0": 0.024790471093911748,
+    "DMerc_times_r2": -0.8142391595476572,
+    "DWell_times_r2": 1.0756335990348294,
+    "r_singularity_over_a": 1.5045504153495342,
+    "max_elongation": 5.996653374751036,
+    "boundary_reach_from_axis_m": 0.30035622937224654,
+    "cost": 0.003666600055563927
+   },
+   {
+    "label": "no Mercier term, no well margin",
+    "a_m": 0.1,
+    "mercier_weight": 0.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 6.0,
+    "extra_axis_harmonics": 4,
+    "beta": 0.02999999891810718,
+    "iota": -0.5134220276701891,
+    "B20_variation_R0sq_over_B0": 0.0003686724899782945,
+    "DMerc_times_r2": -1.7953648649065772,
+    "DWell_times_r2": 0.7957731572177735,
+    "r_singularity_over_a": 1.7229393642149706,
+    "max_elongation": 4.972773218994821,
+    "boundary_reach_from_axis_m": 0.25963553773232156,
+    "cost": 1.8341263144289198e-06
+   },
+   {
+    "label": "hard Mercier hinge",
+    "a_m": 0.1,
+    "mercier_weight": 100.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 6.0,
+    "extra_axis_harmonics": 4,
+    "beta": 0.02980180765006734,
+    "iota": -0.3997153334102207,
+    "B20_variation_R0sq_over_B0": 0.47140716002618177,
+    "DMerc_times_r2": -0.0019436893371245212,
+    "DWell_times_r2": 2.0547280002942148,
+    "r_singularity_over_a": 1.4515976725159148,
+    "max_elongation": 6.299844673384181,
+    "boundary_reach_from_axis_m": 0.3611821661133338,
+    "cost": 0.1393893778666223
+   },
+   {
+    "label": "hard Mercier hinge",
+    "a_m": 0.1,
+    "mercier_weight": 100.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 6.0,
+    "extra_axis_harmonics": 2,
+    "beta": 0.02980212980793913,
+    "iota": -0.3993849811797791,
+    "B20_variation_R0sq_over_B0": 0.4997720331333628,
+    "DMerc_times_r2": -0.0021085351672902597,
+    "DWell_times_r2": 2.071631313530203,
+    "r_singularity_over_a": 1.459188087351227,
+    "max_elongation": 6.264045736661732,
+    "boundary_reach_from_axis_m": 0.34436047176354667,
+    "cost": 0.15832394025544194
+   },
+   {
+    "label": "hard Mercier hinge, elongation cap 8",
+    "a_m": 0.1,
+    "mercier_weight": 100.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 8.0,
+    "extra_axis_harmonics": 4,
+    "beta": 0.02996791112171383,
+    "iota": -0.4051754860056659,
+    "B20_variation_R0sq_over_B0": 0.1603023426752186,
+    "DMerc_times_r2": 0.005710729938074088,
+    "DWell_times_r2": 1.576341719050525,
+    "r_singularity_over_a": 1.4891874545162649,
+    "max_elongation": 8.112190507549247,
+    "boundary_reach_from_axis_m": 0.38095648961350037,
+    "cost": 0.011692135120838651
+   },
+   {
+    "label": "hard Mercier hinge, elongation cap 8",
+    "a_m": 0.12,
+    "mercier_weight": 100.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 8.0,
+    "extra_axis_harmonics": 4,
+    "beta": 0.029997206756549,
+    "iota": -0.413758044651785,
+    "B20_variation_R0sq_over_B0": 0.026924571854041623,
+    "DMerc_times_r2": 0.015627332789018844,
+    "DWell_times_r2": 0.8256012176865756,
+    "r_singularity_over_a": 1.4975626369850454,
+    "max_elongation": 7.981643466423723,
+    "boundary_reach_from_axis_m": 0.46939760251379664,
+    "cost": 0.00044582453374180145
+   },
+   {
+    "label": "hard Mercier hinge",
+    "a_m": 0.15,
+    "mercier_weight": 100.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 6.0,
+    "extra_axis_harmonics": 4,
+    "beta": 0.029996106166695225,
+    "iota": -0.4079788031519346,
+    "B20_variation_R0sq_over_B0": 0.03707743742069747,
+    "DMerc_times_r2": 0.009732833742782387,
+    "DWell_times_r2": 0.4663448153892136,
+    "r_singularity_over_a": 1.5081095124954877,
+    "max_elongation": 6.011025950778375,
+    "boundary_reach_from_axis_m": 0.5370758185250356,
+    "cost": 0.0009002397622376795
+   },
+   {
+    "label": "hard Mercier hinge",
+    "a_m": 0.15,
+    "mercier_weight": 100.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 6.0,
+    "extra_axis_harmonics": 2,
+    "beta": 0.029988205650120708,
+    "iota": -0.4045172912607866,
+    "B20_variation_R0sq_over_B0": 0.08605750455754535,
+    "DMerc_times_r2": 0.004182987947204397,
+    "DWell_times_r2": 0.47285691966679066,
+    "r_singularity_over_a": 1.5010795858163195,
+    "max_elongation": 6.046955524202005,
+    "boundary_reach_from_axis_m": 0.5162970774187778,
+    "cost": 0.004358765859700207
+   },
+   {
+    "label": "hard Mercier hinge",
+    "a_m": 0.2,
+    "mercier_weight": 100.0,
+    "well_weight": 0.0,
+    "max_elongation_cap": 6.0,
+    "extra_axis_harmonics": 2,
+    "beta": 0.02999978037869889,
+    "iota": -0.4160711686515136,
+    "B20_variation_R0sq_over_B0": 0.00425655388696855,
+    "DMerc_times_r2": 0.020584646729297607,
+    "DWell_times_r2": 0.17405415433554963,
+    "r_singularity_over_a": 1.5200885394128345,
+    "max_elongation": 5.925482323986755,
+    "boundary_reach_from_axis_m": 0.700258691948123,
+    "cost": 0.00012490918239427672
+   }
+  ],
+  "abandoned_runs": [
+   {
+    "run": "single2_attempt_d020_r050",
+    "note": "a = 0.15 m, hard Mercier hinge, coil-plasma 0.20 m from 0.5 m circles: coil stage ran to 52 m coils; stopped in stage 2"
+   },
+   {
+    "run": "single3_attempt_a015",
+    "note": "a = 0.15 m, hard Mercier hinge, coil-plasma 0.15 m from 0.72 m circles: finished, but the r = a surface folds (normals), B.n not evaluable, DMerc r^2 -0.0015 and B20 variation 0.13 after the coil-limit stage"
+   }
+  ]
+ },
+ "first_pass": {
+  "qh": {
+   "inputs": {
+    "rc": [
+     1.0,
+     0.17,
+     0.01804,
+     0.001409,
+     5.877e-05
+    ],
+    "zs": [
+     0.0,
+     0.1581,
+     0.0182,
+     0.001548,
+     7.772e-05
+    ],
+    "nfp": 4,
+    "etabar": 1.569,
+    "B2c": 0.1348,
+    "B0": 1.0,
+    "I2": 0.0,
+    "p2": -1760000.0,
+    "a": 0.035
+   },
+   "optimization": {
+    "evaluations": 2000,
+    "cost": 5.078727346250965e-06,
+    "message": "The maximum number of function evaluations is exceeded.",
+    "checkpoint_sha256": "e9250cf9c495025daa1fe2c3f3fcb89b6e64335ba9c7cfd8783971e91b19853d"
+   },
+   "axis_match": {
+    "field_rms_over_B0": 0.000507229504399137,
+    "gradient_rms_R0_over_B0": 0.0016651582858411365,
+    "hessian_rms_R0sq_over_B0": 0.026548952120222177,
+    "target_hessian_rms_R0sq_over_B0": 39.086627039479936
+   },
+   "boundary_normal_field": {
+    "a_m": 0.035,
+    "max_over_B": 0.04191366004222356,
+    "rms_over_B": 0.005490621116408664
+   },
+   "coils": {
+    "points_per_coil": 240,
+    "max_length_m": 5.000014771030185,
+    "max_curvature_per_m": 13.080883265654434
+   },
+   "free_boundary": [
+    {
+     "run": "qh_ab1",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.035,
+     "converged": true,
+     "final_fsq": [
+      9.99e-11,
+      8.67e-11,
+      8.64e-11
+     ],
+     "wout_sha256": "8861833845f7960b701c542ad42d124d2f192432038c8bb1a2a78f422f50ae7b",
+     "iterations": 846,
+     "betatotal": 0.002707693448930784,
+     "iota_vmex_lab": 1.1179282422513221,
+     "iota_near_axis_lab": 1.1441369511851474,
+     "axis_offset_max_over_ab": 0.006838674334946099,
+     "lcfs_shape_rms_over_ab": 0.053401181582942936,
+     "shape_rms_over_flux_radius": {
+      "0.0625": 0.026317422704675138,
+      "0.25": 0.030587760559186727,
+      "0.5625": 0.03972282309332221,
+      "1": 0.053401181582942936
+     },
+     "tangential_jump_max_over_B": 0.011877989964606425,
+     "tangential_jump_rms_over_B": 0.003547227265533918
+    },
+    {
+     "run": "qh_ab1.25",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.043750000000000004,
+     "converged": true,
+     "final_fsq": [
+      1e-10,
+      8.69e-11,
+      3.55e-11
+     ],
+     "wout_sha256": "530d60bb41231c57deb4f9dadb92d4893b0a4c28928dd820d15e6247384e4096",
+     "iterations": 1085,
+     "betatotal": 0.004246726737346141,
+     "iota_vmex_lab": 1.136060902047026,
+     "iota_near_axis_lab": 1.1441369511851474,
+     "axis_offset_max_over_ab": 0.020063189867803387,
+     "lcfs_shape_rms_over_ab": 0.09219663160836673,
+     "shape_rms_over_flux_radius": {
+      "0.0625": 0.03267676198248709,
+      "0.25": 0.04247785521085602,
+      "0.5625": 0.06454067916593757,
+      "1": 0.09219663160836673
+     },
+     "tangential_jump_max_over_B": 0.016946539847165612,
+     "tangential_jump_rms_over_B": 0.005315882842403858
+    },
+    {
+     "run": "qh_ab1.5",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.052500000000000005,
+     "converged": false,
+     "final_fsq": [
+      1.18e-06,
+      1.72e-06,
+      5.2e-07
+     ],
+     "wout_sha256": "4bd25ab29c00ba8c9aa606df83ce90060928b9b33612a4b1df4a22789f5f7cb0"
+    },
+    {
+     "run": "qh_ab1.5_f9",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-9, DELT 0.5",
+     "a_b_m": 0.052500000000000005,
+     "converged": false,
+     "final_fsq": [
+      1.18e-06,
+      1.72e-06,
+      5.2e-07
+     ],
+     "wout_sha256": "242edff6aa9c5a1e5c0f68df373e48faee6762c4a8c8246226ab59a42585cd96"
+    },
+    {
+     "run": "qh_ab1.5_d25",
+     "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+     "a_b_m": 0.052500000000000005,
+     "converged": true,
+     "final_fsq": [
+      5.82e-10,
+      9.97e-10,
+      2.63e-10
+     ],
+     "wout_sha256": "c4e4e3bc2fa81f2470a644a7da9bf73e3bcc5f15c71686591bdc352f1cd704a7",
+     "iterations": 2157,
+     "betatotal": 0.006145751607569846,
+     "iota_vmex_lab": 1.1101148858804137,
+     "iota_near_axis_lab": 1.1441369511851474,
+     "axis_offset_max_over_ab": 0.03214896041353451,
+     "lcfs_shape_rms_over_ab": 0.13261449980529483,
+     "shape_rms_over_flux_radius": {
+      "0.0625": 0.04970681190104913,
+      "0.25": 0.06473805306806334,
+      "0.5625": 0.09434946667397177,
+      "1": 0.13261449980529483
+     },
+     "tangential_jump_max_over_B": 0.03174848706152902,
+     "tangential_jump_rms_over_B": 0.008841011312543716
+    },
+    {
+     "run": "qh_ab2",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.07,
+     "converged": false,
+     "final_fsq": [
+      1.34e-05,
+      1.19e-05,
+      9.02e-07
+     ],
+     "wout_sha256": "65560ebe6abb2d9dc50bc0a6eb453e291845cb7269dc47577bb7a288fb167816"
+    },
+    {
+     "run": "qh_ab2_d25",
+     "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+     "a_b_m": 0.07,
+     "converged": false,
+     "final_fsq": [
+      1.18e-05,
+      2.32e-05,
+      2.16e-06
+     ],
+     "wout_sha256": "8910614e9c4a7f5d52ee061327720d5b9ff28d2ca2247d3c52528099a6af2547"
+    }
+   ]
+  },
+  "hybrid": {
+   "inputs": {
+    "rc": [
+     1.0,
+     0.045
+    ],
+    "zs": [
+     0.0,
+     -0.045
+    ],
+    "nfp": 3,
+    "etabar": 0.9,
+    "B2c": 0.0,
+    "B0": 1.0,
+    "I2": 0.4,
+    "p2": -600000.0,
+    "a": 0.04
+   },
+   "optimization": {
+    "evaluations": 2000,
+    "cost": 4.726743194343049e-07,
+    "message": "The maximum number of function evaluations is exceeded.",
+    "checkpoint_sha256": "2509d60f635d3873d259d4925d24b215e76bfcdbdb874262ecdeb2c454e50fdd"
+   },
+   "axis_match": {
+    "field_rms_over_B0": 0.0007318575009487393,
+    "gradient_rms_R0_over_B0": 0.0003483531355518576,
+    "hessian_rms_R0sq_over_B0": 0.005362173550856682,
+    "target_hessian_rms_R0sq_over_B0": 26.83193411806469
+   },
+   "boundary_normal_field": {
+    "a_m": 0.04,
+    "max_over_B": 0.010509610815759513,
+    "rms_over_B": 0.0016035047834407489
+   },
+   "coils": {
+    "points_per_coil": 240,
+    "max_length_m": 4.000011092229866,
+    "max_curvature_per_m": 13.77427736465381
+   },
+   "free_boundary": [
+    {
+     "run": "hybrid_ab1",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.04,
+     "converged": true,
+     "final_fsq": [
+      9.81e-11,
+      8.63e-11,
+      6.78e-11
+     ],
+     "wout_sha256": "6a771507121cc01d6378d2d7d447cafc734d23500924442c3a25ade6ba3c1b45",
+     "iterations": 511,
+     "betatotal": 0.0012138455370999195,
+     "iota_vmex_lab": -0.7099386742944762,
+     "iota_near_axis_lab": -0.7131705737404128,
+     "axis_offset_max_over_ab": 0.05882939140485442,
+     "lcfs_shape_rms_over_ab": 0.03158426005834969,
+     "shape_rms_over_flux_radius": {
+      "0.0625": 0.01701088924164302,
+      "0.25": 0.01816211465108492,
+      "0.5625": 0.02295955155411276,
+      "1": 0.03158426005834969
+     },
+     "tangential_jump_max_over_B": 0.012674961109069587,
+     "tangential_jump_rms_over_B": 0.0024692534744488286
+    },
+    {
+     "run": "hybrid_ab1.25",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.05,
+     "converged": true,
+     "final_fsq": [
+      9.93e-11,
+      9.95e-11,
+      3.91e-11
+     ],
+     "wout_sha256": "ef757750aea969bb5a5544385161823b07cdca21015049af67dd003d632a944b",
+     "iterations": 1463,
+     "betatotal": 0.001929172724282527,
+     "iota_vmex_lab": -0.6685300742063635,
+     "iota_near_axis_lab": -0.7131705737404128,
+     "axis_offset_max_over_ab": 0.2573076364175877,
+     "lcfs_shape_rms_over_ab": 0.08335551564786378,
+     "shape_rms_over_flux_radius": {
+      "0.0625": 0.059593657172526744,
+      "0.25": 0.06347567892139097,
+      "0.5625": 0.07097946325786146,
+      "1": 0.08335551564786378
+     },
+     "tangential_jump_max_over_B": 0.013058793037970305,
+     "tangential_jump_rms_over_B": 0.003096703176084917
+    },
+    {
+     "run": "hybrid_ab1.5",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.06,
+     "converged": false,
+     "final_fsq": [
+      5.03e-09,
+      5.14e-09,
+      1.34e-09
+     ],
+     "wout_sha256": "08ef89be1c020cbe253a99c18ead5e50c78c5d92d366bdc7789fe5e85028625e"
+    },
+    {
+     "run": "hybrid_ab1.5_f9",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-9, NITER 16000 at NS 65, DELT 0.5",
+     "a_b_m": 0.06,
+     "converged": false,
+     "final_fsq": [
+      3.85e-06,
+      4.07e-06,
+      3.54e-07
+     ],
+     "wout_sha256": "d6c4fc5dfc40e18bf8aefd5c9aa2f4a96990bca3257d286aa7cdaea5832fbeee"
+    },
+    {
+     "run": "hybrid_ab1.5_ns33",
+     "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+     "a_b_m": 0.06,
+     "converged": false,
+     "final_fsq": [
+      2.78e-09,
+      3e-09,
+      1.98e-09
+     ],
+     "wout_sha256": "6236e8fd8818fc214a0d2c59f5a27e998c141fabe05abe4b3febf534c1b6195a"
+    },
+    {
+     "run": "hybrid_ab2",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-10, DELT 0.5",
+     "a_b_m": 0.08,
+     "converged": false,
+     "final_fsq": [
+      1.81e-07,
+      1.38e-07,
+      2.45e-08
+     ],
+     "wout_sha256": "138947ec7d24885c52e1b2221d85a509e0925b28b271e067289df7b516b716f7"
+    },
+    {
+     "run": "hybrid_ab2_d25",
+     "attempt": "NS 17/33/65, FTOL 1e-8/1e-9/1e-9, DELT 0.25",
+     "a_b_m": 0.08,
+     "converged": false,
+     "final_fsq": [
+      5.24e-05,
+      5.6e-05,
+      2.1e-06
+     ],
+     "wout_sha256": "23d4bc1e2638c4723ac00e33011c5d0774febf0ee8114d140162465805d07e6a"
+    },
+    {
+     "run": "hybrid_ab2_ns33",
+     "attempt": "NS 17/33, FTOL 1e-8/1e-9, DELT 0.25",
+     "a_b_m": 0.08,
+     "converged": false,
+     "final_fsq": [
+      4.4e-06,
+      5.93e-06,
+      5.62e-07
+     ],
+     "wout_sha256": "0ff14df6e47bf20b1085156bd6fbac672c2dfadd53ce5dc490a2c5b639893b69"
+    }
+   ]
+  },
+  "single_stage": {
+   "config_hash": "f7eb13bc02bfb233",
+   "near_axis_beta": 0.02999931721481484,
+   "iota_near_axis": -0.41688758760123873,
+   "quasisymmetry_B20_variation_R0sq_over_B0": 0.015872878597236628,
+   "DMerc_times_r2": -2.352709476444542,
+   "r_singularity_over_a": 1.5170700332329166,
+   "min_coil_coil_distance_m": 0.098367933546415,
+   "min_coil_plasma_distance_m": 0.19659539134799411,
+   "requirements": {
+    "<beta> = 3 %": true,
+    "r_singularity >= 1.5 a": true,
+    "elongation <= 6.0": true,
+    "|iota| >= 0.4": true,
+    "Mercier DMerc r^2 >= 0": false,
+    "coil length <= 5.0 m": false,
+    "coil curvature <= 6.0 1/m": false,
+    "coil-coil distance >= 0.1 m": false,
+    "coil-plasma distance >= 0.2 m": false
+   },
+   "coils": {
+    "points_per_coil": 240,
+    "max_length_m": 5.872536028614736,
+    "max_curvature_per_m": 1557.9226406406597
+   },
+   "boundary_normal_field": {
+    "a_m": 0.1,
+    "max_over_B": 0.07099668349725738,
+    "rms_over_B": 0.012606049385522013
+   },
+   "axis_match_T": {
+    "field_rms_T": 0.00542312392776299,
+    "gradient_rms_T_per_m": 0.02905592138856744,
+    "hessian_rms_T_per_m2": 0.5579838697105963,
+    "target_hessian_rms_T_per_m2": 14.521616686831214,
+    "plasma_hessian_rms_T_per_m2": 37.286705177989305,
+    "plasma_field_rms_T": 0.04921077879694424,
+    "plasma_gradient_rms_T_per_m": 0.07216589971928303,
+    "total_gradient_rms_T_per_m": 1.917400549779727
+   },
+   "free_boundary": [
+    {
+     "attempt": "NS 17, FTOL 1e-8, DELT 0.5 (previous run, as archived)",
+     "ns": 17,
+     "ftol": 1e-08,
+     "iterations": 2665,
+     "converged": true,
+     "fsq": [
+      9.999953963529023e-09,
+      1.2657855074397882e-09,
+      2.5092096334371336e-09
+     ],
+     "betatotal": 0.028925092251792846,
+     "iota_axis_vmex": 0.5556057240478784,
+     "iota_edge_vmex": 0.5792212839384805,
+     "wout_sha256": "a85293619a3b397f05bc3d896648311b20e7338e9967e75c98ef647b7175b85f",
+     "axis_offset_max_over_a": 0.18912755153344346,
+     "lcfs_shape_rms_over_a": 0.20991122354165254,
+     "tangential_jump_max_over_B": 0.12669580318899745,
+     "iota_near_axis_lab": 0.41688758761555506,
+     "iota_vmex_lab": 0.5556057240478784
+    },
+    {
+     "attempt": "NS 33, FTOL 1e-9, DELT 0.25, from NS 17",
+     "ns": 33,
+     "ftol": 1e-09,
+     "iterations": 2500,
+     "converged": false,
+     "fsq": [
+      9.797220965080184e-09,
+      1.075777409400588e-09,
+      1.736057151137435e-09
+     ],
+     "betatotal": 0.028925126613046144,
+     "iota_axis_vmex": 0.5727254102780475,
+     "iota_edge_vmex": 0.5794881247536442,
+     "wout_sha256": "52368064da06d70d165c1560902034cef74dbdba5c554005520231b8919ae52e",
+     "axis_offset_max_over_a": 0.18916100773324035,
+     "lcfs_shape_rms_over_a": 0.22032775850326872,
+     "tangential_jump_max_over_B": 0.12746728622088283,
+     "iota_near_axis_lab": 0.41688758761555506,
+     "iota_vmex_lab": 0.5727254102780475
+    },
+    {
+     "attempt": "NS 33, FTOL 1e-8, DELT 0.25, from NS 17",
+     "ns": 33,
+     "ftol": 1e-08,
+     "iterations": 2495,
+     "converged": true,
+     "fsq": [
+      9.987359998374674e-09,
+      1.084160810996948e-09,
+      1.7221677766134273e-09
+     ],
+     "betatotal": 0.028925133448896495,
+     "iota_axis_vmex": 0.5726507446370668,
+     "iota_edge_vmex": 0.5794841179736234,
+     "wout_sha256": "a15aa859a654236992a6d0d433b5064df9e5fb604c76cb2491e5eaef82aa5d7d",
+     "axis_offset_max_over_a": 0.1891667844005391,
+     "lcfs_shape_rms_over_a": 0.22027545556945102,
+     "tangential_jump_max_over_B": 0.12745173834174506,
+     "iota_near_axis_lab": 0.41688758761555506,
+     "iota_vmex_lab": 0.5726507446370668
+    },
+    {
+     "attempt": "NS 65, FTOL 1e-8, DELT 0.25, from NS 33, 1500 iterations",
+     "ns": 65,
+     "ftol": 1e-08,
+     "iterations": 1500,
+     "converged": false,
+     "fsq": [
+      1.2196292863348219e-08,
+      2.365162048639535e-09,
+      9.571119789812362e-10
+     ],
+     "betatotal": 0.028929423284844866,
+     "iota_axis_vmex": 0.6002742257971518,
+     "iota_edge_vmex": 0.5792422412863022,
+     "wout_sha256": "b2e513a40b7316ce6c5f54468bea0971f56b724085c0facf2e53262f54d35dd5",
+     "axis_offset_max_over_a": 0.18761391593481824,
+     "lcfs_shape_rms_over_a": 0.23751235446473112,
+     "tangential_jump_max_over_B": 0.13929720229138173,
+     "iota_near_axis_lab": 0.41688758761555506,
+     "iota_vmex_lab": 0.6002742257971518
+    },
+    {
+     "attempt": "NS 65, FTOL 1e-8, DELT 0.25, continued",
+     "ns": 65,
+     "ftol": 1e-08,
+     "iterations": 1238,
+     "converged": true,
+     "fsq": [
+      9.95494997540533e-09,
+      2.3160840702586075e-09,
+      1.0517746357110426e-09
+     ],
+     "betatotal": 0.028940238926095246,
+     "iota_axis_vmex": 0.6173465342928621,
+     "iota_edge_vmex": 0.5833056865800107,
+     "wout_sha256": "bde1496c9d0615b26ef1ec543bdd1da89cd4cc9e784b1a41615b62b653706b47",
+     "axis_offset_max_over_a": 0.18741727150330387,
+     "lcfs_shape_rms_over_a": 0.24970511879093696,
+     "tangential_jump_max_over_B": 0.14225112129807727,
+     "iota_near_axis_lab": 0.41688758761555506,
+     "iota_vmex_lab": 0.6173465342928621
+    },
+    {
+     "attempt": "NS 65, FTOL 1e-9, DELT 0.25, from the NS 65 FTOL 1e-8 state",
+     "ns": 65,
+     "ftol": 1e-09,
+     "iterations": 1800,
+     "converged": false,
+     "fsq": [
+      1.815412275223957e-08,
+      4.340514061096415e-09,
+      2.5458084712556924e-09
+     ],
+     "betatotal": 0.02899998009674935,
+     "iota_axis_vmex": 0.6729889358222363,
+     "iota_edge_vmex": 0.5998255748221223,
+     "wout_sha256": "d8cb741c34f291228e62ac07ecf0044e00059d2a3a01a8577e63a0b0f3e56383",
+     "axis_offset_max_over_a": 0.1898608367285472,
+     "lcfs_shape_rms_over_a": 0.29052851590471956,
+     "tangential_jump_max_over_B": 0.15956394844520422,
+     "iota_near_axis_lab": 0.41688758761555506,
+     "iota_vmex_lab": 0.6729889358222363
+    }
+   ]
+  }
+ }
+}

@@ -47,12 +47,12 @@ import nearaxis_finite_beta_helpers as helpers
 
 """ Input parameters """
 # Seed: the vacuum quasi-axisymmetric axis of Landreman & Sengupta (2019), section 5.2, nfp = 2,
-# with |iota| = 0.42 in vacuum, the transform the ESSOS examples aim for (0.41). Two extra axis
-# harmonics (n = 3, 4) start at zero. This seed is NOT valid at 3 % beta with a = 0.1 m: the
+# with |iota| = 0.42 in vacuum, the transform the ESSOS examples aim for (0.41). Four extra axis
+# harmonics (n = 3 to 6) start at zero. This seed is NOT valid at 3 % beta with a = 0.1 m: the
 # pressure-driven second-order shaping (the Shafranov shift) puts its singular radius at 0.76 a.
 # Stage 1 repairs that. A quasi-helical nfp = 4 seed has a much larger iota - N and therefore a
 # much smaller Shafranov shift, but needs twice as many coils; QA is the ESSOS example family.
-SEED = dict(rc=[1.0, 0.155, 0.0102, 0.0, 0.0], zs=[0.0, 0.154, 0.0111, 0.0, 0.0], nfp=2, etabar=0.64,
+SEED = dict(rc=[1.0, 0.155, 0.0102, 0.0, 0.0, 0.0, 0.0], zs=[0.0, 0.154, 0.0111, 0.0, 0.0, 0.0, 0.0], nfp=2, etabar=0.64,
             B2c=-0.00322)
 B0 = 1.0                              # Field on the axis [T], fixed
 I2 = 0.0                              # No net toroidal current (a current-free stellarator)
@@ -72,11 +72,20 @@ MU0 = 4e-7 * np.pi
 SINGULARITY_RATIO = 1.5               # r_singularity >= 1.5 a at every toroidal angle
 MAX_ELONGATION = 6.0                  # Cross-section elongation cap
 IOTA_MIN = 0.4                        # |iota| floor, so the transform stays healthy
-# Leading-order Mercier criterion DMerc r^2 >= 0 (magnetic well against geodesic curvature). At
-# 3 % beta it competes directly with quasisymmetry: the near-axis stage alone reaches
-# B20 residual 0.022 without it and 0.115 with it, at elongation 5.1 against 7.0. It is off by
-# default, so the design favours quasisymmetry, and its value is always reported.
-MERCIER_WEIGHT = 0.0
+# Leading-order Mercier criterion DMerc r^2 >= 0 (magnetic well against geodesic curvature). At 3 %
+# beta it cannot be met together with quasisymmetry in this family. The near-axis stage alone, with a
+# hard hinge on DMerc r^2 (weight 100), reaches (B20 variation R0^2/B0, DMerc r^2, max elongation):
+#   a = 0.10 m:  0.47-0.50, -0.002, 6.3 (r_singularity, elongation and iota limits also broken)
+#   a = 0.10 m, elongation cap 8: 0.16, +0.006, 8.1;  a = 0.12 m, cap 8: 0.027, +0.016, 8.0
+#   a = 0.15 m:  0.037, +0.010, 6.0, but the r = a surface then reaches 0.56 m from the axis, its
+#                normals fold, and the coils cannot keep 0.15 m from it (run single3_attempt_a015)
+# and without any Mercier or well term 0.0004, -1.80 (the first pass ended at -2.35); see
+# single_stage_mercier_scan.py and its JSON. So the design keeps a magnetic well with a margin,
+# DWell r^2 >= WELL_MARGIN, as a near-hard hinge, and carries a weak Mercier term (weight 0.01:
+# 0.025, -0.81 in the near-axis stage) that more than halves the Mercier deficit at a quasisymmetry
+# cost comparable to the first pass. DMerc r^2 is reported, not claimed.
+MERCIER_WEIGHT = 0.01
+WELL_MARGIN = 1.0; WELL_WEIGHT = 100.0
 # Hinge weights are large so that the limits act as near-hard constraints. QS_WEIGHT = 10 keeps the
 # B20 residual near 0.01 against the coil-fit terms once the coils are close; at 1 the joint stage
 # trades it up to ~0.04 within a few iterations.
@@ -84,10 +93,16 @@ BETA_WEIGHT = 100.0; QS_WEIGHT = 10.0; SINGULARITY_WEIGHT = 100.0; ELONGATION_WE
 
 # Coils
 N_COILS = 4; FOURIER_ORDER = 8; N_SEGMENTS = 60  # Per half period; same as the finite-beta example
-N_SEGMENTS_BENCHMARK = 240            # Finer Biot-Savart quadrature for every diagnostic
+N_SEGMENTS_BENCHMARK = 480            # Finer Biot-Savart quadrature for every diagnostic
 LENGTH_TARGET = 5.0; CURVATURE_TARGET = 6.0      # Maximum length [m] and curvature [1/m]
+# Length, curvature, mean-squared curvature and arclength variation are evaluated on 16 points per Fourier
+# order (helpers.curve_shape), not at the N_SEGMENTS quadrature points: the first pass hinged the
+# curvature at its 60 points, and one coil grew a kink between them (9.8 1/m at 60 points, 7778 at 480).
+MSC_TARGET = 10.0                     # Arclength-mean squared curvature [1/m^2]
+ARCLENGTH_VARIATION_TARGET = 0.2      # var(|gamma'|) / mean(|gamma'|)^2
 COIL_COIL_DISTANCE = 0.10             # Minimum distance between any two coils [m]
 COIL_PLASMA_DISTANCE = 0.20           # Minimum distance from any coil to the r = a surface [m]
+COIL_START_RADIUS = 0.5               # Initial circular coils [m]
 DISTANCE_WEIGHT = 100.0
 HINGE_WIDTH = 0.01                    # Smoothing width of the relative hinges (see hinge below)
 HESSIAN_WEIGHT = 0.01                 # As in the finite-beta example: B.n/|B| below 1 % there
@@ -143,7 +158,7 @@ def beta_of(shape):
 seed_shape = jnp.asarray(np.r_[SEED["rc"][1:], SEED["zs"][1:], SEED["etabar"], SEED["B2c"], -1.0])
 R0 = float(make_near_axis(seed_shape).R0.mean())
 current_on_each_coil = 2 * np.pi * R0 * B0 / (MU0 * 2 * NFP * N_COILS)
-curves = CreateEquallySpacedCurves(n_curves=N_COILS, order=FOURIER_ORDER, R=R0, r=R0 / 2,
+curves = CreateEquallySpacedCurves(n_curves=N_COILS, order=FOURIER_ORDER, R=R0, r=COIL_START_RADIUS,
                                    n_segments=N_SEGMENTS, nfp=NFP, stellsym=True)
 field_initial = BiotSavart(Coils(curves=curves, currents=jnp.full(N_COILS, current_on_each_coil)))
 coil_dofs, unravel_coils = ravel_pytree(field_initial)
@@ -214,7 +229,13 @@ def physics_terms(near):
             SINGULARITY_RATIO * PLASMA_RADIUS * solution.inv_r_singularity_vs_varphi - 1),
         elongation=jnp.sqrt(ELONGATION_WEIGHT / nphi) * hinge(near.elongation / MAX_ELONGATION - 1),
         iota=jnp.atleast_1d(jnp.sqrt(IOTA_WEIGHT) * hinge(IOTA_MIN / jnp.abs(near.iota) - 1)),
-        mercier=jnp.atleast_1d(jnp.sqrt(MERCIER_WEIGHT) * jnp.maximum(0.0, -solution.DMerc_times_r2)))
+        mercier=jnp.atleast_1d(jnp.sqrt(MERCIER_WEIGHT) * hinge(-solution.DMerc_times_r2)),
+        well=jnp.atleast_1d(jnp.sqrt(WELL_WEIGHT) * hinge(WELL_MARGIN - solution.DWell_times_r2)))
+
+
+def fine_shape(field):
+    dofs = field.coils.curves.curves
+    return helpers.curve_shape(dofs, helpers.PENALTY_POINTS_PER_ORDER * FOURIER_ORDER)
 
 
 def coil_terms(field, near, limit_weight=1.0):
@@ -223,8 +244,9 @@ def coil_terms(field, near, limit_weight=1.0):
     points = solution.geometry.position_cartesian
     weights = jnp.sqrt(solution.geometry.d_l_d_phi / jnp.sum(solution.geometry.d_l_d_phi))
     coil, plasma = coil_distances(field, solution)
-    length = hinge(field.coils.length / LENGTH_TARGET - 1)
-    curvature = hinge(field.coils.curvature / CURVATURE_TARGET - 1)
+    length, curvature, msc, variation = (v[:N_COILS] for v in fine_shape(field))
+    length = hinge(length / LENGTH_TARGET - 1)
+    curvature = hinge(curvature / CURVATURE_TARGET - 1)
     return dict(
         coil_field=weights[:, None] * (vmap(field.B)(points) - target.field.external_field) / B0,
         coil_gradient=weights[:, None, None] * (vmap(field.dB_by_dX)(points) - target.field.external_gradient) * R0 / B0,
@@ -232,6 +254,8 @@ def coil_terms(field, near, limit_weight=1.0):
             vmap(jacfwd(jacfwd(field.B)))(points) - target.external_hessian) * R0**2 / B0,
         coil_length=jnp.sqrt(limit_weight / length.size) * length.ravel(),
         coil_curvature=jnp.sqrt(limit_weight / curvature.size) * curvature.ravel(),
+        coil_msc=jnp.sqrt(limit_weight / N_COILS) * hinge(msc / MSC_TARGET - 1),
+        coil_arclength=jnp.sqrt(limit_weight / N_COILS) * hinge(variation / ARCLENGTH_VARIATION_TARGET - 1),
         coil_coil_distance=jnp.sqrt(DISTANCE_WEIGHT) * distance_residual(coil, COIL_COIL_DISTANCE),
         coil_plasma_distance=jnp.sqrt(DISTANCE_WEIGHT) * distance_residual(plasma, COIL_PLASMA_DISTANCE))
 
@@ -266,7 +290,8 @@ def evaluate_terms(dofs):
                   r_singularity_over_a=solution.r_singularity / PLASMA_RADIUS,
                   max_elongation=jnp.max(near.elongation), iota=near.iota, DMerc_times_r2=solution.DMerc_times_r2,
                   DWell_times_r2=solution.DWell_times_r2, etabar=near.etabar, B2c=near.B2c, rc=near.rc, zs=near.zs,
-                  max_coil_length=jnp.max(field.coils.length), max_coil_curvature=jnp.max(field.coils.curvature),
+                  max_coil_length=jnp.max(fine_shape(field)[0]), max_coil_curvature=jnp.max(fine_shape(field)[1]),
+                  max_coil_msc=jnp.max(fine_shape(field)[2]),
                   min_coil_coil_distance=jnp.min(coil), min_coil_plasma_distance=jnp.min(plasma),
                   coil_currents=field.coils.currents[:N_COILS], near_axis_converged=converged(near))
     return dict(physics_terms(near), **coil_terms(field, near)), values
@@ -282,12 +307,13 @@ def term_table(dofs):
 """ Everything that defines the optimization problem. A checkpoint is reused only if this matches. """
 CONFIG = dict(seed=SEED, B0=B0, I2=I2, plasma_radius=PLASMA_RADIUS, beta_target=BETA_TARGET, order="r3",
               singularity_ratio=SINGULARITY_RATIO, max_elongation=MAX_ELONGATION, iota_min=IOTA_MIN,
-              weights=dict(mercier=MERCIER_WEIGHT, beta=BETA_WEIGHT, qs=QS_WEIGHT, singularity=SINGULARITY_WEIGHT,
+              weights=dict(mercier=MERCIER_WEIGHT, well=WELL_WEIGHT, well_margin=WELL_MARGIN, beta=BETA_WEIGHT, qs=QS_WEIGHT, singularity=SINGULARITY_WEIGHT,
                            elongation=ELONGATION_WEIGHT, iota=IOTA_WEIGHT, distance=DISTANCE_WEIGHT,
                            hessian=HESSIAN_WEIGHT),
               n_coils=N_COILS, fourier_order=FOURIER_ORDER, n_segments=N_SEGMENTS, length_target=LENGTH_TARGET,
-              curvature_target=CURVATURE_TARGET, coil_coil_distance=COIL_COIL_DISTANCE,
-              coil_plasma_distance=COIL_PLASMA_DISTANCE, hinge_width=HINGE_WIDTH, nphi=NPHI, stages=STAGES,
+              curvature_target=CURVATURE_TARGET, coil_coil_distance=COIL_COIL_DISTANCE, msc_target=MSC_TARGET,
+              arclength_variation_target=ARCLENGTH_VARIATION_TARGET, points_per_order=helpers.PENALTY_POINTS_PER_ORDER,
+              coil_plasma_distance=COIL_PLASMA_DISTANCE, coil_start_radius=COIL_START_RADIUS, hinge_width=HINGE_WIDTH, nphi=NPHI, stages=STAGES,
               coil_limit_weight=COIL_LIMIT_WEIGHT,
               axis_shape_bound=AXIS_SHAPE_BOUND,
               axis_shape_bound_single_stage=AXIS_SHAPE_BOUND_SINGLE_STAGE,
@@ -444,7 +470,8 @@ checks = [("<beta> = 3 %", abs(final["beta"] / BETA_TARGET - 1) < 0.01),
           (f"r_singularity >= {SINGULARITY_RATIO} a", final["r_singularity_over_a"] >= SINGULARITY_RATIO * 0.99),
           (f"elongation <= {MAX_ELONGATION}", final["max_elongation"] <= MAX_ELONGATION * 1.01),
           (f"|iota| >= {IOTA_MIN}", abs(final["iota"]) >= IOTA_MIN * 0.99),
-          ("Mercier DMerc r^2 >= 0", final["DMerc_times_r2"] >= 0),
+          ("Mercier DMerc r^2 >= 0 (not targeted)", final["DMerc_times_r2"] >= 0),
+          (f"magnetic well DWell r^2 >= {WELL_MARGIN}", final["DWell_times_r2"] >= WELL_MARGIN * 0.99),
           (f"coil length <= {LENGTH_TARGET} m", final["max_coil_length"] <= LENGTH_TARGET * 1.01),
           (f"coil curvature <= {CURVATURE_TARGET} 1/m", final["max_coil_curvature"] <= CURVATURE_TARGET * 1.01),
           (f"coil-coil distance >= {COIL_COIL_DISTANCE} m", final["min_coil_coil_distance"] >= COIL_COIL_DISTANCE * 0.99),
@@ -454,6 +481,12 @@ print("\nDesign requirements (1 % tolerance): " + ", ".join(f"{n}: {'met' if ok 
 print("")
 for name, s in states.items():
     match, normal = s["match"], s["normal"]
+    try:
+        surface_points = helpers.boundary_points(s["solution"], PLASMA_RADIUS)
+    except ValueError:  # The seed surface may fold; use the differentiable second-order surface instead.
+        surface_points = np.asarray(plasma_surface(s["solution"], PLASMA_RADIUS, ntheta=64))
+    s["quality"] = helpers.coil_quality(s["field"], surface_points, 480)
+    print(f"{name.capitalize()} coils at 480 points: " + ", ".join(f"{k} {v:.4g}" for k, v in s["quality"].items()))
     print(f"{name.capitalize()}: coils - external target on the axis: field RMS {match['field_rms_T']:.3e} T "
           f"(plasma field {match['plasma_field_rms_T']:.3e} T), gradient RMS {match['gradient_rms_T_per_m']:.3e} T/m "
           f"(plasma {match['plasma_gradient_rms_T_per_m']:.3e}), Hessian RMS {match['hessian_rms_T_per_m2']:.3e} T/m^2 "
@@ -462,7 +495,8 @@ for name, s in states.items():
           f"{100 * normal['normal_error_rms']:.3f} %" if "error" not in normal else f"not evaluated: {normal['error']}"))
 summary = dict(config=CONFIG, config_hash=CONFIG_HASH, stages=state["stage_results"], segments=state["segments"],
                adopted=state.get("adopted"), terms=tables, requirements={n: bool(ok) for n, ok in checks},
-               states={n: dict(axis_match=s["match"], boundary=s["normal"]) for n, s in states.items()}, vmex={})
+               states={n: dict(axis_match=s["match"], boundary=s["normal"], coil_quality=s["quality"])
+                       for n, s in states.items()}, vmex={})
 if vmex_path.exists():
     summary["vmex"] = json.loads(vmex_path.read_text())
     if summary["vmex"].get("config_hash") != CONFIG_HASH:

@@ -43,6 +43,11 @@ STYLE = {"font.size": 10, "axes.titlesize": 11, "axes.labelsize": 10, "legend.fo
          "axes.edgecolor": MUTED, "axes.labelcolor": INK, "text.color": INK,
          "xtick.color": MUTED, "ytick.color": MUTED, "grid.color": "#d7dbe0", "grid.linewidth": 0.6,
          "figure.dpi": 110, "savefig.dpi": 220, "savefig.bbox": "tight", "mathtext.fontset": "cm"}
+# The study's paper.mplstyle (one directory up) overrides the sizes and colours above when present.
+_PAPER_STYLE = Path(__file__).resolve().parent.parent / "paper.mplstyle"
+if _PAPER_STYLE.exists():
+    import matplotlib
+    STYLE = {**STYLE, **matplotlib.rc_params_from_file(str(_PAPER_STYLE), use_default_template=False)}
 
 
 # ----------------------------- fields and targets -----------------------------
@@ -130,8 +135,127 @@ def axis_centered_curves(solution, n_curves, order, radius, n_segments, stellsym
     return Curves(jnp.asarray(dofs), n_segments=n_segments, nfp=nfp, stellsym=stellsym)
 
 
+# ------------------------------ coil geometry ---------------------------------
+# The coil penalties are evaluated on their own fine grid. The Biot-Savart quadrature (N_SEGMENTS)
+# can be coarse for the field on the axis, but a pointwise curvature limit sampled at a few points
+# per Fourier wavelength lets a kink grow between the samples: the single-stage coil of the first
+# pass had curvature 9.8 1/m at its 60 points and 7778 1/m at 480. PENALTY_POINTS_PER_ORDER = 16
+# samples the shortest wavelength 16 times, and the mean-squared curvature integral and the
+# arclength-variation term penalize a kink wherever it sits.
+PENALTY_POINTS_PER_ORDER = 16
+
+
+def curve_geometry(curve_dofs, n_points):
+    """gamma, gamma' and gamma'' [m] of Fourier curves (n, 3, 2 order + 1) at n_points each."""
+    order = (curve_dofs.shape[-1] - 1) // 2
+    t = 2 * jnp.pi * jnp.arange(n_points) / n_points
+    k = jnp.arange(1, order + 1)
+    s, c = jnp.sin(k[:, None] * t), jnp.cos(k[:, None] * t)          # (order, n_points)
+    sin_dofs, cos_dofs = curve_dofs[:, :, 1::2], curve_dofs[:, :, 2::2]  # (n, 3, order)
+    w = 2 * jnp.pi * k[:, None]
+    gamma = curve_dofs[:, :, :1] + jnp.einsum("nik,kp->nip", sin_dofs, s) + jnp.einsum("nik,kp->nip", cos_dofs, c)
+    dash = jnp.einsum("nik,kp->nip", sin_dofs, w * c) - jnp.einsum("nik,kp->nip", cos_dofs, w * s)
+    dashdash = -jnp.einsum("nik,kp->nip", sin_dofs, w**2 * s) - jnp.einsum("nik,kp->nip", cos_dofs, w**2 * c)
+    return tuple(jnp.moveaxis(x, 1, 2) for x in (gamma, dash, dashdash))  # (n, n_points, 3)
+
+
+def curve_shape(curve_dofs, n_points):
+    """Length [m], curvature [1/m] at every point, arclength-weighted mean-squared curvature [1/m^2]
+    and the relative arclength variation var(|gamma'|)/mean(|gamma'|)^2 of every curve."""
+    _, dash, dashdash = curve_geometry(curve_dofs, n_points)
+    speed = jnp.linalg.norm(dash, axis=-1)
+    curvature = jnp.linalg.norm(jnp.cross(dash, dashdash), axis=-1) / speed**3
+    length = jnp.mean(speed, axis=-1)
+    msc = jnp.mean(curvature**2 * speed, axis=-1) / length
+    arclength_variation = jnp.var(speed, axis=-1) / length**2
+    return length, curvature, msc, arclength_variation
+
+
+def rotate_about_z(points, nfp):
+    """Copies of points (..., 3) rotated by every 2 pi k / nfp, stacked along a new first axis."""
+    angles = 2 * np.pi * np.arange(nfp) / nfp
+    c, s = np.cos(angles)[:, None], np.sin(angles)[:, None]
+    points = np.asarray(points).reshape(-1, 3)
+    return np.stack((c * points[:, 0] - s * points[:, 1], s * points[:, 0] + c * points[:, 1],
+                     np.broadcast_to(points[:, 2], (nfp, len(points)))), -1)
+
+
+def smooth_hinge(h, width=0.005):
+    """max(0, h) smoothed over width, so a trust-region method does not stall at the kink."""
+    return 0.5 * (h + jnp.sqrt(h**2 + width**2))
+
+
+def distance_violation(first, second, minimum):
+    """sqrt of the sum over all point pairs of max(0, 1 - d/d_min)^2, which grows linearly with the
+    violation: zero when every pair is at least d_min apart, differentiable wherever it is nonzero,
+    and its gradient is guarded where it is zero."""
+    d = jnp.linalg.norm(first[:, None, :] - second[None, :, :], axis=-1)
+    total = jnp.sum(jnp.maximum(0.0, 1 - d / minimum)**2)
+    safe = jnp.where(total > 0, total, 1.0)
+    return jnp.where(total > 0, jnp.sqrt(safe), 0.0)
+
+
+def coil_quality(field, surface_xyz, n_points=480):
+    """Engineering diagnostics of a coil set at n_points per coil: length, curvature (max and
+    mean-squared), arclength variation, and the minimum coil-coil and coil-surface distances.
+    surface_xyz holds points of the plasma boundary on the whole torus."""
+    all_dofs = field.coils.curves.curves
+    length, curvature, msc, variation = (np.asarray(x) for x in curve_shape(all_dofs, n_points))
+    gamma = np.asarray(curve_geometry(all_dofs, n_points)[0])
+    n = gamma.shape[0]
+    coil_coil = min(float(np.min(np.linalg.norm(gamma[i][:, None] - gamma[j][None], axis=-1)))
+                    for i in range(n) for j in range(i + 1, n))
+    surface_xyz = np.asarray(surface_xyz).reshape(-1, 3)
+    coil_plasma = min(float(np.min(np.linalg.norm(gamma[i][:, None] - surface_xyz[None], axis=-1))) for i in range(n))
+    return dict(points_per_coil=n_points, max_length_m=float(length.max()), max_curvature_per_m=float(curvature.max()),
+                max_mean_squared_curvature_per_m2=float(msc.max()), max_arclength_variation=float(variation.max()),
+                min_coil_coil_distance_m=coil_coil, min_coil_plasma_distance_m=coil_plasma)
+
+
+def boundary_points(solution, radius, ntheta=64):
+    """Points of the near-axis boundary r = radius on the whole torus."""
+    return rotate_about_z(flux_surface(solution, radius, ntheta)["xyz"], int(solution.inputs.axis.nfp)).reshape(-1, 3)
+
+
+def coil_limit_residuals(unravel, limits):
+    """Residuals of the coil limits, on a grid that resolves the Fourier order.
+
+    limits: dict with length, curvature, msc (mean-squared curvature) [1/m^2], arclength_variation,
+    coil_coil and coil_plasma [m], surface (boundary points on the whole torus), n_base, weight.
+    Per base coil: a smooth relative hinge on length, on mean-squared curvature and on arclength
+    variation, a smooth hinge on the curvature at every point, and one distance violation to all
+    other coils and one to the boundary. All carry sqrt(weight).
+    """
+    n_base, weight = limits["n_base"], jnp.sqrt(limits["weight"])
+    surface = jnp.asarray(limits["surface"])
+
+    def shape(x):
+        dofs = unravel(x).coils.curves.curves[:n_base]
+        n_points = PENALTY_POINTS_PER_ORDER * ((dofs.shape[-1] - 1) // 2)
+        length, curvature, msc, variation = curve_shape(dofs, n_points)
+        return weight * jnp.concatenate([
+            smooth_hinge(length / limits["length"] - 1),
+            smooth_hinge(curvature / limits["curvature"] - 1).ravel() / jnp.sqrt(n_points),
+            smooth_hinge(msc / limits["msc"] - 1), smooth_hinge(variation / limits["arclength_variation"] - 1)])
+
+    def distances(x):
+        dofs = unravel(x).coils.curves.curves
+        gamma = curve_geometry(dofs, limits.get("distance_points", 8 * ((dofs.shape[-1] - 1) // 2)))[0]
+        parts = []
+        others = gamma.reshape(-1, 3)
+        points = gamma.shape[1]
+        for i in range(n_base):
+            mask = jnp.arange(others.shape[0]) // points != i
+            far = jnp.where(mask[:, None], others, 1e3)  # Remove the coil itself.
+            parts.append(jnp.atleast_1d(distance_violation(gamma[i], far, limits["coil_coil"])))
+            parts.append(jnp.atleast_1d(distance_violation(gamma[i], surface, limits["coil_plasma"])))
+        return weight * jnp.concatenate(parts)
+
+    return shape, distances
+
+
 def fit_coils(field, solution, targets, *, hessian_weight=0.01, length_target=None, curvature_target=None,
-              max_nfev=1000, verbose=2):
+              max_nfev=1000, verbose=2, limits=None):
     """Fit coils to a FIXED external-field target: field, gradient and Hessian on the axis samples.
 
     The equilibrium does not change, so the targets are computed once and each residual only
@@ -154,15 +278,22 @@ def fit_coils(field, solution, targets, *, hessian_weight=0.01, length_target=No
                  (weight[:, None, None] * (vmap(coils.dB_by_dX)(points) - G_target) * R0 / B0).ravel(),
                  (jnp.sqrt(hessian_weight) * weight[:, None, None, None]
                   * (vmap(jacfwd(jacfwd(coils.B)))(points) - H_target) * R0**2 / B0).ravel()]
-        if length_target:
-            excess = jnp.maximum(0.0, coils.coils.length / length_target - 1)
-            parts.append(excess / jnp.sqrt(excess.size))
-        if curvature_target:
-            excess = jnp.maximum(0.0, coils.coils.curvature / curvature_target - 1).ravel()
-            parts.append(excess / jnp.sqrt(excess.size))
+        if limits is None:  # The first pass: hinges at the Biot-Savart quadrature points only.
+            if length_target:
+                excess = jnp.maximum(0.0, coils.coils.length / length_target - 1)
+                parts.append(excess / jnp.sqrt(excess.size))
+            if curvature_target:
+                excess = jnp.maximum(0.0, coils.coils.curvature / curvature_target - 1).ravel()
+                parts.append(excess / jnp.sqrt(excess.size))
         return jnp.concatenate(parts)
 
-    residuals_jit, jacobian_jit = jit(residuals), jit(jacfwd(residuals))
+    if limits is None:
+        residuals_jit, jacobian_jit = jit(residuals), jit(jacfwd(residuals))
+    else:
+        shape, distances = coil_limit_residuals(unravel, limits)
+        residuals_jit = jit(lambda x: jnp.concatenate((residuals(x), shape(x), distances(x))))
+        # Two distance residuals per coil over many point pairs: reverse mode for them only.
+        jacobian_jit = jit(lambda x: jnp.concatenate((jacfwd(residuals)(x), jacfwd(shape)(x), jax.jacrev(distances)(x))))
     start = perf_counter()
     residuals_jit(dofs).block_until_ready()
     jacobian_jit(dofs).block_until_ready()
@@ -423,8 +554,10 @@ class GuardedMgridField(vj.MgridField):
         return tuple(jnp.where(inside, value, jnp.nan) for value in values)
 
 
-jax.tree_util.register_dataclass(GuardedMgridField, data_fields=["br", "bp", "bz", "extcur"],
-                                 meta_fields=["rmin", "rmax", "zmin", "zmax", "nfp"])
+jax.tree_util.register_dataclass(
+    GuardedMgridField, data_fields=["br", "bp", "bz", "extcur"],
+    meta_fields=["rmin", "rmax", "zmin", "zmax", "nfp"]
+    + [f.name for f in dataclasses.fields(vj.MgridField) if f.name == "order"])  # VMEX >= 0.11.4
 
 
 def _cartesian(field_cyl, phi):
@@ -823,6 +956,8 @@ def plot_cross_sections(states, equilibria, radius, levels, path, title, fractio
                 ax.plot(float(solution.R0[k]), float(solution.Z0[k]), "+", color=COLORS["near"], ms=8, mew=1.6)
                 ax.set_aspect("equal", adjustable="datalim")
                 ax.grid(True, alpha=0.6)
+                ax.xaxis.set_major_locator(plt.MaxNLocator(3))  # Narrow panels: four R ticks overlap.
+                ax.yaxis.set_major_locator(plt.MaxNLocator(4))
                 ax.set_title(rf"$\phi$ = {fraction:g} period" if len(states) == 1 else rf"{name}:  $\phi$ = {fraction:g} period")
                 ax.set_xlabel("R [m]")
                 if column == 0:

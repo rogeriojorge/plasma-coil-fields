@@ -3,7 +3,8 @@
 python run.py OUTPUT_DIR 'NAME = value' ... '+statement' ...
 
 'NAME = value' replaces the first assignment of NAME in the example. '+statement' lines are
-inserted right after the VMEX settings are completed (e.g. '+VMEX.update(ns=(17, 33))').
+inserted right after the VMEX settings are completed (e.g. '+VMEX.update(ns=(17, 33))'), or after
+OUTPUT_DIR.mkdir in the coil-only drivers. Env EXAMPLE selects the driver in drivers/.
 Figures are rescaled to 6.6 in wide, suptitles dropped and 3D axes hidden.
 """
 import os
@@ -52,7 +53,7 @@ def _equal_without_axes(axes, clouds):
 
 helpers._equal_3d = _equal_without_axes
 
-path = f"{D}/optimize_coils_and_nearaxis_finite_beta.py"
+path = f"{D}/" + os.environ.get("EXAMPLE", "optimize_coils_and_nearaxis_finite_beta.py")
 src = open(path).read()
 edits = [a for a in sys.argv[2:] if not a.startswith("+")] + [f'OUTPUT_DIR = Path("{out}")', "SHOW_PLOTS = False"]
 extra = [a[1:] for a in sys.argv[2:] if a.startswith("+")]
@@ -64,7 +65,7 @@ for edit in edits:
                          count=1, flags=re.M)
     assert count == 1, f"constant {name} not found"
 src = head + src
-anchor = 'VMEX.update(case.get("vmex", {}))\n'
-assert src.count(anchor) == 1
+anchor = next(line for line in ('VMEX.update(case.get("vmex", {}))\n', "OUTPUT_DIR.mkdir(parents=True, exist_ok=True)\n")
+              if src.count(line) == 1)
 src = src.replace(anchor, anchor + "".join(line + "\n" for line in extra))
 exec(compile(src, path, "exec"), {"__file__": path, "__name__": "__main__"})
